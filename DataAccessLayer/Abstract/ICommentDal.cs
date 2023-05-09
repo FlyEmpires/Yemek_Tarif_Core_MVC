@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Abstract
 {
-   public interface IReceipeDal:IGenericDal<Recipe>
+   public interface ICommentDal: IGenericDal<Comment>
     {
-      
     }
 }
