@@ -50,7 +50,7 @@ namespace Yemek_Tarif_Core_MVC
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Recipe}/{action=Index}/{id?}");
             });
         }
     }
