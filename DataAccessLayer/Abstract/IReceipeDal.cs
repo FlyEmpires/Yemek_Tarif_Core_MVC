@@ -9,6 +9,7 @@ namespace DataAccessLayer.Abstract
 {
    public interface IReceipeDal:IGenericDal<Recipe>
     {
-      
+        List<Recipe> GetListWithCategory();
+
     }
 }
