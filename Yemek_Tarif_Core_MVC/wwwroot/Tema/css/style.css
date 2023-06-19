@@ -25,7 +25,9 @@ body a {
 a:hover {
 	text-decoration: none;
 }
-
+.yuvarlakKose {
+	border-radius: 30px;
+}
 input[type="button"],
 input[type="submit"],
 input[type="text"],
@@ -231,8 +233,9 @@ li.nav-item {
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar-light .navbar-nav .nav-link:focus {
-	background: #01cd74;
+	background: #9b2c2c;
 	color: #fff;
+	border-radius:50px;
 }
 .dropdown-item {
     padding: 0.2em 1.5rem;
@@ -258,7 +261,7 @@ form.header-search {
     float: left;
     letter-spacing: 1px;
 	width: 82%;
-	border-radius: 0;
+	border-radius: 30px;
 }
 
 .header-search button.btn1 {
@@ -524,8 +527,9 @@ h4.sub-tittle {
 }
 
 /*--//banner-bottom --*/
-.bottom-slider,.main-content-w3layouts-agileits {
-    padding: 5em 0;
+.bottom-slider, .main-content-w3layouts-agileits {
+	/*background-color:beige;*/
+	padding: 5em 0;
 }
 section.bottom-slider {
  background: #eceff1;
@@ -558,13 +562,13 @@ section.bottom-slider {
 		padding: 0px;
 		list-style-type: none;
 	}
-	.nbs-flexisel-inner {
-		overflow: hidden;
-		margin: 0px auto;
-		background: #f8f8f8;
-		border: none;
-		border-right:none;
-	}
+.nbs-flexisel-inner {
+	overflow: hidden;
+	margin: 18px;
+	background: #eceff1;
+	border: none;
+	border-right: none;
+}
 	.nbs-flexisel-item {
 		float: left;
 		margin:0 2px;
@@ -583,6 +587,7 @@ section.bottom-slider {
 		position: absolute;
 		cursor: pointer;
 		z-index: 100;
+		border-radius:30px;
 	}
 	.nbs-flexisel-nav-left {
 		left: 0%;
@@ -590,7 +595,7 @@ section.bottom-slider {
 		background:#111 url(../images/left.png) no-repeat -6px 16px;
 	}
 	.nbs-flexisel-nav-right {
-	  right: 0%;
+	  right: -1%;
 	  top: 33% !important;
 	  background:#111 url(../images/right.png) no-repeat -3px 16px;
 	}
@@ -598,26 +603,27 @@ section.bottom-slider {
 	.blog-item{
 		position:relative;
 	}
-	.floods-text {
-		position: absolute;
-		bottom:0%;
-		left:0%;
-		padding: 1em;
-		background: rgba(14, 15, 16, 0.67);
-		width:100%;
-	}
+.floods-text {
+	position: absolute;
+	bottom:0%;
+	left: 0%;
+	padding: 1em;
+	background: rgba(3, 9, 40, 0.3);
+	width: 58%;
+	border-radius:20px;
+}
 	.floods-text h3{
 		font-size:.9em;
 		color:#fff;
 		margin:0;
 		font-weight:400;
 	}
-	.floods-text h3 span{
-		display: block;
-		color: #01cd74;
-		margin: .5em 0 1em;
-		font-size: .8em;
-	}
+		.floods-text h3 span {
+			display: block;
+			color: rgb(19, 244, 255);
+			margin: .5em 0 1em;
+			font-size: .8em;
+		}
 	.floods-text h3 label{
 		color: #B2B2B2;
 		padding: 0 1em;
@@ -644,10 +650,10 @@ button.btn.btn-primary.play{
 	bottom:50%;
 }
 .course_demo1 {
-    margin: 0 auto;
-    width: 90%;
-	background: #fdfdfd;
-    padding: 1em;
+	margin: 0 auto;
+	width: 90%;
+	background: #eceff1;
+	padding: 1em;
 }
 /*--//content --*/
 /*--/main-content-w3layouts-agileits --*/
@@ -936,15 +942,21 @@ section.middle-sec-agileinfo-w3ls{
 /*--//content --*/
 
 /*--about--*/
-
 .banner-inner {
-	background: -webkit-linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(../images/banner4.jpg) no-repeat;
-	background: -moz-linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(../images/banner4.jpg) no-repeat;
-	background: -ms-linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(../images/banner4.jpg) no-repeat;
-	background: linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(../images/banner4.jpg) no-repeat;
-	background-size: cover;
-	min-height: 230px;
+	background: -webkit-linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(../images/food.jpg) no-repeat;
+	background: -moz-linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(../images/food.jpg) no-repeat;
+	background: -ms-linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(../images/food.jpg) no-repeat;
+	background: linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(../images/food.jpg) no-repeat;
+	background-size: 100%;
+	background-position: center;
+	min-height: 400px;
+	border-radius:10px;
+	margin-top:10px;
+	margin-bottom:10px;
 }
+
+
+
 
 li.breadcrumb-item {
 	font-size: 0.9em;
@@ -962,11 +974,17 @@ li.breadcrumb-item a {
     border:none;
 }
 .card-img-top {
-    width: 100%;
+	width: 100%;
 	border: none;
 	background: #ebecec;
-    padding: .4em;
+	padding: .4em;
+	border-radius: 75px;
+	transition: transform 0.3s;
 }
+
+	.card-img-top:hover {
+		transform: scale(1.1);
+	}
 /*--//about--*/
 /*-- /blog --*/
 
@@ -1236,7 +1254,7 @@ a.facebook:hover {
 /*--responsive--*/
 
 @media(max-width:1440px) {
-	.bottom-slider, .main-content-w3layouts-agileits, footer,.banner-bottom {
+	.bottom-slider, .main-content-w3layouts-agileits, footer, .banner-bottom {
 		padding: 4em 0;
 	}
 	section.middle-sec-agileinfo-w3ls {
@@ -1307,7 +1325,7 @@ a.facebook:hover {
 		font-size: 3em;
 		font-weight: 700;
 	}
-	.bottom-slider, .main-content-w3layouts-agileits, footer,.banner-bottom {
+	.bottom-slider, .main-content-w3layouts-agileits, footer, .banner-bottom {
 		padding: 3em 0;
 	}
 	.footer-grid-agileits-w3ls:nth-child(2) {
@@ -1513,7 +1531,7 @@ a.facebook:hover {
 }
 
 @media(max-width:384px) {
-	.bottom-slider, .main-content-w3layouts-agileits, footer,.banner-bottom {
+	.bottom-slider, .main-content-w3layouts-agileits, footer, .banner-bottom {
 		padding: 2em 0;
 	}
 	section.middle-sec-agileinfo-w3ls {

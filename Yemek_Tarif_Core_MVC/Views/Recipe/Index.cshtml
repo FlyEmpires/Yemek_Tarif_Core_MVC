@@ -5,11 +5,15 @@
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
 
-<div class="banner-inner">
-</div>
-<ol class="breadcrumb">
+@*<div class="banner-inner">
+	
+</div>*@
+
+
+
+<ol class="breadcrumb" style="background-color:aliceblue;border-radius:25px; margin-top:10px;">
 	<li class="breadcrumb-item">
-		<a href="index.html">Anasayfa</a>
+		<a href="/Default/Index">Anasayfa</a>
 	</li>
 	<li class="breadcrumb-item active">Tarifler</li>
 </ol>
@@ -18,7 +22,7 @@
 <section class="main-content-w3layouts-agileits">
 	<div class="container">
 		<h3 class="tittle">Yemek Tarifleri</h3>
-		<div class="inner-sec">
+		<div class="inner-sec" >
 			
 			<!--left-->
 			<div class="left-blog-info-w3layouts-agileits text-left">
@@ -42,13 +46,13 @@
 					</tbody>
 
 				</table>*@
-				<div class="row">
+				<div class="row" >
 					@foreach (var item in Model)
 					{
 						
-					<div class="col-lg-4 card">
-						<a href="/Recipe/YemekDetay/@item.ReceipeID">
-							<img src="@item.ReceipeImage" class="card-img-top img-fluid" alt="">
+						<div class="col-lg-4 card" @*style="background-color:beige;"*@>
+							<a href="/Recipe/RecipeReadAll/@item.ReceipeID">
+							<img src="/@item.ReceipeImage" class="card-img-top img-fluid" alt="">
 						</a>
 						<div class="card-body">
 							<ul class="blog-icons my-4">
@@ -59,12 +63,12 @@
 								</li>
 								<li class="mx-2">
 									<a href="#">
-										<i class="far fa-comment"></i> 21
+												<i class="far fa-comment">21 </i>
 									</a>
 								</li>
 								<li>
 									<a href="#">
-										<i class="fas fa-eye" style="margin-top:20px;">@item.Category.CategoryName</i> 2000 @*Eager Loading -- include yöntemi ile ilişkili alana ait verileri getirdik*@
+										<i class="fas fa-eye" style="margin-top:20px;"> @item.Category.CategoryName</i> 2000 @*Eager Loading -- include yöntemi ile ilişkili alana ait verileri getirdik*@
 									</a>
 								</li>
 
@@ -72,8 +76,19 @@
 							<h5 class="card-title">
 								<a href="single.html">@item.ReceipeName</a>
 							</h5>
-							<p class="card-text mb-3">@item.ReceipeDescription.. </p>
-							<a href="single.html" class="btn btn-primary read-m">Devamını Oku</a>
+								<p class="card-text mb-3">
+									@*@if (item.ReceipeDescription.Length > 50)
+									{
+										<i class="far fa-comment">@item.ReceipeDescription.Substring(0,item.ReceipeDescription.Substring(0,130).LastIndexOf(" ")) </i>
+									}
+									else
+									{
+										<i class="far fa-comment">@item.ReceipeDescription</i>
+
+									}*@
+									@(item.ReceipeDescription.Length>50?item.ReceipeDescription.Substring(0,item.ReceipeDescription.Substring(0,130).LastIndexOf(" ")):item.ReceipeDescription)
+								</p>
+								<a href="/Recipe/RecipeReadAll/@item.ReceipeID" class="btn btn-primary read-m"style="border-radius:30px;">Devamını Oku</a>
 						</div>
 					</div>
 					}
@@ -104,4 +119,5 @@
 		</div> 
 	</div>
 </section>
+
 

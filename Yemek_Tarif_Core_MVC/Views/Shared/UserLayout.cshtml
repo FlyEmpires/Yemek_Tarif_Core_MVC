@@ -1,343 +1,147 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
-<!--
-	Author: W3layouts
-	Author URL: http://w3layouts.com
-	License: Creative Commons Attribution 3.0 Unported
-	License URL: http://creativecommons.org/licenses/by/3.0/
--->
-
-<!DOCTYPE html>
-<html lang="zxx">
-
 <head>
-	<title>Weblog a Blogging Category Bootstrap responsive WebTemplate | Home :: w3layouts</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8">
-	<meta name="keywords" content="Weblog a Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+    <title>YemekSende</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Weblog a Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
 
-	<script>
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
-
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
-	</script>
-
-	<link href="~/Tema/css/bootstrap.css" rel="stylesheet" type='text/css' />
-	<link rel="stylesheet" href="~/Tema/css/jquery.desoslide.css">
-	<link href="~/Tema/css/style.css" rel='stylesheet' type='text/css' />
-	<link href="~/Tema/css/fontawesome-all.css" rel="stylesheet">
-	<link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
-		  rel="stylesheet">
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <link href="~/Tema/css/bootstrap.css" rel="stylesheet" type='text/css' />
+    <link rel="stylesheet" href="~/Tema/css/jquery.desoslide.css">
+    <link href="~/Tema/css/style.css" rel='stylesheet' type='text/css' />
+    <link href="~/Tema/css/fontawesome-all.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
+          rel="stylesheet">
 </head>
-
 <body>
-	<!--Header-->
+    @await Html.PartialAsync("Header")
+    @await Html.PartialAsync("Menu")
+    @RenderBody()
+    @await Html.PartialAsync("Footer")
 
-		@await Html.PartialAsync("Header")
-		@await Html.PartialAsync("Menu")
-	<!--//header-->
-	<!--/banner-->
-@*	<div class="banner">
-		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-			<ol class="carousel-indicators">
-				<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-				<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-				<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-				<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-			</ol>
-			<div class="carousel-inner" role="listbox">
-				<div class="carousel-item active">
-					<div class="carousel-caption">
-						<h3>
-							Create the lifestyle
-							<span>you desire</span>
-						</h3>
-						<div class="read">
-							<a href="single.html" class="btn btn-primary read-m">Read More</a>
-						</div>
-					</div>
-				</div>
-				<div class="carousel-item item2">
-					<div class="carousel-caption">
-						<h3>
-							Engaging Purposeful
-							<span>and Creative</span>
-						</h3>
-						<div class="read">
-							<a href="single.html" class="btn btn-primary read-m">Read More</a>
-						</div>
-					</div>
-				</div>
-				<div class="carousel-item item3">
-					<div class="carousel-caption">
-						<h3>
-							Create the lifestyle
-							<span>you desire</span>
-						</h3>
-						<div class="read">
-							<a href="single.html" class="btn btn-primary read-m">Read More</a>
-						</div>
-					</div>
-				</div>
-				<div class="carousel-item item4">
-					<div class="carousel-caption">
-						<h3>
-							Engaging Purposeful
-							<span>and Creative</span>
-						</h3>
-						<div class="read">
-							<a href="single.html" class="btn btn-primary read-m">Read More</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-			</a>
-			<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-			</a>
-		</div>
-	</div>
-*@	<!--/model-->
-	<!--//banner-->
-@*	<section class="bottom-slider">
-		<div class="course_demo1">
-			<ul id="flexiselDemo1">
-				<li>
-					<div class="blog-item">
-						<img src="/Tema/images/3.jpg" alt=" " class="img-fluid" />
-						<button type="button" class="btn btn-primary play" data-toggle="modal" data-target="#exampleModal">
-							<i class="fas fa-play"></i>
-						</button>
+    <!-- js -->
+    <script src="~/Tema/js/jquery-2.2.3.min.js"></script>
+    <!-- //js -->
+    <!-- desoslide-JavaScript -->
+    <script src="~/Tema/js/jquery.desoslide.js"></script>
+    <script>
+        $('#demo1_thumbs').desoSlide({
+            main: {
+                container: '#demo1_main_image',
+                cssClass: 'img-responsive'
+            },
+            effect: 'sideFade',
+            caption: true
+        });
+    </script>
 
-						<div class="floods-text">
-							<h3>
-								The fed and inequality
-								<span>
-									Blogger
-									<label>|</label>
-									<i>Adom Smith</i>
-								</span>
-							</h3>
+    <!-- requried-jsfiles-for owl -->
+    <script>
+        $(window).load(function () {
+            $("#flexiselDemo1").flexisel({
+                visibleItems: 3,
+                animationSpeed: 1000,
+                autoPlay: true,
+                autoPlaySpeed: 3000,
+                pauseOnHover: true,
+                enableResponsiveBreakpoints: true,
+                responsiveBreakpoints: {
+                    portrait: {
+                        changePoint: 480,
+                        visibleItems: 1
+                    },
+                    landscape: {
+                        changePoint: 640,
+                        visibleItems: 2
+                    },
+                    tablet: {
+                        changePoint: 768,
+                        visibleItems: 3
+                    }
+                }
+            });
 
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="blog-item">
-						<img src="~/Tema/images/2.jpg" alt=" " class="img-fluid" />
-						<button type="button" class="btn btn-primary play" data-toggle="modal" data-target="#exampleModal">
-							<i class="fas fa-play"></i>
-						</button>
+        });
+    </script>
+    <script>
+        $(window).load(function () {
+            $("#flexiselDemo2").flexisel({
+                visibleItems: 3,
+                animationSpeed: 1000,
+                autoPlay: true,
+                autoPlaySpeed: 3000,
+                pauseOnHover: true,
+                enableResponsiveBreakpoints: true,
+                responsiveBreakpoints: {
+                    portrait: {
+                        changePoint: 480,
+                        visibleItems: 1
+                    },
+                    landscape: {
+                        changePoint: 640,
+                        visibleItems: 2
+                    },
+                    tablet: {
+                        changePoint: 768,
+                        visibleItems: 3
+                    }
+                }
+            });
 
-						<div class="floods-text">
-							<h3>
-								The fastest insect in the world
-								<span>
-									Blogger
-									<label>|</label>
-									<i>Adom Smith</i>
-								</span>
-							</h3>
+        });
+    </script>
+    <script src="~/Tema/js/jquery.flexisel.js"></script>
+    <!-- //password-script -->
+    <!--/ start-smoth-scrolling -->
+    <script src="~/Tema/js/move-top.js"></script>
+    <script src="~/Tema/js/easing.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 900);
+            });
+        });
+    </script>
+    <!--// end-smoth-scrolling -->
 
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="blog-item">
-						<img src="~/Tema/images/3.jpg" alt=" " class="img-fluid" />
-						<button type="button" class="btn btn-primary play" data-toggle="modal" data-target="#exampleModal">
-							<i class="fas fa-play"></i>
-						</button>
+    <script>
+        $(document).ready(function () {
+
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
 
 
-						<div class="floods-text">
-							<h3>
-								Billionaires versus Millionaires
-								<span>
-									Blogger
-									<label>|</label>
-									<i>Adom Smith</i>
-								</span>
-							</h3>
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
 
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="blog-item">
-						<img src="~/Tema/images/4.jpg" alt=" " class="img-fluid" />
-						<button type="button" class="btn btn-primary play" data-toggle="modal" data-target="#exampleModal">
-							<i class="fas fa-play"></i>
-						</button>
+        });
+    </script>
+    <a href="#home" class="scroll" id="toTop" style="display: block;">
+        <span id="toTopHover" style="opacity: 1;"> </span>
+    </a>
 
-
-						<div class="floods-text">
-							<h3>
-								Billionaires versus Millionaires
-								<span>
-									Blogger
-									<label>|</label>
-									<i>Adom Smith</i>
-								</span>
-							</h3>
-
-						</div>
-					</div>
-				</li>
-			</ul>
-		</div>
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="embed-responsive embed-responsive-21by9">
-							<iframe src="https://player.vimeo.com/video/145787219"></iframe>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</section>
-*@	<!--/main-->
-	@RenderBody()
-	<!--//main-->
-	<!--/middle-->
-	<!--//middle-->
-	<!---->
-	<!--//main-->
-	<!--footer-->
-	@await Html.PartialAsync("Footer")
-	<!---->
-	<!-- js -->
-	<script src="~/Tema/js/jquery-2.2.3.min.js"></script>
-	<!-- //js -->
-	<!-- desoslide-JavaScript -->
-	<script src="~/Tema/js/jquery.desoslide.js"></script>
-	<script>
-		$('#demo1_thumbs').desoSlide({
-			main: {
-				container: '#demo1_main_image',
-				cssClass: 'img-responsive'
-			},
-			effect: 'sideFade',
-			caption: true
-		});
-	</script>
-
-	<!-- requried-jsfiles-for owl -->
-	<script>
-		$(window).load(function () {
-			$("#flexiselDemo1").flexisel({
-				visibleItems: 3,
-				animationSpeed: 1000,
-				autoPlay: true,
-				autoPlaySpeed: 3000,
-				pauseOnHover: true,
-				enableResponsiveBreakpoints: true,
-				responsiveBreakpoints: {
-					portrait: {
-						changePoint: 480,
-						visibleItems: 1
-					},
-					landscape: {
-						changePoint: 640,
-						visibleItems: 2
-					},
-					tablet: {
-						changePoint: 768,
-						visibleItems: 3
-					}
-				}
-			});
-
-		});
-	</script>
-	<script>
-		$(window).load(function () {
-			$("#flexiselDemo2").flexisel({
-				visibleItems: 3,
-				animationSpeed: 1000,
-				autoPlay: true,
-				autoPlaySpeed: 3000,
-				pauseOnHover: true,
-				enableResponsiveBreakpoints: true,
-				responsiveBreakpoints: {
-					portrait: {
-						changePoint: 480,
-						visibleItems: 1
-					},
-					landscape: {
-						changePoint: 640,
-						visibleItems: 2
-					},
-					tablet: {
-						changePoint: 768,
-						visibleItems: 3
-					}
-				}
-			});
-
-		});
-	</script>
-	<script src="~/Tema/js/jquery.flexisel.js"></script>
-	<!-- //password-script -->
-	<!--/ start-smoth-scrolling -->
-	<script src="~/Tema/js/move-top.js"></script>
-	<script src="~/Tema/js/easing.js"></script>
-	<script>
-		jQuery(document).ready(function ($) {
-			$(".scroll").click(function (event) {
-				event.preventDefault();
-				$('html,body').animate({
-					scrollTop: $(this.hash).offset().top
-				}, 900);
-			});
-		});
-	</script>
-	<!--// end-smoth-scrolling -->
-
-	<script>
-		$(document).ready(function () {
-
-									var defaults = {
-										containerID: 'toTop', // fading element id
-										containerHoverID: 'toTopHover', // fading element hover id
-										scrollSpeed: 1200,
-										easingType: 'linear'
-									};
-
-
-			$().UItoTop({
-				easingType: 'easeOutQuart'
-			});
-
-		});
-	</script>
-	<a href="#home" class="scroll" id="toTop" style="display: block;">
-		<span id="toTopHover" style="opacity: 1;"> </span>
-	</a>
-
-	<!-- //Custom-JavaScript-File-Links -->
-	<script src="~/Tema/js/bootstrap.js"></script>
+    <!-- //Custom-JavaScript-File-Links -->
+    <script src="~/Tema/js/bootstrap.js"></script>
 
 
 </body>
 
-</html>
+</>

@@ -3,6 +3,7 @@ using DataAccessLayer.Abstract;
 using DataAccessLayer.EntityFramework;
 using DataAccessLayer.Repositories;
 using EntityLayer.Concrete;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,18 +18,31 @@ namespace BusinessLayer.Concrete
         //EFCategoryRepository eFCategoryRepository;
         //public CategoryManager()
         //{
-        //     eFCategoryRepository = new EFCategoryRepository();
+        //     eFCategoryRepository = new EFCategoryRepository(); //new anahtar kelimesini kullanılarak bellekte oluşmasını sağlıyor ve sıkı bir bağımlılık yaratıyor
             
 
         //}
 
-        public CategoryManager(ICategoryDal categoryDal)
+        public CategoryManager(ICategoryDal categoryDal) //dependency injection kullanılarak bağımlılık ortadan kaldırıldı
         {
             _categoryDal = categoryDal;
-        }
-
+		}
+		
         public void CategoryAdd(Category category) 
         {
+            //Container yapılanması ile ilgili			//var services = new ServiceCollection();
+            //services.AddTransient<ICategoryDal, EFCategoryRepository>();
+
+            //// ICategoryService için CategoryManager sınıfını eklemek
+            //services.AddTransient<ICategoryService, CategoryManager>();
+
+            //// IServiceProvider oluşturulması
+            //var serviceProvider = services.BuildServiceProvider();
+
+            //// CategoryManager'ı ICategoryService bağımlılığıyla oluşturmak için IServiceProvider'dan nesneyi çekme
+            //var categoryManager = serviceProvider.GetService<ICategoryDal>();
+            //         categoryManager.Insert(category);
+
             _categoryDal.Insert(category);
         }
 

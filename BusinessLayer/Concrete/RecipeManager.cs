@@ -23,6 +23,10 @@ namespace BusinessLayer.Concrete
         {
             return _recipeDal.GetByID(id);
         }
+        public List<Recipe> GetRecipeByID(int id) 
+        {
+            return _recipeDal.GetListAll(x => x.ReceipeID == id);
+        }
 
         public List<Recipe> GetList()
         {
