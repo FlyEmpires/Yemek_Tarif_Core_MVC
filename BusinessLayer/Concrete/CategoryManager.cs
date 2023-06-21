@@ -1,8 +1,10 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using DataAccessLayer.Repositories;
 using EntityLayer.Concrete;
+using EntityLayer.DTO;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -64,6 +66,19 @@ namespace BusinessLayer.Concrete
         public List<Category> GetList()
         {
             return _categoryDal.GetListAll();
+        }
+        public static List<CategoryListWithCountDTO> GetListWithCount() //Category Componenti için hangi kategoride kaç tane yemek olduğunu gösteren metod
+        {
+            Context db = new();
+            var values = (from cat in db.Categories
+                         select new CategoryListWithCountDTO
+                         {
+                             CategoryName = cat.CategoryName,
+                             CategoryID = cat.CategoryID,
+                             RecipeCount = cat.Recipes.Count(),
+                             CategoryDescription = cat.CategoryDescription
+                         }).ToList();
+            return values;
         }
     }
 }

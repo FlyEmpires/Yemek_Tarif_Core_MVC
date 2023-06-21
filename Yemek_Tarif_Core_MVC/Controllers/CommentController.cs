@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Yemek_Tarif_Core_MVC.Controllers
 {
     public class CommentController : Controller
     {
+        CommentManager cm = new(new EFCommentRepository());
         public IActionResult Index()
         {
             return View();
@@ -13,10 +16,10 @@ namespace Yemek_Tarif_Core_MVC.Controllers
         {
             return PartialView();
         }
-        public PartialViewResult CommentListByBlog()
+        public PartialViewResult CommentListByBlog(int id)
         {
-            
-            return PartialView();
+            var values=cm.GetList(id);
+            return PartialView(values);
         }
     }
 }

@@ -1,0 +1,28 @@
+﻿@model List<EntityLayer.DTO.CategoryListWithCountDTO>
+@*@model List<EntityLayer.Concrete.Category>*@
+<div class="tech-btm">
+    <h4>Kategoriler</h4>
+
+    <ul class="list-group single">
+       
+      @*  @{
+            DataAccessLayer.Concrete.Context db = new();
+            var categoryCount = (from cat in db.Categories
+                                 select new Yemek_Tarif_Core_MVC.Models.CategoryListWithCount
+                                 {
+                                     CategoryName = cat.CategoryName,
+                                     CategoryID = cat.CategoryID,
+                                     RecipeCount = cat.Recipes.Count()
+                                 }).ToList();
+        }*@
+        @foreach (var item in Model)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                @item.CategoryName
+                <span class="badge badge-primary badge-pill">@item.RecipeCount</span>
+
+            </li>
+        }
+    
+    </ul>
+</div>

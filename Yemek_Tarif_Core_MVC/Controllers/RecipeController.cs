@@ -24,7 +24,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
             //rm.GetByID(id);
             //recipe = rm.GetByID(id);
             //var values = rm.GetByID(id);
-
+            ViewBag.id = id;
             var values=rm.GetRecipeByID(id);
             return View(values);
         }

@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntityLayer.Concrete
+namespace EntityLayer.DTO
 {
-   public class Category
+    public class CategoryListWithCountDTO
     {
-        [Key]
+        public CategoryListWithCountDTO()
+        {
+            
+        }
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
         public string CategoryDescription { get; set; }
-        public bool CategoryStatuss { get; set; }
-        public List<Recipe> Recipes { get; set; }
+        public int RecipeCount { get; set; }
     }
 }

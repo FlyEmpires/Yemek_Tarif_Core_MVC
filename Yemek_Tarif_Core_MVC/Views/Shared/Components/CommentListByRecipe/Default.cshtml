@@ -1,0 +1,33 @@
+﻿@model IEnumerable<EntityLayer.Concrete.Comment>
+
+
+<div class="comment-top">
+    <h3>Yorumlar</h3>
+    <br />
+    @if (Model.Count() == 0)
+    {
+        <h5>Henüz Yorum Yapılmamış...<br> Bir Yorum Yazmak İster misin?</h5>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            <div class="media">
+                <img src="images/t1.jpg" alt="" class="img-fluid" />
+                <div class="media-body">
+                    <h5 class="mt-0">@item.CommentUserName</h5>
+                    <p>
+                        @*Bu tarifi gerçekten çok beğendim. Haftada bir kaç defa kendi yaptığım yemeklere de uygulamak istiyorum. Teşekkür ederim*@
+
+
+                        @item.CommentContent
+
+
+                    </p>
+                </div>
+            </div>
+        }
+        <h3>Sen de bir yorum yazmak ister misin?</h3>
+    }
+
+</div>
