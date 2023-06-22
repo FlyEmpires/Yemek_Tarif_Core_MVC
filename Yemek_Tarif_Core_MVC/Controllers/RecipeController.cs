@@ -11,8 +11,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
 {
     public class RecipeController : Controller
     {
-        public Recipe recipe = null;
-        RecipeManager rm = new RecipeManager(new EFRecipeRepository());
+        RecipeManager rm = new(new EFRecipeRepository());
         public IActionResult Index()
         {
             var values=rm.GetRecipeListWithCategory();

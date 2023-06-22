@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Abstract
+namespace BusinessLayer.Abstract
 {
-   public interface ICategoryDal:IGenericDal<Category>
-    {
-
-		List<Recipe> GetListWithCategoryDetails(int id);
+	public interface IWriterService
+	{
+		void WriterAdd(Writer writer);
+		Writer WriterLogin(Writer p);
 	}
 }

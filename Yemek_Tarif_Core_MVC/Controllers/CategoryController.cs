@@ -8,12 +8,17 @@ using System.Threading.Tasks;
 
 namespace Yemek_Tarif_Core_MVC.Controllers
 {
-    public class Category : Controller
+    public class CategoryController : Controller
     {
         CategoryManager cm = new CategoryManager(new EFCategoryRepository());
         public IActionResult Index()
         {
             var values = cm.GetList();
+            return View(values);
+        }
+        public IActionResult CategoryDetail(int id)
+        {
+            var values = cm.GetListWithCategoryDetails(id);
             return View(values);
         }
     }

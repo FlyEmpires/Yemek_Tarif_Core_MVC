@@ -1,6 +1,8 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
+using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +29,22 @@ namespace BusinessLayer.Concrete
         {
             return _recipeDal.GetListAll(x => x.ReceipeID == id);
         }
+  //      public List<Recipe> GetRecipeByCategoryID(int id)
+  //      {
+		//		return _recipeDal.GetListAll(x => x.CategoryID == id);
+		//	//using (var ctx = new Context())
+		//	//{
+		//	//    return ctx.Recipes.Include(x => x.Category).ToList();
+		//	//}
+		//}
+   //     public List<Recipe> GetRecipeCategoryWithInclude()
+   //     {
+   //         using (var ctx=new Context())
+   //         {
+		 //       return ctx.Recipes.Include(x => x.Category).ToList();
 
+			//}
+   //     }
         public List<Recipe> GetList()
         {
             return _recipeDal.GetListAll();
@@ -51,6 +68,12 @@ namespace BusinessLayer.Concrete
         public void RecipeUpdate(Recipe recipe)
         {
             throw new NotImplementedException();
+        }
+
+        public List<Recipe> GetRecipeListWithWriter(int id)
+        {
+            return _recipeDal.GetListAll(x => x.WriterID == id);
+
         }
     }
 }

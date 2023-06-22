@@ -1,0 +1,71 @@
+﻿@model EntityLayer.ViewModel.WriterCityViewModel
+@*@model EntityLayer.Concrete.Writer*@
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<section class="main-content-w3layouts-agileits">
+    <div class="container">
+        <h3 class="tittle">Tariflerimize bir yenisini eklemek için kayıt olun!</h3>
+        <div class="inner-sec">
+            <div class="login p-5 bg-light mx-auto mw-100">
+                @using (Html.BeginForm("Index", "Register", FormMethod.Post))
+                {
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom01">Adınız Soyadınız</label>
+                            @Html.TextBoxFor(x=>x.Writers.WriterName,new{@class="form-control"})
+                            @Html.ValidationMessageFor(x=>x.Writers.WriterName,"",new{@class="text-danger"})
+                        </div>
+                      
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom02">Mail Adresi</label>
+                            @Html.TextBoxFor(x=>x.Writers.WriterMail,new{@class="form-control"})
+                            @Html.ValidationMessageFor(x=>x.Writers.WriterMail,"",new{@class="text-danger"})
+
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword1 mb-2">Şifre</label>
+                            @Html.TextBoxFor(x => x.Writers.WriterPassword,new{@class="form-control"})
+                            @Html.ValidationMessageFor(x=>x.Writers.WriterPassword,"",new{@class="text-danger"})
+
+                        </div>
+                        <div class="form-group col-md-6">
+
+                            <label for="exampleInputPassword2 mb-2">Şifreyi Doğrula</label>
+
+                            <input type="password" name="geciciSifre" id="geciciSifre" class="form-control" />
+                            @Html.ValidationMessageFor(x=>x.Writers.WriterPassword,"",new{@class="text-danger"})
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom01">Şehir Seçiniz</label>
+                            @Html.DropDownListFor(model => model.SelectedCityId, new SelectList(Model.Cities, "Id", "Name"))
+
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary submit mb-4">Kayıt Ol</button>
+                    <p>
+                <a href="#" id="btn1">Kayıt olduktan sonra şartlarımızı kabul etmiş sayılırsınız. Okumak için tıklayınız.</a>
+                </p>
+                }
+                <h2>@ViewBag.hata</h2>
+                @*</form>*@
+            </div>
+            <br />
+        </div>
+    </div>
+
+</section>
+<script>
+    $('#btn1').click(function(){
+        swal("Kullanım Şartları","Vermiş olduğunuz mail adresine yeniliklerden haberdar olabilmeniz için sizler ile iletişime geçebileceğimizi kabul etmiş olursunuz !");
+    });
+</script>
+

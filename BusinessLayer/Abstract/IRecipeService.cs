@@ -15,5 +15,6 @@ namespace BusinessLayer.Abstract
         List<Recipe> GetList();
         Recipe GetByID(int id);
         List<Recipe> GetRecipeListWithCategory();
+        List<Recipe> GetRecipeListWithWriter(int id );
     }
 }

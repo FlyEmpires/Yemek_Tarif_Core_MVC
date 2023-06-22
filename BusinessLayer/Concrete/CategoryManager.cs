@@ -80,5 +80,9 @@ namespace BusinessLayer.Concrete
                          }).ToList();
             return values;
         }
+        public List<Recipe> GetListWithCategoryDetails(int id)
+        {
+            return _categoryDal.GetListWithCategoryDetails(id);
+        }
     }
 }

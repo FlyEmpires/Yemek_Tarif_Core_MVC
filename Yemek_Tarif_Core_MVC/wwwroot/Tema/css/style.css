@@ -678,11 +678,13 @@ button.btn.btn-primary.play{
 	opacity:0.9;
 }
 .blog-info-middle {
-    width: 100%;
-    background: rgba(14, 15, 16, 0.65);
-    padding: 18px;
-    position: absolute;
-    bottom: 0;
+	width: 100%;
+	background: rgba(81, 144, 207, 0.65);
+	padding: 18px;
+	position: absolute;
+	bottom: 5px;
+	border-radius: 30px;
+	margin-left: 5px;
 }
 .blog_info_left_grid img {
     -moz-transition: all 1s;
