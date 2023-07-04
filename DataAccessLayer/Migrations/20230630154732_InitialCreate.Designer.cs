@@ -4,14 +4,16 @@ using DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230630154732_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,47 +149,6 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Contacts");
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.District", b =>
-                {
-                    b.Property<int>("DistrictID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int?>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DistrictName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("DistrictID");
-
-                    b.HasIndex("CityId");
-
-                    b.ToTable("Districts");
-                });
-
-            modelBuilder.Entity("EntityLayer.Concrete.NewsLetter", b =>
-                {
-                    b.Property<int>("MailID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Mail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("MailStatus")
-                        .HasColumnType("bit");
-
-                    b.HasKey("MailID");
-
-                    b.ToTable("NewsLetters");
-                });
-
             modelBuilder.Entity("EntityLayer.Concrete.Recipe", b =>
                 {
                     b.Property<int>("ReceipeID")
@@ -238,12 +199,6 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("CityID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DistrictID")
-                        .HasColumnType("int");
-
                     b.Property<string>("WriterAbout")
                         .HasColumnType("nvarchar(max)");
 
@@ -264,10 +219,6 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("WriterID");
 
-                    b.HasIndex("CityID");
-
-                    b.HasIndex("DistrictID");
-
                     b.ToTable("Writers");
                 });
 
@@ -278,15 +229,6 @@ namespace DataAccessLayer.Migrations
                         .HasForeignKey("RecipeReceipeID");
 
                     b.Navigation("Recipe");
-                });
-
-            modelBuilder.Entity("EntityLayer.Concrete.District", b =>
-                {
-                    b.HasOne("EntityLayer.Concrete.City", "City")
-                        .WithMany("Districts")
-                        .HasForeignKey("CityId");
-
-                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Recipe", b =>
@@ -308,33 +250,9 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Writer");
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.Writer", b =>
-                {
-                    b.HasOne("EntityLayer.Concrete.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EntityLayer.Concrete.District", "District")
-                        .WithMany()
-                        .HasForeignKey("DistrictID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("City");
-
-                    b.Navigation("District");
-                });
-
             modelBuilder.Entity("EntityLayer.Concrete.Category", b =>
                 {
                     b.Navigation("Recipes");
-                });
-
-            modelBuilder.Entity("EntityLayer.Concrete.City", b =>
-                {
-                    b.Navigation("Districts");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Recipe", b =>

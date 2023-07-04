@@ -22,7 +22,7 @@
                             @Html.TextBoxFor(x=>x.Writers.WriterName,new{@class="form-control"})
                             @Html.ValidationMessageFor(x=>x.Writers.WriterName,"",new{@class="text-danger"})
                         </div>
-                      
+
                         <div class="col-md-6 mb-3">
                             <label for="validationCustom02">Mail Adresi</label>
                             @Html.TextBoxFor(x=>x.Writers.WriterMail,new{@class="form-control"})
@@ -46,14 +46,20 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="validationCustom01">Şehir Seçiniz</label>
-                            @Html.DropDownListFor(model => model.SelectedCityId, new SelectList(Model.Cities, "Id", "Name"))
-
+                            @*@Html.DropDownListFor(model => model.SelectedCityID, new SelectList(Model.City, "Id", "Name"))*@
+                            @Html.DropDownListFor(model => model.City, Model.City.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }),new{@id="CityID",@class="form-control"})
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom01">İlçe Seçiniz</label>
+                            @Html.DropDownListFor(model => model.District, Model.District.Select(x => new SelectListItem { Text = x.DistrictName, Value = x.DistrictID.ToString() }),new{@id="DistrictID",@class="form-control"})
+                            <input type="hidden" id="SelectedCityID" name="SelectedCityID" value="" />
+                            <input type="hidden" id="SelectedDistrictID" name="SelectedDistrictID" value="" />
+                       </div>
                     </div>
                     <button type="submit" class="btn btn-primary submit mb-4">Kayıt Ol</button>
                     <p>
-                <a href="#" id="btn1">Kayıt olduktan sonra şartlarımızı kabul etmiş sayılırsınız. Okumak için tıklayınız.</a>
-                </p>
+                        <a href="#" id="btn1">Kayıt olduktan sonra şartlarımızı kabul etmiş sayılırsınız. Okumak için tıklayınız.</a>
+                    </p>
                 }
                 <h2>@ViewBag.hata</h2>
                 @*</form>*@
@@ -64,8 +70,39 @@
 
 </section>
 <script>
-    $('#btn1').click(function(){
-        swal("Kullanım Şartları","Vermiş olduğunuz mail adresine yeniliklerden haberdar olabilmeniz için sizler ile iletişime geçebileceğimizi kabul etmiş olursunuz !");
+    $('#btn1').click(function () {
+        swal("Kullanım Şartları", "Vermiş olduğunuz mail adresine yeniliklerden haberdar olabilmeniz için sizler ile iletişime geçebileceğimizi kabul etmiş olursunuz !");
     });
+
+    $(document).ready(function () {
+        $("#CityID").change(function () {
+            var selectedCity = $(this).val();
+            var url = "/Register/City/" + selectedCity;
+
+            $.post(url, { selectedCity: selectedCity }, function (data) { //selectedcity ile controller'a parametre gönderiyoruz
+                // İlçe dropdown listesini güncelle
+                var districtDropdown = $("#DistrictID");
+                districtDropdown.empty();
+                $.each(data, function (index, district) {
+                    districtDropdown.append($("<option></option>")
+                        .val(district.districtID)
+                        .text(district.districtName));
+                });
+            });
+        });
+
+        //$("form").submit(function (event) {
+        //    event.preventDefault();
+        //});
+
+        $("form").submit(function (event) {
+            var selectedDistrict = $("#DistrictID").val();
+            var selectedCity = $("#CityID").val();
+            $("#SelectedCityID").val(selectedCity);
+            $("#SelectedDistrictID").val(selectedDistrict);
+        });
+    });
+
+
 </script>
 

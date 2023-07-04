@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace EntityLayer.Concrete
 {
-    public class City
+    public class District
     {
         [Key]
+        public int DistrictID { get; set; }
+        public string DistrictName { get; set; }
+        public City City { get; set; }
         public int Id { get; set; }
-        public string Name { get; set; }
-        public List<District> Districts { get; set; }
-        
     }
 }

@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace EntityLayer.Concrete
 {
-    public class City
+    public class NewsLetter
     {
         [Key]
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<District> Districts { get; set; }
-        
+        public int MailID { get; set; }
+        public string Mail { get; set; }
+        public bool MailStatus{ get; set; }
     }
 }

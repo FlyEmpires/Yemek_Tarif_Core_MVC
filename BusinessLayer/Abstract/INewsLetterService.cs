@@ -1,15 +1,14 @@
 ﻿using EntityLayer.Concrete;
-using EntityLayer.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Abstract
+namespace BusinessLayer.Abstract
 {
-   public interface IReceipeDal:IGenericDal<Recipe>
+    public interface INewsLetterService
     {
-        List<Recipe> GetListWithCategory();
+        void AddNewsLetter(NewsLetter newsLetter);
     }
 }

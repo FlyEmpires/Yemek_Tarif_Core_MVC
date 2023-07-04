@@ -25,6 +25,9 @@ body a {
 a:hover {
 	text-decoration: none;
 }
+.image{
+	height:300px;
+}
 .yuvarlakKose {
 	border-radius: 30px;
 }
@@ -982,6 +985,7 @@ li.breadcrumb-item a {
 	padding: .4em;
 	border-radius: 75px;
 	transition: transform 0.3s;
+	height:300px;
 }
 
 	.card-img-top:hover {

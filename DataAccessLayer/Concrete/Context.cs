@@ -12,7 +12,7 @@ namespace DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"server=OZATA1-LT-008\SQLEXPRESS;database=YemekTarif;integrated security=true;");
+            optionsBuilder.UseSqlServer(@"server=DESKTOP-CQ6VQ08\SQLEXPRESS;database=YemekTarifCore;integrated security=true;");
         }
         public DbSet<About> Abouts { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
@@ -20,6 +20,8 @@ namespace DataAccessLayer.Concrete
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Writer> Writers { get; set; }
-        public DbSet<City>  Cities { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<NewsLetter> NewsLetters{ get; set; }
+        public DbSet<District> Districts { get; set; }
     }
 }

@@ -1,0 +1,99 @@
+﻿@model CityAndDistrict
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>İller ve İlçeler</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.DropDownListFor(model => model.City, Model.City.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }),new{@id="CityID"})
+
+        @Html.DropDownListFor(model => model.District, Model.District.Select(x => new SelectListItem { Text = x.DistrictName, Value = x.DistrictID.ToString() }),new{@id="DistrictID"})
+        <button type="submit" class="btn btn-primary submit mb-4">Kayıt Ol</button>
+    }
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+//$(document).ready(function() {
+//        $("#CityID").change(function () {
+//        var strSelected = "";
+//            $("#CityID option:selected").each(function () {
+//            strSelected += $(this)[0].value;
+//        });
+//        var url = "/Deneme/Index/" + strSelected;
+
+//        console.log(strSelected);
+//        console.log(url);
+//            $.post(url, { selectedCity: strSelected }, function (data) {
+           
+//        });
+//    });
+//});
+
+
+
+
+
+
+
+
+    //$(document).ready(function () {
+    //    $("#CityID").change(function () {
+    //        var selectedCity = $(this).val();
+    //        var url = "/Deneme/Index/" + selectedCity;
+
+    //        $.post(url, { selectedCity: selectedCity }, function (data) {
+    //            // Veri alındığında burada yapılacak işlemler
+    //            // Örneğin, ilçe dropdown listesini güncelleme
+    //            $("#DistrictID").empty(); // İlçe dropdown listesini temizle
+
+    //            $.each(data.districts, function (index, district) {
+    //                console.log(data)
+    //                console.log(district)
+    //                $("#DistrictID").append("<option value='" + district.districtID + "'>" + district.districtName + "</option>");
+    //            });
+    //        });
+    //    });
+    //});
+
+
+    $(document).ready(function () {
+        $("#CityID").change(function () {
+            var selectedCity = $(this).val();
+            var url = "/Deneme/Index/" + selectedCity;
+
+            $.post(url, { selectedCity: selectedCity }, function (data) {
+                // İlçe dropdown listesini güncelle
+                var districtDropdown = $("#DistrictID");
+                districtDropdown.empty();
+                $.each(data, function (index, district) {
+                    districtDropdown.append($("<option></option>")
+                        .val(district.districtID)
+                        .text(district.districtName));
+                });
+            });
+        });
+
+        $("form").submit(function (event) {
+            event.preventDefault();
+        });
+    });
+
+
+
+
+
+
+
+
+
+</script>

@@ -4,14 +4,16 @@ using DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230704111317_mig_Province_and_District_Table_Relation")]
+    partial class mig_Province_and_District_Table_Relation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,7 +169,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Districts");
+                    b.ToTable("District");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.NewsLetter", b =>
@@ -238,12 +240,6 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("CityID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DistrictID")
-                        .HasColumnType("int");
-
                     b.Property<string>("WriterAbout")
                         .HasColumnType("nvarchar(max)");
 
@@ -263,10 +259,6 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("WriterID");
-
-                    b.HasIndex("CityID");
-
-                    b.HasIndex("DistrictID");
 
                     b.ToTable("Writers");
                 });
@@ -306,25 +298,6 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Writer");
-                });
-
-            modelBuilder.Entity("EntityLayer.Concrete.Writer", b =>
-                {
-                    b.HasOne("EntityLayer.Concrete.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EntityLayer.Concrete.District", "District")
-                        .WithMany()
-                        .HasForeignKey("DistrictID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("City");
-
-                    b.Navigation("District");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Category", b =>

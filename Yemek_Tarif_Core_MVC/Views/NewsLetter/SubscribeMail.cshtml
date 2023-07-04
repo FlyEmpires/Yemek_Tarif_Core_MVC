@@ -1,0 +1,48 @@
+﻿@*<div class="tech-btm">
+    <h4>Mail bültenimize abone olun...</h4>
+    <p>Abone olarak yeni yemek tarfilerinden haberdar olabilirsiniz.</p>
+    <form action="/NewsLetter/SubscribeMail" method="post">
+        <input type="hidden" placeholder="Email" required="" name="">
+        
+        <input type="email" placeholder="Email" required="" name="Mail">
+        <input type="submit" value="AboneOl">
+   </form>
+
+</div>
+
+*@
+
+
+<div class="tech-btm">
+    <h4>Mail bültenimize abone olun...</h4>
+    <p>Abone olarak yeni yemek tarfilerinden haberdar olabilirsiniz.</p>
+    <form id="subscribeForm">
+        <input type="email" placeholder="Email" required name="Mail">
+        <input type="submit" value="Abone Ol">
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        $('#subscribeForm').submit(function (e) {
+            e.preventDefault(); // Formun varsayılan submit olayını engelle
+
+            // AJAX ile form verilerini gönder
+            $.ajax({
+                url: '/NewsLetter/SubscribeMail', // Controller ve action'ın yolu
+                type: 'POST',
+                data: $(this).serialize(), // Form verilerini al ve gönder
+                success: function (response) {
+                    // Başarılı cevap geldiğinde yapılacak işlemler
+                    // Örneğin, geri dönen partial view'i bir alana eklemek için:
+                    $('#resultContainer').html(response);
+                },
+                error: function (xhr, status, error) {
+                    // Hata durumunda yapılacak işlemler
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>

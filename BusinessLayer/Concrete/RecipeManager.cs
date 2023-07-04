@@ -2,6 +2,7 @@
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
+using EntityLayer.DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
