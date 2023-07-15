@@ -14,12 +14,6 @@ namespace Yemek_Tarif_Core_MVC.ViewComponents.Comment
 		Context db = new();
 		public IViewComponentResult Invoke(int id)
 		{
-
-
-			//ViewBag.cathListCount= (from cat in db.Categories.ToList()
-			//		   join recipe in db.Recipes on cat.CategoryID equals recipe.CategoryID select cat).ToList();
-
-			//var count= cathListCount.Count();
             var values = cm.GetList(id);
 			return View(values);
 		}

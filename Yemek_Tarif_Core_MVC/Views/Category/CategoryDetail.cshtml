@@ -1,4 +1,6 @@
-﻿@model List<EntityLayer.Concrete.Recipe>
+﻿@using DataAccessLayer.Concrete
+@using EntityLayer.DTO
+@model List<EntityLayer.Concrete.Recipe>
 @{
     ViewData["Title"] = "CategoryDetail";
     Layout = "~/Views/Shared/UserLayout.cshtml";
@@ -10,27 +12,20 @@
         <div class="inner-sec">
             <!--left-->
             <div class="left-blog-info-w3layouts-agileits text-left">
-                @*<table class="table table-bordered">
-                <tr>
-                <th>Yemek Adı</th>
-                <th>Yemek Açıklama</th>
-                <th>Yemek Malzeme</th>
 
-                </tr>
-                <tbody>
-                @foreach (var item in Model)
-                {
-                <tr>
-                <td>@item.ReceipeName</td>
-                <td>@item.ReceipeDescription</td>
-                <td>@item.ReceipeIngredient</td>
-                </tr>
-                }
-
-                </tbody>
-
-                </table>*@
                 <div class="row">
+                    @{
+                        Context db = new();
+                        var commentValues = (from count in db.Comments
+                                             join recipe in db.Recipes on count.RecipeID equals recipe.ReceipeID
+                                             select new CommentCountByRecipe
+                                 {
+                                     CommentCount = recipe.Comments.Count(),
+                                     RecipeID = recipe.ReceipeID
+
+                                 }).Distinct().ToList();
+
+                    }
                     @foreach (var item in Model)
                     {
 
@@ -47,7 +42,15 @@
                                     </li>
                                     <li class="mx-2">
                                         <a href="#">
-                                            <i class="far fa-comment">21 </i>
+                                            @foreach (var count in commentValues)
+                                            {
+                                                if (item.ReceipeID == count.RecipeID)
+                                                {
+                                                    <i class="far fa-comment">@count.CommentCount </i>
+                                                }
+
+
+                                            }
                                         </a>
                                     </li>
                                     <li>
@@ -61,15 +64,6 @@
                                     <a href="single.html">@item.ReceipeName</a>
                                 </h5>
                                 <p class="card-text mb-3">
-                                    @*@if (item.ReceipeDescription.Length > 50)
-                                {
-                                <i class="far fa-comment">@item.ReceipeDescription.Substring(0,item.ReceipeDescription.Substring(0,130).LastIndexOf(" ")) </i>
-                                }
-                                else
-                                {
-                                <i class="far fa-comment">@item.ReceipeDescription</i>
-
-                                }*@
                                     @(item.ReceipeDescription.Length > 50 ? item.ReceipeDescription.Substring(0, item.ReceipeDescription.Substring(0, 130).LastIndexOf(" ")) : item.ReceipeDescription)
                                 </p>
                                 <a href="/Recipe/RecipeReadAll/@item.ReceipeID" class="btn btn-primary read-m" style="border-radius:30px;">Devamını Oku</a>

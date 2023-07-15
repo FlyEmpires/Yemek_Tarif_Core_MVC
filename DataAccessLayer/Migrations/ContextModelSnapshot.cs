@@ -107,15 +107,12 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("CommentUserName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ReceipeID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RecipeReceipeID")
+                    b.Property<int>("RecipeID")
                         .HasColumnType("int");
 
                     b.HasKey("CommentID");
 
-                    b.HasIndex("RecipeReceipeID");
+                    b.HasIndex("RecipeID");
 
                     b.ToTable("Comments");
                 });
@@ -275,7 +272,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.HasOne("EntityLayer.Concrete.Recipe", "Recipe")
                         .WithMany("Comments")
-                        .HasForeignKey("RecipeReceipeID");
+                        .HasForeignKey("RecipeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Recipe");
                 });

@@ -18,6 +18,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
         {
             p.MailStatus = true;
             nm.AddNewsLetter(p);
+            ViewBag.sonuc = 1;
             return PartialView();
         }
     }

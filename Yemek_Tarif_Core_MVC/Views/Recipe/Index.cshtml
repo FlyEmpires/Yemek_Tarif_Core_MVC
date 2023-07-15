@@ -28,20 +28,31 @@
 
             <!--left-->
             <div class="left-blog-info-w3layouts-agileits text-left">
-               
+
                 <div class="row">
                     @{
                         Context db = new();
-                        var commentCountt = (from recipe in db.Recipes
-                              join comment in db.Comments on recipe.ReceipeID equals comment.ReceipeID
-                                select new CommentCountByRecipe
+                        var commentCountt = (from cmnt in db.Comments
+                                             join recipe in db.Recipes on cmnt.RecipeID equals recipe.ReceipeID
+                                             where recipe.ReceipeID == cmnt.RecipeID
+                                             select new CommentCountByRecipe
                                  {
                                      RecipeID = recipe.ReceipeID,
                                      CommentCount = recipe.Comments.Count(),
-                                     Category = recipe.Category,
-                                     CreateDate = recipe.CreateDate,
                                      RecipeName = recipe.ReceipeName
                                  }).Distinct().ToList();
+
+                        //    var commentCountt = (from recipe in db.Recipes
+                        //          join comment in db.Comments on recipe.ReceipeID equals comment.ReceipeID
+                        //            select new CommentCountByRecipe
+                        //             {
+                        //                 RecipeID = recipe.ReceipeID,
+                        //                 CommentCount = recipe.Comments.Count(),
+                        //                 Category = recipe.Category,
+                        //                 CreateDate = recipe.CreateDate,
+                        //                 RecipeName = recipe.ReceipeName
+
+                        //             }).Distinct().ToList();
                     }
 
 
@@ -61,15 +72,21 @@
                                     </li>
                                     <li class="mx-2">
                                         <a href="#">
+                                            @* @foreach (var count in commentCountt)
+                                        {
+                                        if (count.RecipeID == item.ReceipeID)
+                                        {
+                                        <i class="far fa-comment">@count.CommentCount</i>
+
+                                        }*@
+                                            @*}*@
                                             @foreach (var count in commentCountt)
                                             {
-                                                if (count.RecipeID == item.ReceipeID)
+                                                @if (item.ReceipeID == count.RecipeID)
                                                 {
                                                     <i class="far fa-comment">@count.CommentCount</i>
-
                                                 }
                                             }
-
                                         </a>
                                     </li>
                                     <li>

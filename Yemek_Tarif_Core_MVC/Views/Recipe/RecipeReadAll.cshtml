@@ -5,7 +5,9 @@
     ViewData["Title"] = "YemekDetay";
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
-
+@{
+    int RecipeID = ViewBag.id;
+}
 <html lang="zxx">
 <body>
     @*<div class="banner-inner">
@@ -14,9 +16,9 @@
 
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="index.html">Home</a>
+            <a href="/Recipe/Index">Tarifler</a>
         </li>
-        <li class="breadcrumb-item active">Single</li>
+        <li class="breadcrumb-item active">@Model.FirstOrDefault().ReceipeName</li>
     </ol>
 
     <!--//banner-->
@@ -32,7 +34,7 @@
                         <div class="blog-grid-top">
                             <div class="b-grid-top">
                                 <div class="blog_info_left_grid">
-                                    <img src="/@item.ReceipeImage" class="img-fluid yuvarlakKose" alt="">
+                                    <img src="/@item.ReceipeImage" class="img-fluid yuvarlakKose thumbImage" alt="">
                                 </div>
                                 <div class="blog-info-middle">
                                     <ul>
@@ -69,7 +71,7 @@
                     @await Component.InvokeAsync("CommentListByRecipe",new{id=ViewBag.id})
 
                     @*@await Html.PartialAsync("~/Views/Comment/CommentListByBlog.cshtml")*@
-                    @await Html.PartialAsync("~/Views/Comment/PartialAddComment.cshtml")
+                    @await Html.PartialAsync("~/Views/Comment/PartialAddComment.cshtml",RecipeID ) @*Burada virgül'den sonra bir model belirterek parametre gönderebiliyoruz*@
                 </div>
 
                 <!--//left-->
@@ -79,7 +81,7 @@
                         <div class="tech-btm">
                             <img src="/Tema/images/banner1.jpg" class="img-fluid" alt="">
                         </div>
-                        @await Component.InvokeAsync("NewsLetters",new{id=ViewBag.id})
+                        @await Component.InvokeAsync("NewsLetters")
 
                         @*@await Html.PartialAsync("~/Views/NewsLetter/SubscribeMail.cshtml",new{id=ViewBag.id})*@
                         @await Component.InvokeAsync("CategoryList")

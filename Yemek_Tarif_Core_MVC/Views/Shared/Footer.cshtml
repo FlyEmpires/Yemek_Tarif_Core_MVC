@@ -3,15 +3,15 @@
 		<div class="row">
 			<div class="col-lg-4 footer-grid-agileits-w3ls text-left">
 				<h3>Hakkımızda</h3>
-				<p>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. lacinia eget consectetur sed, convallis at tellus..</p>
+				<p>Daha fazlasını öğrenmek istiyorsan..</p>
 				<div class="read">
-					<a href="single.html" class="btn btn-primary read-m">Daha Fazla Oku</a>
+					<a href="/About/Index" class="btn btn-primary read-m">Daha Fazla Oku</a>
 				</div>
 			</div>
 			<div class="col-lg-4 footer-grid-agileits-w3ls text-left">
 
 				<div class="tech-btm">
-					<h3>Son Tarifler</h3>
+					<h3>İlgini Çekebilir</h3>
 					<div class="blog-grids row mb-3">
 						<div class="col-md-5 blog-grid-left">
 							<a href="single.html">
@@ -72,8 +72,10 @@
 				</div>
 			</div>
 			<!-- subscribe -->
-			<div class="col-lg-4 subscribe-main footer-grid-agileits-w3ls text-left">
-				<h2>Bizlere abone olmak için...</h2>
+
+            <div class="col-lg-4 subscribe-main footer-grid-agileits-w3ls text-left">
+                @await Component.InvokeAsync("NewsLetters")
+			@*	<h2>Bizlere abone olmak için...</h2>
 				<div class="subscribe-main text-left">
 					<div class="subscribe-form">
 						<form action="#" method="post" class="subscribe_form">
@@ -83,7 +85,7 @@
 						<div class="clearfix"> </div>
 					</div>
 					<p>Gizliliğinize önem veriyoruz. Rahatsız edilmeyeceksiniz!</p>
-				</div>
+				</div>*@
 				<!-- //subscribe -->
 			</div>
 		</div>

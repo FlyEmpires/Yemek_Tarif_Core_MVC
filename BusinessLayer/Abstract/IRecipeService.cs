@@ -14,7 +14,8 @@ namespace BusinessLayer.Abstract
         void RecipeUpdate(Recipe recipe);
         List<Recipe> GetList();
         Recipe GetByID(int id);
-        List<Recipe> GetRecipeListWithCategory();
+        List<Recipe> GetListWithCategoryAndWriter();
         List<Recipe> GetRecipeListWithWriter(int id );
+        int GetCommentCountByRecipe(int id);
     }
 }

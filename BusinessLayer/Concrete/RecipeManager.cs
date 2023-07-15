@@ -51,9 +51,9 @@ namespace BusinessLayer.Concrete
             return _recipeDal.GetListAll();
         }
 
-        public List<Recipe> GetRecipeListWithCategory()
+        public List<Recipe> GetListWithCategoryAndWriter()
         {
-            return _recipeDal.GetListWithCategory();
+            return _recipeDal.GetListWithCategoryAndWriter();
         }
 
         public void RecipeAdd(Recipe recipe)
@@ -76,5 +76,11 @@ namespace BusinessLayer.Concrete
             return _recipeDal.GetListAll(x => x.WriterID == id);
 
         }
+
+        public int GetCommentCountByRecipe(int id)
+        {
+            return _recipeDal.GetCommentCountByRecipe(id);
+        }
+
     }
 }

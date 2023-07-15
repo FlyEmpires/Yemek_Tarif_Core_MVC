@@ -14,5 +14,7 @@ namespace EntityLayer.DTO
         public Category Category { get; set; }
         public DateTime CreateDate { get; set; }
         public int CommentCount { get; set; }
+        public string RecipeImage{ get; set; }
+
     }
 }
