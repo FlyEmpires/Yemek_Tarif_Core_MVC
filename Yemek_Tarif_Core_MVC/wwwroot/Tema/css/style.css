@@ -27,9 +27,14 @@ a:hover {
 }
 .image{
 	height:300px;
+	width:500px;
 }
 .yuvarlakKose {
 	border-radius: 30px;
+}
+.thumbImage{
+	height:400px;
+	width:650px;
 }
 input[type="button"],
 input[type="submit"],
@@ -654,7 +659,7 @@ button.btn.btn-primary.play{
 }
 .course_demo1 {
 	margin: 0 auto;
-	width: 90%;
+	width: 87%;
 	background: #eceff1;
 	padding: 1em;
 }

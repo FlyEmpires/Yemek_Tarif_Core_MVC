@@ -14,14 +14,22 @@ namespace DataAccessLayer.EntityFramework
 {
     public class EFRecipeRepository : GenericRepository<Recipe>, IReceipeDal
     {
-        public List<Recipe> GetListWithCategory()
+        public List<Recipe> GetListWithCategoryAndWriter()
         {
             using (var ctx=new Context())
             {
-                return ctx.Recipes.Include(x => x.Category).ToList();
+                return ctx.Recipes.Include(x => x.Category).Include(x=>x.Writer).ToList();
             }
         }
 
-        
+        public int GetCommentCountByRecipe(int id)
+        {
+            using (var ctx = new Context())
+            {
+                var comments = (from cmnt in ctx.Comments where cmnt.RecipeID == id select cmnt).Count();
+                return comments;
+            }
+        }
+
     }
 }

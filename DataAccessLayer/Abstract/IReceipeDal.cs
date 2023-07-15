@@ -10,6 +10,7 @@ namespace DataAccessLayer.Abstract
 {
    public interface IReceipeDal:IGenericDal<Recipe>
     {
-        List<Recipe> GetListWithCategory();
+        List<Recipe> GetListWithCategoryAndWriter();
+        int GetCommentCountByRecipe(int id);
     }
 }

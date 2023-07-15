@@ -10,16 +10,24 @@ using DataAccessLayer.EntityFramework;
 
 namespace Yemek_Tarif_Core_MVC.Controllers
 {
+	
     public class DefaultController : Controller
-    {
+    {		
+		RecipeManager rm = new RecipeManager(new EFRecipeRepository());
+	
         public async Task<IActionResult> Index()
         {
-			var rm = new RecipeManager(new EFRecipeRepository());
-			var values = rm.GetList();
+			var values = rm.GetListWithCategoryAndWriter();
+			//var values = rm.GetList();
 			//return RedirectToAction("HavaDurumuApi");
 			ViewBag.havaDurumu = await HavaDurumuApi(); //metod task tipinde olduğu için await kullanarak çağırdık. Bunun için ise Index Actionu da Task tipinde tanımlamamız gerekti
-			return View(values);
+														//int id = 0;
+														//ViewBag.id = id;
+		
+            return View(values);
 		}
+
+		
         public async Task<string> HavaDurumuApi()
         {
 			using (var client = new HttpClient())
@@ -28,16 +36,17 @@ namespace Yemek_Tarif_Core_MVC.Controllers
 				client.DefaultRequestHeaders.Add("X-RapidAPI-Key", "9ad07b8d6cmshfaaf9e433c4d7f3p1a14afjsnd04f7cbf5e8b");
 				client.DefaultRequestHeaders.Add("X-RapidAPI-Host", "weatherapi-com.p.rapidapi.com");
 
-				var response = await client.GetAsync("/current.json?q=40.6500%2C29.2667");//Yalova'nın enlem ve boylamına göre çalışır
+                var response = await client.GetAsync("/current.json?q=37.8716%2C32.4846");//Konya'nın enlem ve boylamına göre çalışır
+																						  //To do: Lokasyon her gün değişecek
 
-				if (response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
 				{
 					var json = await response.Content.ReadAsStringAsync();
 					JObject data = JObject.Parse(json);
 					string temperature = data["current"]["temp_c"].ToString();
 					string zaman = data["current"]["last_updated"].ToString();
-					//Console.WriteLine($"Sıcaklık: {temperature} Derece\nTarih : {DateTime.Parse(zaman):dd MMMM yyyy}");
-					var havaDurumu= $"Sıcaklık: {temperature} Derece\nTarih : {DateTime.Parse(zaman):dd MMMM yyyy}";
+					string lokasyon = data["location"]["name"].ToString();
+					var havaDurumu= $"Sıcaklık: {temperature} Derece\nTarih : {DateTime.Parse(zaman):dd MMMM yyyy}, {lokasyon}";
 					return havaDurumu;
 				}
 				else

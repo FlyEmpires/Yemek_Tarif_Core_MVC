@@ -14,7 +14,7 @@ namespace Yemek_Tarif_Core_MVC.ViewComponents.NewsLetters
         {
 
             ViewBag.id = id;
-
+            ViewBag.sonuc = 1;
             return View(id);
         }
      

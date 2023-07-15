@@ -5,6 +5,7 @@ using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using EntityLayer.ViewModel;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,20 +13,13 @@ using Yemek_Tarif_Core_MVC.Models;
 
 namespace Yemek_Tarif_Core_MVC.Controllers
 {
+	[AllowAnonymous]
 	public class RegisterController : Controller
 	{
 		WriterManager wm = new(new EFWriterRepository());
 		public IActionResult Index()
 		{
 			Context db = new();
-			//var cityList=(from i in db.Cities.ToList() select i).ToList();
-			//WriterCityViewModel viewModel = new()
-			//{
-			//	City=cityList,
-			//	SelectedCityID=cityList.FirstOrDefault().Id
-			//};
-
-			//return View(viewModel);
 			var values = (from city in db.Cities.ToList() join district in db.Districts on city.Id equals district.Id select city).Distinct().ToList();
             WriterCityViewModel cd = new()
             {
