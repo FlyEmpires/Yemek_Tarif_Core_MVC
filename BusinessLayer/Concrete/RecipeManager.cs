@@ -30,22 +30,29 @@ namespace BusinessLayer.Concrete
         {
             return _recipeDal.GetListAll(x => x.ReceipeID == id);
         }
-  //      public List<Recipe> GetRecipeByCategoryID(int id)
-  //      {
-		//		return _recipeDal.GetListAll(x => x.CategoryID == id);
-		//	//using (var ctx = new Context())
-		//	//{
-		//	//    return ctx.Recipes.Include(x => x.Category).ToList();
-		//	//}
-		//}
-   //     public List<Recipe> GetRecipeCategoryWithInclude()
-   //     {
-   //         using (var ctx=new Context())
-   //         {
-		 //       return ctx.Recipes.Include(x => x.Category).ToList();
+        public int Getdate(int id) // Bir tarifin dakika cinsinden ne kadar önce yayınlandığını gösterir
+        {
+           var value= _recipeDal.GetListAll(x => x.ReceipeID == id).FirstOrDefault();
+            var date = DateTime.Now- value.CreateDate;
+            var Minutes = date.Minutes;
+            return Minutes;
+        }
+        //      public List<Recipe> GetRecipeByCategoryID(int id)
+        //      {
+        //		return _recipeDal.GetListAll(x => x.CategoryID == id);
+        //	//using (var ctx = new Context())
+        //	//{
+        //	//    return ctx.Recipes.Include(x => x.Category).ToList();
+        //	//}
+        //}
+        //     public List<Recipe> GetRecipeCategoryWithInclude()
+        //     {
+        //         using (var ctx=new Context())
+        //         {
+        //       return ctx.Recipes.Include(x => x.Category).ToList();
 
-			//}
-   //     }
+        //}
+        //     }
         public List<Recipe> GetList()
         {
             return _recipeDal.GetListAll();
@@ -81,6 +88,9 @@ namespace BusinessLayer.Concrete
         {
             return _recipeDal.GetCommentCountByRecipe(id);
         }
-
+        public List<Recipe> GetLast3Recipes()
+        {
+            return _recipeDal.GetListAll().Take(3).ToList();
+        }
     }
 }
