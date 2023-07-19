@@ -53,7 +53,15 @@
                                                 <i class="far fa-comment"></i> @ViewBag.commentCount
                                             </a>
                                         </li>
-
+                                        @if (item.CreateDate.Day==DateTime.Now.Day)
+                                        {
+                                            <li>
+                                            <a href="#">
+                                                <i class="far fa-comment"></i> Yaklaşık @ViewBag.Minute dakika önce
+                                            </a>
+                                        </li>
+                                        }
+                                        
                                     </ul>
                                 </div>
                             </div>

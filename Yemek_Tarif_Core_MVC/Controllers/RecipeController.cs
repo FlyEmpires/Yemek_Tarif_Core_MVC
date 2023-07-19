@@ -4,13 +4,16 @@ using DataAccessLayer.EntityFramework;
 using DataAccessLayer.Repositories;
 using EntityLayer.Concrete;
 using EntityLayer.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Yemek_Tarif_Core_MVC.Models;
 
 namespace Yemek_Tarif_Core_MVC.Controllers
 {
+    [AllowAnonymous]
     public class RecipeController : Controller
     {
         RecipeManager rm = new(new EFRecipeRepository());
@@ -23,6 +26,8 @@ namespace Yemek_Tarif_Core_MVC.Controllers
         {
             ViewBag.commentCount= rm.GetCommentCountByRecipe(id);
             ViewBag.id = id;
+            var Minute = rm.Getdate(id);
+            ViewBag.Minute = Minute;
             var values=rm.GetRecipeByID(id);
             return View(values);
         }

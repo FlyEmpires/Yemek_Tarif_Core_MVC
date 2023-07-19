@@ -16,5 +16,13 @@ namespace Yemek_Tarif_Core_MVC.Controllers
         {
             return View();
         }
+        public IActionResult Writer()
+        {
+            return View();
+        }
+        public PartialViewResult PartialNavbar()
+        {
+            return PartialView();
+        }
     }
 }
