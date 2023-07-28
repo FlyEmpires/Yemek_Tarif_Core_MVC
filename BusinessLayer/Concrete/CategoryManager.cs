@@ -30,43 +30,6 @@ namespace BusinessLayer.Concrete
             _categoryDal = categoryDal;
 		}
 		
-        public void CategoryAdd(Category category) 
-        {
-            //Container yapılanması ile ilgili			//var services = new ServiceCollection();
-            //services.AddTransient<ICategoryDal, EFCategoryRepository>();
-
-            //// ICategoryService için CategoryManager sınıfını eklemek
-            //services.AddTransient<ICategoryService, CategoryManager>();
-
-            //// IServiceProvider oluşturulması
-            //var serviceProvider = services.BuildServiceProvider();
-
-            //// CategoryManager'ı ICategoryService bağımlılığıyla oluşturmak için IServiceProvider'dan nesneyi çekme
-            //var categoryManager = serviceProvider.GetService<ICategoryDal>();
-            //         categoryManager.Insert(category);
-
-            _categoryDal.Insert(category);
-        }
-
-        public void CategoryDelete(Category category)
-        {
-            _categoryDal.Delete(category);
-        }
-
-        public void CategoryUpdate(Category category)
-        {
-            _categoryDal.Update(category);
-        }
-
-        public Category GetByID(int id)
-        {
-            return _categoryDal.GetByID(id);
-        }
-
-        public List<Category> GetList()
-        {
-            return _categoryDal.GetListAll();
-        }
         public static List<CategoryListWithCountDTO> GetListWithCount() //Category Componenti için hangi kategoride kaç tane yemek olduğunu gösteren metod
         {
             Context db = new();
@@ -80,9 +43,35 @@ namespace BusinessLayer.Concrete
                          }).ToList();
             return values;
         }
+
+        public Category TGetByID(int id)
+        {
+           return _categoryDal.GetByID(id);
+        }
+
+        public List<Category> GetList()
+        {
+           return _categoryDal.GetListAll();
+        }
+
         public List<Recipe> GetListWithCategoryDetails(int id)
         {
             return _categoryDal.GetListWithCategoryDetails(id);
+        }
+
+        public void TAdd(Category t)
+        {
+            _categoryDal.Insert(t);
+        }
+
+        public void TDelete(Category t)
+        {
+            _categoryDal.Delete(t);
+        }
+
+        public void TUpdate(Category t)
+        {
+            _categoryDal.Update(t);
         }
     }
 }

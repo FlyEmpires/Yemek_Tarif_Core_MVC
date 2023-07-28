@@ -1,0 +1,42 @@
+﻿@model Recipe
+@{
+    ViewData["Title"] = "RecipeAdd";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+@using (Html.BeginForm("RecipeAdd", "Recipe", FormMethod.Post))
+{
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom01">Yemeğin Başlığı</label>
+            @Html.TextBoxFor(x=>x.ReceipeName,new{@class="form-control"})
+            @Html.ValidationMessageFor(x=>x.ReceipeName,"",new{@class="text-danger"})
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom02">Yemek Görseli</label>
+            @Html.TextBoxFor(x=>x.ReceipeImage,new{@class="form-control"})
+            @Html.ValidationMessageFor(x=>x.ReceipeImage,"",new{@class="text-danger"})
+
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom02">Yemek Küçük Görseli</label>
+            @Html.TextBoxFor(x=>x.ReceipeThumbnailImage,new{@class="form-control"})
+            @Html.ValidationMessageFor(x=>x.ReceipeThumbnailImage,"",new{@class="text-danger"})
+
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom02">Yemek Kategorisi</label>
+            @Html.DropDownListFor(x=>x.CategoryID,(List<SelectListItem>)ViewBag.cat,new{@class="form-control"})
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom02">Tarif Açıklaması</label>
+            @Html.TextAreaFor(x=>x.ReceipeDescription,15,3,new{@class="form-control"})
+            @Html.ValidationMessageFor(x=>x.ReceipeDescription,"",new{@class="text-danger"})
+
+        </div>
+    </div>
+    <button class="btn btn-primary">Tarifi Kaydet</button>
+
+
+}
