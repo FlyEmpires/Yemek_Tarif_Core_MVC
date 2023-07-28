@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Abstract;
+using BusinessLayer.ValidationRules;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
@@ -22,7 +23,7 @@ namespace BusinessLayer.Concrete
             _recipeDal = recipeDal;
         }
 
-        public Recipe GetByID(int id)
+        public Recipe TGetByID(int id)
         {
             return _recipeDal.GetByID(id);
         }
@@ -57,25 +58,13 @@ namespace BusinessLayer.Concrete
         {
             return _recipeDal.GetListAll();
         }
-
+        public List<Recipe> GetListWithCategoryByWriterBM(int id)
+        {
+            return _recipeDal.GetListWithCategoryByWriter(id);
+        }
         public List<Recipe> GetListWithCategoryAndWriter()
         {
             return _recipeDal.GetListWithCategoryAndWriter();
-        }
-
-        public void RecipeAdd(Recipe recipe)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RecipeDelete(Recipe recipe)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RecipeUpdate(Recipe recipe)
-        {
-            throw new NotImplementedException();
         }
 
         public List<Recipe> GetRecipeListWithWriter(int id)
@@ -91,6 +80,21 @@ namespace BusinessLayer.Concrete
         public List<Recipe> GetLast3Recipes()
         {
             return _recipeDal.GetListAll().Take(3).ToList();
+        }
+
+        public void TAdd(Recipe t)
+        {
+            _recipeDal.Insert(t);
+        }
+
+        public void TDelete(Recipe t)
+        {
+            _recipeDal.Delete(t);
+        }
+
+        public void TUpdate(Recipe t)
+        {
+            _recipeDal.Update(t);
         }
     }
 }

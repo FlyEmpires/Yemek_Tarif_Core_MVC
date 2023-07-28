@@ -1,0 +1,39 @@
+﻿@model List<Recipe>
+@{
+    ViewData["Title"] = "RecipeListByWriter";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Yemek Adı</th>
+        <th>Oluşturma Tarihi</th>
+        <th>Kategori</th>
+        <th>Durumu</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ReceipeID</td>
+            <td>@item.ReceipeName</td>
+            <td>@item.CreateDate</td>
+            <td>@item.CategoryID</td>
+            @if (item.RecipeStatus == true)
+            {
+                <td>Aktif</td>
+
+            }
+            else
+            {
+                <td>Aktif</td>
+            }
+            <td><a href="/Recipe/DeleteRecipe/@item.ReceipeID" onclick="return confirm('Silmek İstediğnize Emin misiniz?');" class="btn btn-danger">Sil</a></td>
+            <td><a href="/Recipe/EditRecipe/@item.ReceipeID" class="btn btn-success">Güncelle</a></td>
+        </tr>
+    }
+
+</table>
+<a href="/Recipe/RecipeAdd" class="btn btn-primary">Yeni Tarif Ekle</a>
+

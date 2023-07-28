@@ -31,5 +31,12 @@ namespace DataAccessLayer.EntityFramework
             }
         }
 
+        public List<Recipe> GetListWithCategoryByWriter(int id)
+        {
+            using (var ctx = new Context())
+            {
+                return ctx.Recipes.Include(x => x.Category).Where(x => x.WriterID==id).ToList();
+            }
+        }
     }
 }

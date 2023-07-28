@@ -35,7 +35,9 @@ namespace Yemek_Tarif_Core_MVC.Controllers
 		{
 			Context db = new();
 			var cityList = (from i in db.Cities.ToList() select i).ToList();
+			var districtList = (from d in db.Districts where SelectedDistrictID == d.DistrictID select d).ToList();
 			p.City = cityList;
+			p.District = districtList;
 			WriterValidator wv = new(geciciSifre);
 			ValidationResult results = wv.Validate(p);
 			if (results.IsValid)
@@ -56,6 +58,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
             }
 			else
 			{
+				p.DistrictID = SelectedDistrictID;
 				foreach (var item in results.Errors)
 				{
 					ModelState.AddModelError(item.PropertyName, item.ErrorMessage);

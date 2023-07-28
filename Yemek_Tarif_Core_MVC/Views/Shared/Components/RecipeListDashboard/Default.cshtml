@@ -1,0 +1,43 @@
+﻿@model List<Recipe>
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Son 5 Tarif</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> Yazar </th>
+                                <th> Tarif Adı</th>
+                                <th> Kategori</th>
+                                <th> Tarih </th>
+                                <th>Detaylar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.TakeLast(5))
+                            {
+                                
+                            <tr>
+                                <td>
+                                    <img src="/@item.ReceipeImage" class="mr-2" alt="image"> @item.ReceipeName
+                                </td>
+                                <td> @item.Writer.WriterName </td>
+                                <td>
+                                    <label class="badge badge-gradient-success">@item.Category.CategoryName</label>
+                                </td>
+                                <td> @item.CreateDate.ToString("d") </td>
+                                    <td>
+                                        <a class="btn btn-secondary" href="/Recipe/RecipeReadAll/@item.ReceipeID">Tarife Git</a>
+                                    </td>
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

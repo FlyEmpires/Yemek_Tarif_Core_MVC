@@ -1,0 +1,27 @@
+﻿@model Recipe
+@{
+    ViewData["Title"] = "EditRecipe";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<h1>Yemek Düzenleme Sayfası</h1>
+
+@using(Html.BeginForm("EditRecipe","Recipe",FormMethod.Post))
+{
+    @Html.Label("Yemek ID")
+    @Html.TextBoxFor(x=>x.ReceipeID,new{@class="form-control"})
+    @Html.Label("Yemek Adı")
+    @Html.TextBoxFor(x=>x.ReceipeName,new{@class="form-control"})
+    @Html.Label("Yemek Thumbnail URL")
+    @Html.TextBoxFor(x=>x.ReceipeThumbnailImage,new{@class="form-control"})
+    @Html.Label("Yemek Görseli")
+    @Html.TextBoxFor(x=>x.ReceipeImage,new{@class="form-control"})
+    @Html.Label("Yemek Oluşturma Tarihi")
+    @Html.TextBoxFor(x=>x.CreateDate,new{@class="form-control"})
+    @Html.Label("Yemek Kategorisi")
+    @Html.DropDownListFor(x=>x.CategoryID,(List<SelectListItem>)ViewBag.cat,new{@class="form-control"})
+    @Html.Label("Yemek İçeriği")
+    @Html.TextAreaFor(x=>x.ReceipeDescription,10,3,new{@class="form-control"})
+    <br />
+    <button class="btn btn-primary">Güncelle</button>
+}
