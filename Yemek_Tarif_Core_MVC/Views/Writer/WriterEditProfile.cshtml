@@ -1,0 +1,104 @@
+﻿@model Writer
+@{
+    ViewData["Title"] = "WriterEditProfile";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+@using (Html.BeginForm("WriterEditProfile", "Writer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Yazar Profil Bilgileri Düzenleme</h4>
+                <form class="forms-sample">
+                    <input type="hidden" name="WriterID" value="@Model.WriterID">
+                    <div class="form-group">
+                        <label for="exampleInputName1">İsim</label>
+                        <input type="text" asp-for="WriterName" class="form-control" id="exampleInputName1" placeholder="İsminiz">
+                        @Html.ValidationMessageFor(x=>x.WriterName,"",new{@class="text-danger"})
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail3">Mail Adresi</label>
+                        <input type="email" name="WriterMail" value="@Model.WriterMail" class="form-control" id="exampleInputEmail3" placeholder="Email">
+                        @Html.ValidationMessageFor(x=>x.WriterMail,"",new{@class="text-danger"})
+
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword4">Şifre</label>
+                        <input type="password" name="WriterPassword" value="@Model.WriterPassword" class="form-control" id="exampleInputPassword4" placeholder="Şifre">
+                        @Html.ValidationMessageFor(x=>x.WriterPassword,"",new{@class="text-danger"})
+
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword4">Şifrenizi Tekrar Giriniz</label>
+                        <input type="password" id="geciciSifre" name="geciciSifre" class="form-control" id="exampleInputPassword4" placeholder="Şifrenizi Tekrar Giriniz">
+                        @Html.ValidationMessageFor(x=>x.WriterPassword,"",new{@class="text-danger"})
+
+                    </div>
+                    <div class="form-group">
+                        <label>Yazar Görseli</label>
+
+                        <div class="input-group col-xs-12">
+                            <img id="imagePreview" src="/Tema/images/@Model.WriterImage" style="max-width:25%;height:40%" class="form-control file-upload-info" placeholder="Resim Seç">
+                        </div>
+                        <span class="input-group-append">
+                            <input type="file" style="display:none" id="fileInput" name="file" onchange="fileSelected(event)">
+                            <button class="file-upload-browse btn btn-gradient-primary upload-button" onclick="openFileUpload()" type="button">Yükle</button>
+                        </span>
+                        <input type="hidden" name="WriterImage" value="@Model.WriterImage">
+
+                    </div>
+                    <input type="hidden" name="CityID" value="@Model.CityID" class="form-control" id="exampleInputCity1" placeholder="Location">
+                    <input type="hidden" name="DistrictID" value="@Model.DistrictID" class="form-control" id="exampleInputCity1" placeholder="Location">
+
+                    @* <div class="form-group">
+                <label for="exampleInputCity1">Şehir</label>
+                <input type="hidden" name="CityID" value="@Model.CityID" class="form-control" id="exampleInputCity1" placeholder="Location">
+                </div>*@
+                    @*<div class="form-group">
+                <label for="exampleInputCity1">İlçe</label>
+                <input type="hidden"name="DistrictID" value="@Model.DistrictID" class="form-control" id="exampleInputCity1" placeholder="Location">
+                </div>*@
+                    <div class="form-group">
+                        <label for="exampleTextarea1">Yazar Hakkında</label>
+                        <textarea class="form-control" name="WriterAbout" id="exampleTextarea1" rows="4">@Model.WriterAbout</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-gradient-primary mr-2">Güncelle</button>
+                    <button type="button" id="btnCancel" class="btn btn-light">İptal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    function openFileUpload() {
+        document.getElementById('fileInput').click();
+    }
+
+    function fileSelected(event) {
+        var fileInput = event.target;
+        var file = fileInput.files[0];
+        // Dosya tipini kontrol edelim, sadece resim türlerini kabul edelim
+        if (file && file.type.startsWith('image/')) {
+            var reader = new FileReader();
+
+            //Resmin önizlemesi
+            reader.onload = function (e) {
+                var imagePreview = document.getElementById('imagePreview');
+                imagePreview.src = e.target.result;
+            };
+            // Resmi okuyup önizlemeyi güncelleyelim
+            reader.readAsDataURL(file);
+        }
+    }
+    //İptal butonuna basıldığında Dashboard'a yönlendirecek
+    $(document).ready(function () {
+        $("#btnCancel").click(function () {
+            window.location.href = "/Dashboard/Index";
+        });
+    });
+</script>
+
+

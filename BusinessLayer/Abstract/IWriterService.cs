@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Abstract
 {
-	public interface IWriterService
+	public interface IWriterService:IGenericService<Writer>
 	{
-		void WriterAdd(Writer writer);
 		Writer WriterLogin(Writer p);
+		List<Writer>GetWriterByID (int id);
+		int TotalRecipeCount();
+		int TotalRecipeCountByWriter(int id);
+		int TotalRecipeCountLast7Days();
 	}
 }

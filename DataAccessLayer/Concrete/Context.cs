@@ -13,6 +13,22 @@ namespace DataAccessLayer.Concrete
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"server=DESKTOP-CQ6VQ08\SQLEXPRESS;database=YemekTarifCore;integrated security=true;");
+            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+
+        }
+        protected override void OnModelCreating (ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Message>()
+                .HasOne(x => x.SenderWriter)
+                .WithMany(y => y.WriterSender)
+                .HasForeignKey(z => z.SenderID)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(x => x.ReceiverWriter)
+                .WithMany(y => y.WriterReceiver)
+                .HasForeignKey(z => z.ReceiverID)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
         public DbSet<About> Abouts { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
@@ -23,5 +39,8 @@ namespace DataAccessLayer.Concrete
         public DbSet<City> Cities { get; set; }
         public DbSet<NewsLetter> NewsLetters{ get; set; }
         public DbSet<District> Districts { get; set; }
+        public DbSet<RecipeRayting> RecipeRaytings{ get; set; }
+        public DbSet<Notification> Notifications{ get; set; }
+        public DbSet<Message> Messages{ get; set; }
     }
 }

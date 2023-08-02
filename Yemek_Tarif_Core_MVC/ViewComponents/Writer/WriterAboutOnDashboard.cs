@@ -1,16 +1,16 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Yemek_Tarif_Core_MVC.ViewComponents.Writer
 {
-    public class WriterNotification:ViewComponent
+    public class WriterAboutOnDashboard:ViewComponent
     {
-
-        NotificationManager nm = new(new EFNotificationRepository());
+        WriterManager wm = new(new EFWriterRepository());
         public IViewComponentResult Invoke()
         {
-            var values = nm.GetList();
+            var values = wm.GetWriterByID(1).FirstOrDefault();
             return View(values);
         }
     }
