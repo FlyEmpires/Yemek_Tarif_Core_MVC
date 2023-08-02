@@ -70,7 +70,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
             if (results.IsValid)
             {
                 p.RecipeStatus = true; //to do: Başlangıçta false olacak, sonradan admin onaylayacak
-                p.CreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                p.CreateDate =DateTime.Now;
                 p.WriterID = 1;
                 rm.TAdd(p);
                 return RedirectToAction("RecipeListByWriter", "Recipe");

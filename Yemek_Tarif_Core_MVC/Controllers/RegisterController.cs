@@ -52,7 +52,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
 			}
 			else
 			{
-					wm.WriterAdd(p.Writers);
+					wm.TAdd(p.Writers);
 			}
 			return RedirectToAction("Index","Recipe");
             }

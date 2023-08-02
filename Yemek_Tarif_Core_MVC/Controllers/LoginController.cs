@@ -35,7 +35,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
                 var userIdentity = new ClaimsIdentity(claims, "a");
                 ClaimsPrincipal principal = new(userIdentity);
                 await HttpContext.SignInAsync(principal);
-                return RedirectToAction("Index", "Writer");
+                return RedirectToAction("Index", "Default");
             }
             else
                 return View();
