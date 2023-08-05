@@ -10,7 +10,9 @@ namespace Yemek_Tarif_Core_MVC.ViewComponents.Writer
         WriterManager wm = new(new EFWriterRepository());
         public IViewComponentResult Invoke()
         {
-            var values = wm.GetWriterByID(1).FirstOrDefault();
+            var session = User.Identity.Name;
+            var writerID = wm.GetSessionByWriter(session).Select(x=>x.WriterID).FirstOrDefault();
+            var values = wm.GetWriterByID(writerID).FirstOrDefault();
             return View(values);
         }
     }

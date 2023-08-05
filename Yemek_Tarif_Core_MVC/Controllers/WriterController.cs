@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System;
 using Microsoft.Extensions.Hosting;
+using System.Linq;
 
 namespace Yemek_Tarif_Core_MVC.Controllers
 {
@@ -38,7 +39,9 @@ namespace Yemek_Tarif_Core_MVC.Controllers
         [HttpGet]
         public IActionResult WriterEditProfile()
         {
-            var writerValues = wm.TGetByID(1);
+            var session = User.Identity.Name;
+            var writerID = wm.GetSessionByWriter(session).Select(x => x.WriterID).FirstOrDefault();
+            var writerValues = wm.TGetByID(writerID);
             return View(writerValues);
         }
         [HttpPost]
