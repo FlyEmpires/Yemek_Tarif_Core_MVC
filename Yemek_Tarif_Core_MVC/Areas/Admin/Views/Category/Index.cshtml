@@ -1,0 +1,72 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<EntityLayer.Concrete.Category>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.css">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Kategori Adı</th>
+        <th>Aktif Yap</th>
+        <th>Pasif Yap</th>
+        <th>Detaylar</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.CategoryID</td>
+            <td>@item.CategoryName</td>
+            <td>
+                <a href="#" class="btn btn-primary dim"><i class="fa fa-check"> Aktif Yap</i></a>
+
+        </td>
+            <td><a href="/Admin/Category/CategoryDelete/@item.CategoryID" class="btn btn-danger btn-rounded btn-outline" onclick="functionConfirm(event, @item.CategoryID)">Pasif Yap</a></td>
+            <td><a href="#" class="btn btn-info"><i class="fa fa-paste"> Düzenle</i></a></td>
+        </tr>
+    }
+</table>
+<a href="/Admin/Category/AddCategory" class="btn btn-primary" style="margin-top:20px;margin-bottom:20px;">Yeni Kategori Ekle</a>
+
+@Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index",new{page}))
+<script>
+    function functionConfirm(event, categoryID) {
+        event.preventDefault(); // Varsayılan davranışı engelle
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Emin misiniz?',
+            text: "Bu işlem geri alınamaz!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, sil!',
+            cancelButtonText: 'Hayır, iptal',
+            reverseButtons: true
+            //timer: 3000
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/Admin/Category/CategoryDelete/' + categoryID;
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire(
+                    'İptal edildi',
+                    '',
+                    'error'
+                );
+            }
+        });
+    }
+</script>

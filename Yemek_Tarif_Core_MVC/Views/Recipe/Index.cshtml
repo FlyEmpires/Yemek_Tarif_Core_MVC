@@ -109,7 +109,7 @@
                                 <i class="far fa-comment">@item.ReceipeDescription</i>
 
                                 }*@
-                                    @(item.ReceipeDescription.Length > 50 ? item.ReceipeDescription.Substring(0, item.ReceipeDescription.Substring(0, 130).LastIndexOf(" ")) : item.ReceipeDescription)
+                                    @(item.ReceipeDescription.Length > 50 ? item.ReceipeDescription.Substring(0, item.ReceipeDescription.Substring(0, 50).LastIndexOf(" ")) : item.ReceipeDescription)
                                 </p>
                                 <a href="/Recipe/RecipeReadAll/@item.ReceipeID" class="btn btn-primary read-m" style="border-radius:30px;">Devamını Oku</a>
                             </div>

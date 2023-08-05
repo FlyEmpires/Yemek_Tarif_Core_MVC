@@ -70,8 +70,14 @@ namespace Yemek_Tarif_Core_MVC
 
             app.UseAuthorization();
 
+            //Areas klasörü için gerekli olan konfigürasyon ayarlarý
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+          );
+                //proje herhangi bir noktadan baþlatýldýðýnda açýlacak ilk sayfa
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Recipe}/{action=Index}/{id?}");

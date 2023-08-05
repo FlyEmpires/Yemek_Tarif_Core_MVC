@@ -96,5 +96,11 @@ namespace BusinessLayer.Concrete
             var values = (from writer in db.Writers where writer.WriterMail == p.WriterMail && writer.WriterPassword == p.WriterPassword select writer).FirstOrDefault();
             return values;
         }
+        public List<Writer> GetSessionByWriter(string p)
+        {
+     
+            var values = _writerDal.GetListAll(x => x.WriterMail == p);
+            return values;
+        }
     }
 }
