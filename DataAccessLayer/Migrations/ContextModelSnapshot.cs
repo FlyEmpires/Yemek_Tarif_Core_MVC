@@ -49,6 +49,36 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Abouts");
                 });
 
+            modelBuilder.Entity("EntityLayer.Concrete.Admin", b =>
+                {
+                    b.Property<int>("AdminID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AdminID");
+
+                    b.ToTable("Admins");
+                });
+
             modelBuilder.Entity("EntityLayer.Concrete.Category", b =>
                 {
                     b.Property<int>("CategoryID")
@@ -72,15 +102,15 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("EntityLayer.Concrete.City", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CityID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Name")
+                    b.Property<string>("CityName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("CityID");
 
                     b.ToTable("Cities");
                 });
@@ -154,18 +184,15 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("CityId")
+                    b.Property<int>("CityID")
                         .HasColumnType("int");
 
                     b.Property<string>("DistrictName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.HasKey("DistrictID");
 
-                    b.HasIndex("CityId");
+                    b.HasIndex("CityID");
 
                     b.ToTable("Districts");
                 });
@@ -370,8 +397,10 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("EntityLayer.Concrete.District", b =>
                 {
                     b.HasOne("EntityLayer.Concrete.City", "City")
-                        .WithMany("Districts")
-                        .HasForeignKey("CityId");
+                        .WithMany("District")
+                        .HasForeignKey("CityID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("City");
                 });
@@ -436,7 +465,7 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("EntityLayer.Concrete.City", b =>
                 {
-                    b.Navigation("Districts");
+                    b.Navigation("District");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Recipe", b =>

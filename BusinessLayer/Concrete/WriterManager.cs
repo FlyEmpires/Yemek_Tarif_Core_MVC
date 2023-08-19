@@ -2,6 +2,7 @@
 using DataAccessLayer;
 using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
+using EntityLayer.ViewModel;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -23,7 +24,7 @@ namespace BusinessLayer.Concrete
 
         public List<Writer> GetList()
         {
-            throw new NotImplementedException();
+         return _writerDal.GetListAll();
         }
 
         public List<Writer> GetWriterByID(int id)
@@ -45,7 +46,11 @@ namespace BusinessLayer.Concrete
         {
             return _writerDal.GetByID(id);
         }
-
+        public int TotalMessageCount()
+        {
+            var values = from message in db.Messages select message;
+            return values.Count();
+        }
         public int TotalRecipeCount()
         {
             var values = from recipe in db.Recipes select recipe;
@@ -85,6 +90,7 @@ namespace BusinessLayer.Concrete
         {
             _writerDal.Update(t);
         }
+       
 
         //public void WriterAdd(Writer writer)
         //{

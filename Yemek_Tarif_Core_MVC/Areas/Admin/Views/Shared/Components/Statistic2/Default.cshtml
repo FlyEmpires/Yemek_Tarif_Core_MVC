@@ -1,0 +1,47 @@
+﻿<div class="row">
+    <div class="col-lg-6">
+        <div class="widget navy-bg no-padding">
+            <div class="p-m">
+                <h1 class="m-xs no-margins">Dashboard</h1>
+
+                <h3 class="font-bold no-margins" >
+                    ASP.NET CORE
+                </h3>
+                <small>Projemizin bu kısımlarında Admin işlemleri bir Area yapısı üzerinden gerçekleşmektedir. Sol taraftan ilgili menü'ye tıklayıp istediğiniz konu hakkında yardım alabilirsiniz.</small>
+            </div>
+            <div class="flot-chart">
+                <div class="flot-chart-content" id="flot-chart1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="widget lazur-bg no-padding">
+            <div class="p-m">
+                <h1 class="m-xs">Son Yayınlanan Tarif</h1>
+
+                <h2 class="font-bold no-margins">
+                    <a href="/Recipe/RecipeReadAll/@ViewBag.lastRecipeID">@ViewBag.lastRecipe</a>
+                </h2>
+                <small></small>
+            </div>
+            <div class="flot-chart">
+                <div class="flot-chart-content" id="flot-chart2"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="widget yellw-bg no-padding">
+            <div class="p-m">
+                <h1 class="m-xs">$ 50,992</h1>
+
+                <h3 class="font-bold no-margins">
+                    Half-year revenue margin
+                </h3>
+                <small>Sales marketing.</small>
+            </div>
+            <div class="flot-chart">
+                <div class="flot-chart-content" id="flot-chart3"></div>
+            </div>
+        </div>
+    </div>
+</div>

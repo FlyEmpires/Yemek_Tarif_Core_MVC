@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<div id="chart_div"></div>
+<script type="text/javascript">
+
+
+    google.charts.load('current', {
+        packages: ['corechart', 'bar']
+    });
+    google.charts.setOnLoadCallback(LoadData);
+
+    function LoadData() {
+        $.ajax({
+
+            url: '/Admin/Chart/PieChart',
+            dataType: "json",
+            type: "GET",
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                toastr.error(err.message);
+            },
+            success: function (data) {
+                PopulationChart(data);
+                return false;
+            }
+        });
+        return false;
+    }
+
+    function PopulationChart(data) {
+        var dataArray = [
+            ['Kategori Adı', 'Yemek Sayısı']
+        ];
+        $.each(data, function (i, item) {
+            dataArray.push([item.kategoriadi, item.yemeksayisi]);
+        });
+        var data = google.visualization.arrayToDataTable(dataArray);
+        document.getElementById('chart_div').style.width = '800px'; 
+        document.getElementById('chart_div').style.height = '400px';
+        document.getElementById('chart_div').style.fontSize = '16px';
+        var options = {
+            title: "Kategoriye Ait Yemek Sayısı"
+            //title: 'Kategoriye ait  yemek sayısı ',
+            //chartArea: {
+            //    width: '100%'
+            //},
+            //fontsize:"16px",
+            //position:"top",
+            //colors: ['#000000', '#97ffff', '#008b00', '#d95f02'],
+            //hAxis: {
+            //    title: 'kategoriadi',
+            //    minValue: 0
+            //},
+            //vAxis: {
+            //    title: 'Total Population'
+            //}
+
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+
+        chart.draw(data,options);
+        
+
+        return false;
+    }
+</script>
+

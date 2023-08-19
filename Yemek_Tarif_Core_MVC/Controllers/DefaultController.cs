@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using BusinessLayer.Concrete;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.EntityFramework;
+using JetBrains.Annotations;
 
 namespace Yemek_Tarif_Core_MVC.Controllers
 {
@@ -26,9 +27,36 @@ namespace Yemek_Tarif_Core_MVC.Controllers
 		
             return View(values);
 		}
+		static public async Task<string> Derece()
+		{
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://weatherapi-com.p.rapidapi.com");
+                client.DefaultRequestHeaders.Add("X-RapidAPI-Key", "9ad07b8d6cmshfaaf9e433c4d7f3p1a14afjsnd04f7cbf5e8b");
+                client.DefaultRequestHeaders.Add("X-RapidAPI-Host", "weatherapi-com.p.rapidapi.com");
 
+                var response = await client.GetAsync("/current.json?q=37.8716%2C32.4846");//Konya'nın enlem ve boylamına göre çalışır
+                                                                                          //To do: Lokasyon her gün değişecek
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    JObject data = JObject.Parse(json);
+                    string temperature = data["current"]["temp_c"].ToString();
+                    string zaman = data["current"]["last_updated"].ToString();
+                    string lokasyon = data["location"]["name"].ToString();
+                    var havaDurumu = $"Sıcaklık: {temperature} Derece\n {lokasyon}";
+                    return havaDurumu;
+                }
+
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
 		
-        public async Task<string> HavaDurumuApi()
+       static public async Task<string> HavaDurumuApi()
         {
 			using (var client = new HttpClient())
 			{
@@ -47,8 +75,9 @@ namespace Yemek_Tarif_Core_MVC.Controllers
 					string zaman = data["current"]["last_updated"].ToString();
 					string lokasyon = data["location"]["name"].ToString();
 					var havaDurumu= $"Sıcaklık: {temperature} Derece\nTarih : {DateTime.Parse(zaman):dd MMMM yyyy}, {lokasyon}";
-					return havaDurumu;
+					return havaDurumu;	
 				}
+			
 				else
 				{
 					return string.Empty;
