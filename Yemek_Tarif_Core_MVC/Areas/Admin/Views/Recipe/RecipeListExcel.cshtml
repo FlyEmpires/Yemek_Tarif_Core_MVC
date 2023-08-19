@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewData["Title"] = "RecipeListExcel";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<button class="btn btn-primary" onclick="DownloadEXCEL()">EXCEL OLARAK İNDİR</button>
+<script>
+    function DownloadEXCEL(){
+        window.location.href = '/Admin/Recipe/ExportDynamicRecipeList';
+    }
+</script>

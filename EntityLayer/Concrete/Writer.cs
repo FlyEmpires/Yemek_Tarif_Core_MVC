@@ -18,8 +18,8 @@ namespace EntityLayer.Concrete
         public string WriterPassword { get; set; }
         public bool WriterStatus { get; set; }
         public List<Recipe> Recipes { get; set; }
-        public City City { get; set; }
-        public District District{ get; set; }
+        //public City City { get; set; }
+        //public District District { get; set; }
         public int CityID { get; set; }
         public int DistrictID { get; set; }
         public ICollection<Message> WriterSender { get; set; }

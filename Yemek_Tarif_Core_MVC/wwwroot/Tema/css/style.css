@@ -565,7 +565,7 @@ section.bottom-slider {
 	}
 	.nbs-flexisel-ul {
 		position: relative;
-		width: 9999px;
+		width: 100010px; /*eski deðeri: 9999*/
 		margin: 0px;
 		padding: 0px;
 		list-style-type: none;

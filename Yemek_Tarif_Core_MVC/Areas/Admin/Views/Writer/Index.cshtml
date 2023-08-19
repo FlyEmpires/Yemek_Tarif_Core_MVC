@@ -1,0 +1,323 @@
+﻿@model EntityLayer.ViewModel.WriterCityViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<button type="button" style="margin-bottom:20px;" id="btnGetWriter" class="btn btn-success">Tüm Yazarları Getir</button>
+<table id="data-table" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Ad</th>
+            <th>Sil</th>
+            <th>Düzenle</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<div id="writerGet">
+</div>
+
+<div class="form-group row" style="margin-top:20px;">
+    <div class="col-xs-4">
+        <input type="number" id="writerID" placeholder="Yazar ID değeri girin" class="form-control" />
+    </div>
+    <button type="button" id="btnGetByID" style="margin-left:10px;" class="btn btn-success">Yazar Getir</button>
+</div>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="">Yazar Ekle</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Yazar Ekleme Girişi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Yazar Adı:</label>
+                        <input type="text" class="form-control" id="txtWriterName">
+                        @Html.ValidationMessageFor(x=>x.Writers.WriterName,"",new{@class="text-danger"})
+                        <span id="txtWriterNameError" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Mail Adresi:</label>
+                        <input type="text" class="form-control" id="txtMail">
+                        @Html.ValidationMessageFor(x=>x.Writers.WriterMail,"",new{@class="text-danger"})
+                        <span id="txtMailError" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Şifre:</label>
+                        <input type="text" class="form-control" id="txtPass">
+                        @Html.ValidationMessageFor(x=>x.Writers.WriterPassword,"",new{@class="text-danger"})
+                        <span id="txtPassError" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Şifre:</label>
+                        <input type="password" name="geciciSifre" id="geciciSifre" class="form-control" />
+                        @Html.ValidationMessageFor(x=>x.Writers.WriterPassword,"",new{@class="text-danger"})
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Şehir Seçiniz:</label>
+                        @Html.DropDownListFor(x=>x.SelectedCityID,(List<SelectListItem>)ViewBag.city,new{@class="form-control",@id="CityID"})
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">İlçe Seçiniz:</label>
+                        @Html.DropDownListFor(x=>x.DistrictID,(List<SelectListItem>)ViewBag.district,new{@class="form-control",@id="DistrictID"})
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                <button type="button" id="btnSave" class="btn btn-primary">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="writerUpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="writerUpdateModalLabel">Yazar Güncelleme</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Yazar Adı:</label>
+                        <input type="text" class="form-control" id="txtWriterNameUpdate">
+                        @Html.ValidationMessageFor(x=>x.Writers.WriterName,"",new{@class="text-danger"})
+                        <span id="txtWriterNameErrorUpdate" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Mail Adresi:</label>
+                        <input type="text" class="form-control" id="txtMailUpdate">
+                        @Html.ValidationMessageFor(x=>x.Writers.WriterMail,"",new{@class="text-danger"})
+                        <span id="txtMailErrorUpdate" class="text-danger"></span>
+
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Şehir Seçiniz:</label>
+                        @Html.DropDownListFor(x=>x.SelectedCityID,(List<SelectListItem>)ViewBag.city,new{@class="form-control",@id="CityIDUpdate"})
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">İlçe Seçiniz:</label>
+                        @Html.DropDownListFor(x=>x.DistrictID,(List<SelectListItem>)ViewBag.district,new{@class="form-control",@id="DistrictIDUpdate"})
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                <button type="button" id="btnUpdate" class="btn btn-primary">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    
+    let writerID=0;
+    $(document).ready(function () {
+       
+        var dataTable = $('#data-table tbody');
+
+        loadData()
+
+        $("#btnGetWriter").click(function () {
+            loadData()
+        });
+        $("#btnUpdate").click(function () {
+
+            UpdateWriter()
+        });
+
+
+        $("#btnGetByID").click(function () {
+            var writerID = $("#writerID").val();
+            $.ajax({
+                url: '/Admin/Writer/GetWriterByID/',
+                method: 'GET',
+                dataType:"json",
+                data: { writerid: writerID },
+                success: function (data) {
+                        var dataTable = $('#data-table tbody');
+                        
+                        var parseJson = jQuery.parseJSON(data);
+                        if (parseJson[0]==null){
+                       alert("Aradğınız Yazar Bulunamadı.!");
+                        }
+                        else{
+                            dataTable.empty();
+                        dataTable.append('<tr><td>' + parseJson[0].WriterID + '</td><td>' + parseJson[0].WriterName + '</td></tr>');
+
+                        }
+                    },
+                
+                error: function (xhr, status, error) {
+                    alert("İşlem başarısız oldu. Hata: " + error);
+                }
+            });
+        });
+        $("#CityID").change(function () {
+            populateDistricts($(this)); //this diyerek CityID'nin değerini gönderiyoruz parametre olarak
+        });
+
+        $("#CityIDUpdate").change(function () {
+            populateDistricts($(this));
+        });
+      
+
+        $("#btnSave").click(function () {
+            var Writers = { //JavaScript objesi oluşturup onun içersinde dataları tek seferde daha az parametre kullanrak göndermiş oluyoruz.
+                WriterName: $("#txtWriterName").val(),
+                WriterMail: $("#txtMail").val(),
+                WriterPassword: $("#txtPass").val(),
+                CityID: $("#CityID").val(),
+                DistrictID: $("#DistrictID").val()
+            };
+            var geciciSifre = $("#geciciSifre").val();
+            var SelectedDistrictID = $("#DistrictID").val();
+            $.ajax({
+                url: '/Admin/Writer/WriterAdd/',
+                method: 'POST',
+                data: { Writers: Writers, geciciSifre: geciciSifre, SelectedDistrictID: SelectedDistrictID },
+                success: function (response) {
+                    if (response.isSuccess) {
+                        alert("Yazar başarılı bir şekilde eklenmiştir");
+                        window.location.href = '/Admin/Writer/Index';
+                    } else {
+                        if (response.errorMessage) {
+                            $("#txtWriterNameError").text(response.errorMessage["Writers.WriterName"]);
+                            $("#txtMailError").text(response.errorMessage["Writers.WriterMail"]);
+                            $("#txtPassError").text(response.errorMessage["Writers.WriterPassword"]);
+                        } else {
+                            console.log("Hata mesajlarına erişilemedi.");
+                        }
+
+                    }
+                }
+            });
+        });
+
+        $("form").submit(function (event) {
+            var selectedDistrict = $("#DistrictID").val();
+            var selectedCity = $("#CityID").val();
+            $("#SelectedCityID").val(selectedCity);
+            $("#SelectedDistrictID").val(selectedDistrict);
+        });
+
+        
+
+        function loadData() {
+            $.ajax({
+                url: '/Admin/Writer/WriterList',
+                method: 'GET',
+                success: function (data) {
+                    //var dataTable = $('#data-table tbody');
+                    dataTable.empty();
+                    $.each(data, function (index, item) {
+                        dataTable.append('<tr><td>' + item.writerID + '</td><td>' + item.writerName + '</td> <td> <a onclick="deleteWriter(' + item.writerID + ')" id="updateButton" class="btn btn-danger">Sil</a> </td> <td> <a class="btn btn-info" onclick="getUpdateWriter(' + item.writerID + ')" data-toggle="modal" data-target="#writerUpdateModal" data-whatever=""> <i class="fa fa-paste"> Düzenle</i></a></td> </tr>');
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+    function deleteWriter(id) {
+        if (confirm("Yazarı silmek istediğinize emin misiniz?")) {
+
+            $.ajax({
+                url: '/Admin/Writer/WriterDelete',
+                method: 'GET',
+                data: { id: id },
+                success: function (data) {
+
+                    window.location.href = '/Admin/Writer/Index';
+                }
+            });
+        }
+    }
+
+    function getUpdateWriter(id){
+        writerID=id;
+        $.ajax({
+            url:'/Admin/Writer/GetWriterUpdate',
+            method:'GET',
+            data:{id:id},
+            success:function(data){
+                $("#txtWriterNameUpdate").val(data.writerName);
+                $("#txtMailUpdate").val(data.writerMail);
+                $("#CityIDUpdate").val(data.cityID);
+                $("#DistrictIDUpdate").val(data.districtID);
+                console.log(data);
+            }
+
+        });
+    }
+
+
+         function UpdateWriter() {
+
+        var Writers = {
+            WriterID:writerID,
+            WriterName: $("#txtWriterNameUpdate").val(),
+            WriterMail: $("#txtMailUpdate").val(),
+            CityID: $("#CityIDUpdate").val(),
+            DistrictID: $("#DistrictIDUpdate").val()
+             };
+        console.log(Writers);
+
+        $.ajax({
+            url: '/Admin/Writer/GetUpdate',
+            method: 'POST',
+            data: {Writers:Writers },
+            success: function (data) {
+                console.log(data);
+                window.location.href='/Admin/Writer/Index';
+            }
+
+        });
+    }
+    function populateDistricts(selectedDropdown) {
+        var selectedCity = selectedDropdown.val();
+        var url = "/Register/City/" + selectedCity;
+        $.post(url, { selectedCity: selectedCity }, function (data) {
+            var districtDropdown = $("#DistrictID");
+            var districtDropdownUpdate = $("#DistrictIDUpdate");
+            districtDropdown.empty();
+            districtDropdownUpdate.empty();
+            $.each(data, function (index, district) {
+                districtDropdown.append($("<option></option>")
+                    .val(district.districtID)
+                    .text(district.districtName));
+            });
+            //update fonksiyonu için
+            $.each(data, function (index, district) {
+                districtDropdownUpdate.append($("<option></option>")
+                    .val(district.districtID)
+                    .text(district.districtName));
+            });
+        });
+    }
+
+</script>
+

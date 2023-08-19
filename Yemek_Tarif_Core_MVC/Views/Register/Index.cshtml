@@ -47,21 +47,20 @@
                         <div class="col-md-6 mb-3">
                             <label for="validationCustom01">Şehir Seçiniz</label>
                             @*@Html.DropDownListFor(model => model.SelectedCityID, new SelectList(Model.City, "Id", "Name"))*@
-                            @Html.DropDownListFor(model => model.City, Model.City.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }),new{@id="CityID",@class="form-control"})
+                            @Html.DropDownListFor(model => model.City, Model.City.Select(x => new SelectListItem { Text = x.CityName, Value = x.CityID.ToString() }),new{@id="CityID",@class="form-control"})
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="validationCustom01">İlçe Seçiniz</label>
                             @Html.DropDownListFor(model => model.District, Model.District.Select(x => new SelectListItem { Text = x.DistrictName, Value = x.DistrictID.ToString() }),new{@id="DistrictID",@class="form-control"})
                             <input type="hidden" id="SelectedCityID" name="SelectedCityID" value="" />
                             <input type="hidden" id="SelectedDistrictID" name="SelectedDistrictID" value="" />
-                       </div>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary submit mb-4">Kayıt Ol</button>
                     <p>
                         <a href="#" id="btn1">Kayıt olduktan sonra şartlarımızı kabul etmiş sayılırsınız. Okumak için tıklayınız.</a>
                     </p>
-                }
-                <h2>@ViewBag.hata</h2>
+                }                <h2>@ViewBag.hata</h2>
                 @*</form>*@
             </div>
             <br />
