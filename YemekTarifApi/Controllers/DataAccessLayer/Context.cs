@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using YemekTarifApi.Controllers.EntityLayer.Concrete;
 
 namespace YemekTarifApi.Controllers.DataAccessLayer
 {
@@ -6,9 +7,9 @@ namespace YemekTarifApi.Controllers.DataAccessLayer
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"server=DESKTOP-CQ6VQ08\SQLEXPRESS;database=YemekTarifCore;integrated security=true;TrustServerCertificate=true");
+            optionsBuilder.UseSqlServer(@"server=DESKTOP-CQ6VQ08\SQLEXPRESS;database=YemekTarifAPIDB;integrated security=true;TrustServerCertificate=true");
 
         }
-        public DbSet<Employee> Employees { get; set; }
+        public DbSet<NewsLetters> NewsLetters { get; set; }
     }
 }
