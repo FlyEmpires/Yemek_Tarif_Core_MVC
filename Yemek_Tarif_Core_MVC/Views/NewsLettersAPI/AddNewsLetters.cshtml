@@ -1,0 +1,14 @@
+﻿@model NewsLetterstDTO
+@{
+    ViewData["Title"] = "AddNewsLetters";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<form method="post">
+    <label>
+        Mail Adı
+    </label>
+    <input type="text" asp-for="Mail" class="form-control" />
+    <br />
+    <button type="submit" class="btn btn-success">Kaydet</button>
+</form>

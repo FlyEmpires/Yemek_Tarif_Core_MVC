@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace DataAccessLayer.Migrations
 {
-    public partial class mig_writer_city : Migration
+    public partial class mig_citydistrict : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,7 +24,7 @@ namespace DataAccessLayer.Migrations
                 column: "CityID",
                 principalTable: "Cities",
                 principalColumn: "CityID",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Writers_Districts_DistrictID",
@@ -30,7 +32,7 @@ namespace DataAccessLayer.Migrations
                 column: "DistrictID",
                 principalTable: "Districts",
                 principalColumn: "DistrictID",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

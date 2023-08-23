@@ -1,0 +1,112 @@
+﻿@model List<NewsLetterstDTO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<div class="ibox-content">
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Mail</th>
+                <th>Mail Durumu</th>
+                <th>Sil</th>
+                <th>Düzenle</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.MailID</td>
+                    <td>@item.Mail</td>
+                    <td>@item.MailStatus</td>
+                    <td><a href="#" onclick="deleteNewsLetters('@item.MailID')" class="btn btn-danger btn-rounded btn-outline">Sil</a></td>
+                    <td><a href="#" data-toggle="modal" data-target="#newsLetterUpdateModal" onclick="getNewsLettersUpdate('@item.MailID')" class="btn btn-info"><i class="fa fa-paste">Düzenle</i></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a href="/NewsLettersAPI/AddNewsLetters" class="btn btn-info">Mail Ekle</a>
+</div>
+<div class="modal fade" id="newsLetterUpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newsLetterUpdateModalLabel">Mail Güncelleme</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Mail</label>
+                        <input type="text" class="form-control" id="txtMail">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                <button type="button" id="btnUpdate" class="btn btn-primary">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let MailID = 0;
+    $(document).ready(function () {
+        $("#btnUpdate").click(function () {
+            newsLettersUpdate()
+        });
+    });
+    function getNewsLettersUpdate(id) {
+        MailID = id;
+        $.ajax({
+            url: '/NewsLettersAPI/UpdateNewsLetters',
+            method: 'GET',
+            data: { id: id },
+            success: function (data) {
+                $("#txtMail").val(data.mail);
+            }
+
+        });
+    }
+
+    function newsLettersUpdate() {
+        //let Mail = {
+        //    MailID: MailID,
+        //    Mail: $("#txtMail").val()
+        //};
+        $.ajax({
+            url: '/NewsLettersAPI/UpdateNewsLetters',
+            method: 'POST',
+            data: { Mail: $("#txtMail").val(),MailID:MailID },
+            success: function (data) {
+                console.log(data);
+                window.location.href = '/NewsLettersAPI/Index';
+            }
+
+        });
+    }
+
+    function deleteNewsLetters(id){
+        if (confirm("Yazarı silmek istediğinize emin misiniz?")) {
+        $.ajax({
+            url:'/NewsLettersAPI/DeleteNewsLetters',
+            method:'GET',
+            data:{id:id},
+                success: function (data) {
+                window.location.href = '/NewsLettersAPI/Index';
+                console.log(data);
+                
+            }
+        });
+        }
+    }
+</script>
