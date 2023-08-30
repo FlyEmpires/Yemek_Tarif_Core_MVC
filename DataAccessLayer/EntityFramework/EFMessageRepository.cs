@@ -11,13 +11,21 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.EntityFramework
 {
-    public class EFMessageRepository:GenericRepository<Message>,IMessageDal
+    public class EFMessageRepository:GenericRepository<WriterMessage>,IMessageDal
     {
-        public List<Message> GetMessageListWithWriter()
+        public List<WriterMessage> GetMessageListWithWriter(int id)
         {
             using (var ctx = new Context())
             {
-                return ctx.Messages.Include(x => x.SenderWriter).Where(x=>x.ReceiverID==1).ToList();
+                return ctx.Messages.Include(x => x.SenderWriter).Where(x => x.ReceiverID == id).ToList();
+            }
+        }
+
+        public List<WriterMessage> GetSendboxListWithWriter(int id)
+        {
+            using (var ctx = new Context())
+            {
+                return ctx.Messages.Include(x => x.ReceiverWriter).Where(x => x.SenderID == id).ToList();
             }
         }
     }

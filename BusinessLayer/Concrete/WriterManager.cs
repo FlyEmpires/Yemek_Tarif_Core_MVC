@@ -51,7 +51,7 @@ namespace BusinessLayer.Concrete
             var values = from message in db.Messages select message;
             return values.Count();
         }
-        public int TotalRecipeCount()
+        public int? TotalRecipeCount()
         {
             var values = from recipe in db.Recipes select recipe;
             return values.Count();
@@ -107,6 +107,11 @@ namespace BusinessLayer.Concrete
      
             var values = _writerDal.GetListAll(x => x.WriterMail == p);
             return values;
+        }
+        public string GetWriterMail(string username)
+        {
+            var values = db.Users.Where(x => x.UserName== username).Select(x => x.Email).FirstOrDefault();
+            return values.ToString();
         }
     }
 }

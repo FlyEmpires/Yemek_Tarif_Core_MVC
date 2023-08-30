@@ -1,4 +1,4 @@
-﻿@model List<Message>
+﻿@model List<WriterMessage>
 @{
     ViewData["Title"] = "Inbox";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
@@ -27,8 +27,8 @@
                             @item.Subject
                         </td>
                         <td>
-                            <img src="@item.SenderWriter.WriterImage" alt="image">
-                            @item.SenderWriter.WriterName
+                            @* <img src="@item.SenderWriter.WriterImage" alt="image"> *@
+                            @item.SenderWriter.NameSurname
                         </td>
                         <td>
                            @item.MessageDate
@@ -38,6 +38,8 @@
                     }
                 </tbody>
             </table>
+            <a href="/Message/SendMessage" class="btn btn-info">Yeni Mesaj Oluştur</a>
+
         </div>
     </div>
 </div>

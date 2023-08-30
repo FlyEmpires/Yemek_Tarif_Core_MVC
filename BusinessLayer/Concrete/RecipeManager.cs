@@ -69,7 +69,7 @@ namespace BusinessLayer.Concrete
 
         public List<Recipe> GetRecipeListWithWriter(int id)
         {
-            return _recipeDal.GetListAll(x => x.WriterID == id);
+            return _recipeDal.GetListAll(x => x.AppUserID == id);
 
         }
 

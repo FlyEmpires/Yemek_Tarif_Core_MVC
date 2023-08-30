@@ -1,4 +1,6 @@
-﻿<nav class="sidebar sidebar-offcanvas" id="sidebar">
+﻿@using Microsoft.AspNetCore.Identity;
+
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile">
             <a href="#" class="nav-link">
@@ -8,8 +10,10 @@
                     <!--change to offline or busy as needed-->
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
-                    <span class="font-weight-bold mb-2">Talha Acar</span>
-                    <span class="text-secondary text-small">Bilgisayar Programcısı</span>
+                 
+                    <span class="font-weight-bold mb-2"></span>
+                    <span class="text-secondary text-small">@User.Identity.Name</span>
+                    <span class="text-secondary text-small">@ViewBag.NameSurname</span>
                 </div>
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
             </a>
@@ -39,9 +43,15 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="~/writer/pages/tables/basic-table.html">
-                <span class="menu-title">Mesajlar</span>
+            <a class="nav-link" href="/Message/Inbox">
+                <span class="menu-title">Gelen Mesajlar</span>
                 <i class="mdi mdi-message menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Message/SendBox">
+                <span class="menu-title">Giden Mesajlar</span>
+                <i class="mdi mdi-message-draw menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
@@ -63,7 +73,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="~/writer/pages/tables/basic-table.html">
+            <a class="nav-link" href="/Account/LogOut">
                 <span class="menu-title">Çıkış Yap</span>
                 <i class="mdi mdi-logout menu-icon"></i>
             </a>
