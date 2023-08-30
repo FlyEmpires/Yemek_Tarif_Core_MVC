@@ -18,7 +18,7 @@ namespace DataAccessLayer.EntityFramework
         {
             using (var ctx=new Context())
             {
-                return ctx.Recipes.Include(x => x.Category).Include(x=>x.Writer).ToList();
+                return ctx.Recipes.Include(x => x.Category).Include(x=>x.AppUser).ToList();
             }
         }
 
@@ -35,7 +35,7 @@ namespace DataAccessLayer.EntityFramework
         {
             using (var ctx = new Context())
             {
-                return ctx.Recipes.Include(x => x.Category).Where(x => x.WriterID==id).ToList();
+                return ctx.Recipes.Include(x => x.Category).Where(x => x.AppUserID==id).ToList();
             }
         }
     }

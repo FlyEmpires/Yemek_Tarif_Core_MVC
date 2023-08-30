@@ -1,0 +1,39 @@
+﻿@model WriterMessage
+@{
+    ViewData["Title"] = "SendMessage";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+@using (Html.BeginForm("SendMessage", "Message", FormMethod.Post))
+{
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom01">Kime?</label>
+            <input type="text" class="form-control" name="userName" placeholder="Gönderilecek Kişinin Kullanıcı Adı:">
+            @if (ViewBag.hata!=null)
+            {
+                <span class="text-danger">@ViewBag.hata</span>
+            }
+           @*  @Html.TextBoxFor(x=>x.Subject,new{@class="form-control"})
+            @Html.ValidationMessageFor(x=>x.Subject,"",new{@class="text-danger"}) *@
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom01">Mesaj Konusu</label>
+            @Html.TextBoxFor(x=>x.Subject,new{@class="form-control"})
+            @Html.ValidationMessageFor(x=>x.Subject,"",new{@class="text-danger"})
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom02">Mesaj Açıklaması</label>
+            @Html.TextBoxFor(x=>x.MessageDetails,new{@class="form-control"})
+            @Html.ValidationMessageFor(x=>x.MessageDetails,"",new{@class="text-danger"})
+
+        </div>
+        
+    </div>
+    <button class="btn btn-primary">Mesajı Gönder</button>
+
+
+}
+
+

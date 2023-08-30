@@ -18,37 +18,42 @@ namespace BusinessLayer.Concrete
             _messageDal = messageDal;
         }
 
-        public List<Message> GetList()
+        public List<WriterMessage> GetList()
         {
             return _messageDal.GetListAll();
         }
-        public List<Message> GetMessageListWithWriter()
+        public List<WriterMessage> GetMessageListWithWriter(int id)
         {
-            return _messageDal.GetMessageListWithWriter();
+            return _messageDal.GetMessageListWithWriter(id);
         }
-        public List<Message> GetInboxListByWriter(int p)
+        public List<WriterMessage> GetInboxListByWriter(int p)
         {
-            return _messageDal.GetListAll(x=>x.ReceiverID==p);
+            return _messageDal.GetListAll(x => x.ReceiverID == p);
         }
 
-        public void TAdd(Message t)
+        public void TAdd(WriterMessage t)
+        {
+            _messageDal.Insert(t);
+        }
+
+        public void TDelete(WriterMessage t)
         {
             throw new NotImplementedException();
         }
 
-        public void TDelete(Message t)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Message TGetByID(int id)
+        public WriterMessage TGetByID(int id)
         {
            return _messageDal.GetByID(id);
         }
       
-        public void TUpdate(Message t)
+        public void TUpdate(WriterMessage t)
         {
             throw new NotImplementedException();
+        }
+
+        public List<WriterMessage> GetSendBoxListByWriter(int p)
+        {
+            return _messageDal.GetSendboxListWithWriter(p);
         }
     }
 }

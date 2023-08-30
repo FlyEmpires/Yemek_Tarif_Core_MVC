@@ -8,12 +8,14 @@ using EntityLayer.DTO;
 using EntityLayer.ViewModel;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using Yemek_Tarif_Core_MVC.Models;
 
 namespace Yemek_Tarif_Core_MVC.Controllers
@@ -23,26 +25,27 @@ namespace Yemek_Tarif_Core_MVC.Controllers
     {
         RecipeManager rm = new(new EFRecipeRepository());
         WriterManager wm = new(new EFWriterRepository());
+        UserManager um = new(new EFUserRepository());
+        UserManager<AppUser> _userManager;
         CategoryManager cm = new(new EFCategoryRepository());
         public IActionResult Index()
         {
-            var values=rm.GetListWithCategoryAndWriter();
+            var values = rm.GetListWithCategoryAndWriter();
             return View(values);
         }
         public IActionResult RecipeReadAll(int id)
         {
-            ViewBag.commentCount= rm.GetCommentCountByRecipe(id);
+            ViewBag.commentCount = rm.GetCommentCountByRecipe(id);
             ViewBag.id = id;
             var Minute = rm.Getdate(id);
             ViewBag.Minute = Minute;
-            var values=rm.GetRecipeByID(id);
+            var values = rm.GetRecipeByID(id);
             return View(values);
         }
         public IActionResult RecipeListByWriter()
         {
-            var session = User.Identity.Name;
-            var writerID = wm.GetSessionByWriter(session).Select(x => x.WriterID).FirstOrDefault();
-            var values=rm.GetListWithCategoryByWriterBM(writerID);
+            var writerID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var values = rm.GetListWithCategoryByWriterBM(int.Parse(writerID));
             return View(values);
         }
         [HttpGet]
@@ -54,7 +57,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
                               Text = cat.CategoryName,
                               Value = cat.CategoryID.ToString()
                           }).ToList();
-            ViewBag.cat = values;
+            ViewBag.category = values;
             return View();
         }
         [HttpPost]
@@ -63,7 +66,10 @@ namespace Yemek_Tarif_Core_MVC.Controllers
             RecipeValidator rv = new();
             ValidationResult results = rv.Validate(p);
             var session = User.Identity.Name;
-            var writerID = wm.GetSessionByWriter(session).Select(x => x.WriterID).FirstOrDefault(); 
+            var writerID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var mail = um.TGetByID(int.Parse(writerID));
+            //var writerID = wm.GetSessionByWriter(session).Select(x => x.WriterID).FirstOrDefault();
             var values = (from cat in cm.GetList() /*db.Categories*/
                           select new SelectListItem
                           {
@@ -74,8 +80,9 @@ namespace Yemek_Tarif_Core_MVC.Controllers
             if (results.IsValid)
             {
                 p.RecipeStatus = true; //to do: Başlangıçta false olacak, sonradan admin onaylayacak
-                p.CreateDate =DateTime.Now;
-                p.WriterID = writerID;
+                p.CreateDate = DateTime.Now;
+                p.AppUserID = int.Parse(writerID);
+                p.WriterID= 1;
                 rm.TAdd(p);
                 return RedirectToAction("RecipeListByWriter", "Recipe");
             }
@@ -112,9 +119,12 @@ namespace Yemek_Tarif_Core_MVC.Controllers
         [HttpPost]
         public IActionResult EditRecipe(Recipe r)
         {
-            var session = User.Identity.Name;
-            var writerID = wm.GetSessionByWriter(session).Select(x => x.WriterID).FirstOrDefault();
-            r.WriterID = writerID;
+            //var session = User.Identity.Name;
+            var writerID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            //var writerID = wm.GetSessionByWriter(session).Select(x => x.WriterID).FirstOrDefault();
+            r.WriterID = 1;
+            r.AppUserID= int.Parse(writerID);
             rm.TUpdate(r);
             return RedirectToAction("RecipeListByWriter");
         }

@@ -25,8 +25,8 @@ namespace EntityLayer.Concrete
         public int DistrictID { get; set; }
         public District District { get; set; }
 
-        public ICollection<Message> WriterSender { get; set; }
-        public ICollection<Message> WriterReceiver { get; set; }
+        //public ICollection<Message> WriterSender { get; set; }
+        //public ICollection<Message> WriterReceiver { get; set; }
     }
 
 }

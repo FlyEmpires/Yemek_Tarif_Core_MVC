@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,17 +30,17 @@ namespace Yemek_Tarif_Core_MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<Context>();
-            services.AddIdentity<AppUser, AppRole>(x=>x.Password.RequireLowercase=false).AddEntityFrameworkStores<Context>();
+            services.AddIdentity<AppUser, AppRole>(/*x => x.Password.RequireLowercase = false*/).AddEntityFrameworkStores<Context>();
             services.AddControllersWithViews();
 
-            // Proje seviyesinde yetkilendirme
+            //Proje seviyesinde yetkilendirme
             services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
                           .RequireAuthenticatedUser().Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
-            services.AddMvc();
+            //services.AddMvc();
             services.AddAuthentication(
                 CookieAuthenticationDefaults.AuthenticationScheme
                 ).AddCookie(x =>
@@ -47,6 +48,16 @@ namespace Yemek_Tarif_Core_MVC
                     x.LoginPath = "/Login/Index";
                 });
             services.AddSession();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                //cookie settings
+
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(100);
+                //options.LoginPath = "";
+                options.SlidingExpiration = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +73,7 @@ namespace Yemek_Tarif_Core_MVC
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1","?code={0}");
+            app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1", "?code={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

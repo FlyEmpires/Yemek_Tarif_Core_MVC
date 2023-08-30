@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Abstract
 {
-   public interface IMessageDal:IGenericDal<Message>
+   public interface IMessageDal:IGenericDal<WriterMessage>
     {
-        List<Message> GetMessageListWithWriter();
+        List<WriterMessage> GetMessageListWithWriter(int id);
+        List<WriterMessage> GetSendboxListWithWriter(int id);
     }
 }

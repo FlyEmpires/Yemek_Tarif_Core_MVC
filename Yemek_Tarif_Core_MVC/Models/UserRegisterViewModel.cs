@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EntityLayer.Concrete;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Yemek_Tarif_Core_MVC.Models
 {
@@ -20,5 +23,12 @@ namespace Yemek_Tarif_Core_MVC.Models
         [Display(Name = "Kullanıcı Adınız")]
         [Required(ErrorMessage = "Lütfen Kullanıcı Adınız")]
         public string UserName { get; set; }
+
+        public Writer Writers { get; set; }
+
+        public int SelectedCityID { get; set; }
+        public List<City> City { get; set; }
+        public List<District> District { get; set; }
+        public int DistrictID { get; set; }
     }
 }

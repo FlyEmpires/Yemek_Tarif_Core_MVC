@@ -13,24 +13,29 @@ namespace DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"server=DESKTOP-CQ6VQ08\SQLEXPRESS;database=YemekTarifCore;integrated security=true;integrated security=true");
+            optionsBuilder.UseSqlServer(@"server=DESKTOP-EMG9PNB\SQLEXPRESS;database=YemekTarifCore;integrated security=true;integrated security=true");
             optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
         }
         protected override void OnModelCreating (ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Message>()
+            modelBuilder.Entity<WriterMessage>()
                 .HasOne(x => x.SenderWriter)
                 .WithMany(y => y.WriterSender)
                 .HasForeignKey(z => z.SenderID)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            modelBuilder.Entity<Message>()
+            modelBuilder.Entity<WriterMessage>()
                 .HasOne(x => x.ReceiverWriter)
                 .WithMany(y => y.WriterReceiver)
                 .HasForeignKey(z => z.ReceiverID)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
+
+
+            modelBuilder.Entity<AppUser>()
+              .HasIndex(p => p.UserName)
+              .IsUnique();
 
             base.OnModelCreating(modelBuilder);
         }
@@ -45,7 +50,7 @@ namespace DataAccessLayer.Concrete
         public DbSet<District> Districts { get; set; }
         public DbSet<RecipeRayting> RecipeRaytings{ get; set; }
         public DbSet<Notification> Notifications{ get; set; }
-        public DbSet<Message> Messages{ get; set; }
+        public DbSet<WriterMessage> Messages { get; set; }
         public DbSet<Admin> Admins{ get; set; }
     }
 }
