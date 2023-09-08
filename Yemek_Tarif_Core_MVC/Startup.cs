@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -52,7 +53,7 @@ namespace Yemek_Tarif_Core_MVC
             services.ConfigureApplicationCookie(options =>
             {
                 //cookie settings
-
+                options.AccessDeniedPath = new PathString("/Account/AccesDenied");
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(100);
                 //options.LoginPath = "";

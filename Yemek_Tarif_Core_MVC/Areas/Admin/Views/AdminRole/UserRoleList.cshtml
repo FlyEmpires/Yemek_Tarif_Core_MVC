@@ -1,0 +1,21 @@
+﻿@model List<AppUser>
+@{
+    ViewData["Title"] = "UserRoleList";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1>Kullanıcı Rol Listesi</h1>
+<table class="table table-hover">
+    <tr>
+        <th>Kullanıcı</th>
+        <th>Rol Ata</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.UserName</td>
+            <td><a class="btn btn-outline-info" href="/Admin/AdminRole/AssingRole/@item.Id">Rol Ata</a></td>
+        </tr>
+    }
+</table>
+<a href="/Admin/AdminRole/Index" class="btn btn-outline-primary">Rol Listesine Git</a>

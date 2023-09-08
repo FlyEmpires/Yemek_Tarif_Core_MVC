@@ -58,7 +58,7 @@ namespace BusinessLayer.Concrete
         {
             return _recipeDal.GetListAll();
         }
-        public List<Recipe> GetListWithCategoryByWriterBM(int id)
+        public List<Recipe> GetListWithCategoryByWriterRM(int id)
         {
             return _recipeDal.GetListWithCategoryByWriter(id);
         }

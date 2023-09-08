@@ -45,14 +45,11 @@ namespace Yemek_Tarif_Core_MVC.Controllers
         {
             return View();
         }
-        public async Task<PartialViewResult>PartialNavbar()
+        public PartialViewResult PartialNavbar()
         {
-            var values = await _userManager.FindByNameAsync(User.Identity.Name);
-            ViewBag.NameSurname = "asdasd";
-
-
             return PartialView();
         }
+        
         [HttpGet]
         public async Task<IActionResult> WriterEditProfile()
         {

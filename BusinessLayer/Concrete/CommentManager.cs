@@ -23,6 +23,11 @@ namespace BusinessLayer.Concrete
             _commentDal.Insert(comment);
         }
 
+        public List<Comment> GetCommentWithRecipe()
+        {
+          return _commentDal.GetListWithRecipe();
+        }
+
         public List<Comment> GetList(int id)
         {
             return _commentDal.GetListAll(x => x.RecipeID == id);
