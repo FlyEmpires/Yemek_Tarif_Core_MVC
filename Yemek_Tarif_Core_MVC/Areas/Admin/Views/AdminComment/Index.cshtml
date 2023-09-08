@@ -1,0 +1,90 @@
+﻿@model List<Comment>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<html>
+<body>
+
+
+            <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Yorumlar</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="#" class="dropdown-item">Config option 1</a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item">Config option 2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Kullanıcı</th>
+                                <th>Başlık</th>
+                                <th>Tarif</th>
+                                <th>Puan</th>
+                                <th>Tarih</th>
+                                <th>Sil</th>
+                                <th>Düzenle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>@item.CommentID</td>
+                                <td>@item.CommentUserName</td>
+                                <td>@item.CommentTitle</td>
+                                <td> @item.Recipe.ReceipeName </td>
+                                    @{
+                                        string color = "";
+                                        if (item.RecipeScore >= 0 && item.RecipeScore <= 3)
+                                        {
+                                            color = "red";
+                                        }
+                                        else if (item.RecipeScore >= 4 && item.RecipeScore <= 6)
+                                        {
+                                            color = "rosybrown";
+                                        }
+                                        else if (item.RecipeScore >= 7 && item.RecipeScore <= 10)
+                                        {
+                                            color = "green";
+                                        }
+                                    }
+
+                                    <td style="color:@color"> <i class="fa fa-level-up"></i> @item.RecipeScore </td>
+
+                                <td> @item.CommentDate.ToShortDateString()</td>
+                                <td><a href="" class="btn btn-outline-danger">Sil</a></td>
+                                <td> <a href="" class="btn btn-outline-info">Düzenle</a></td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+            </div>
+</body>
+</html>

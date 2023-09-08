@@ -75,5 +75,10 @@ namespace Yemek_Tarif_Core_MVC.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Login");
         }
+        [Route("AccesDenied")]
+        public IActionResult AccesDenied()
+        {
+            return View();
+        }
     }
 }

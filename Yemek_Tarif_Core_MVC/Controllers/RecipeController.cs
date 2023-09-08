@@ -45,7 +45,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
         public IActionResult RecipeListByWriter()
         {
             var writerID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var values = rm.GetListWithCategoryByWriterBM(int.Parse(writerID));
+            var values = rm.GetListWithCategoryByWriterRM(int.Parse(writerID));
             return View(values);
         }
         [HttpGet]

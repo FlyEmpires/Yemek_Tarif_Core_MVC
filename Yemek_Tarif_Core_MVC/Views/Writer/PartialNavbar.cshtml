@@ -13,7 +13,12 @@
                  
                     <span class="font-weight-bold mb-2"></span>
                     <span class="text-secondary text-small">@User.Identity.Name</span>
-                    <span class="text-secondary text-small">@ViewBag.NameSurname</span>
+                    <span class="text-secondary text-small">
+@*                         @await Html.PartialAsync("~/Views/Writer/GetNameForUser.cshtml",new{deneme=ViewBag.NameSurname})
+ *@
+                        @await Component.InvokeAsync("WriterNameSurname")
+
+</span> 
                 </div>
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
             </a>

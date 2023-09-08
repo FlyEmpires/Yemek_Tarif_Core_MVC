@@ -43,12 +43,15 @@ namespace Yemek_Tarif_Core_MVC.Controllers
                 else
                 {
                     wm.SenderID = int.Parse(writerID);
-                }
-                wm.ReceiverID = senderUser.Id;
+                    wm.ReceiverID = senderUser.Id;
                 wm.MessageStatus = true;
                 wm.MessageDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                    wm.MessageDate=  Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                    wm.MessageStatus = true;
                 mm.TAdd(wm);
-                return RedirectToAction("Inbox");
+                }
+                
+                return RedirectToAction("Sendbox");
 
             }
             catch (Exception s)
