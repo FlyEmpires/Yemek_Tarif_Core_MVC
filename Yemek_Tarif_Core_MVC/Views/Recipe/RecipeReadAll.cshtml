@@ -1,4 +1,5 @@
-﻿@*@using EntityLayer.Concrete;*@
+﻿@using DataAccessLayer.Concrete;
+@*@using EntityLayer.Concrete;*@
 
 @model IEnumerable<EntityLayer.Concrete.Recipe>
 @{
@@ -7,6 +8,7 @@
 }
 @{
     int RecipeID = ViewBag.id;
+    Context db = new();
 }
 <html lang="zxx">
 <body>
@@ -30,11 +32,11 @@
                 <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
                     @foreach (var item in Model)
                     {
-
+                        var recipeRaytingCount = db.RecipeRaytings.Where(x => x.RecipeID == item.ReceipeID).FirstOrDefault().RecipeRaytingCount;
                         <div class="blog-grid-top">
                             <div class="b-grid-top">
                                 <div class="blog_info_left_grid">
-                                    <img src="/@item.ReceipeImage" class="img-fluid yuvarlakKose thumbImage" alt="">
+                                    <img src="~/Tema/images/@item.ReceipeImage" class="img-fluid yuvarlakKose thumbImage" alt="">
                                 </div>
                                 <div class="blog-info-middle">
                                     <ul>
@@ -45,7 +47,7 @@
                                         </li>
                                         <li class="mx-2">
                                             <a href="#">
-                                                <i class="far fa-thumbs-up"></i> 201 Likes
+                                                <i class="far fa-thumbs-up"></i> @recipeRaytingCount
                                             </a>
                                         </li>
                                         <li>
@@ -95,43 +97,37 @@
                         @await Component.InvokeAsync("CategoryList")
                         @await Component.InvokeAsync("WriterLastRecipes")
                         <div class="single-gd my-5 tech-btm">
-                            <h4>Our Progress</h4>
+                            <h4>Besin Değerleri</h4>
+                            <label style="font-size:15px;  ">Kalori</label>
                             <div class="progress">
+                               
                                 <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0"
-                                     aria-valuemax="100"></div>
+                                     aria-valuemax="100">
+                                </div>
                             </div>
+                            <label style="font-size:15px;  ">Yağ</label>
+
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
                                      aria-valuemax="100"></div>
                             </div>
+                            <label style="font-size:15px;  ">Tuz</label>
+
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
                                      aria-valuemax="100"></div>
                             </div>
+                            <label style="font-size:15px;  ">Karbonhidrat</label>
+
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0"
                                      aria-valuemax="100"></div>
                             </div>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
-                                     aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="single-gd tech-btm">
-                            <h4>Recent Post</h4>
-                            <div class="blog-grids">
-                                <div class="blog-grid-left">
-                                    <a href="single.html">
-                                        <img src="images/b1.jpg" class="img-fluid" alt="">
-                                    </a>
-                                </div>
-                                <div class="blog-grid-right">
+                            <label style="font-size:15px;">Şeker</label>
 
-                                    <h5>
-                                        <a href="single.html">Pellentesque dui, non felis. Maecenas male</a>
-                                    </h5>
-                                </div>
-                                <div class="clearfix"> </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-danger"  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
                             </div>
                         </div>
                     </div>

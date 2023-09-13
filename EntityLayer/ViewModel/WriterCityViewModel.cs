@@ -10,7 +10,7 @@ namespace EntityLayer.ViewModel
     {
         //public List<City> Cities { get; set; }
         //public int SelectedCityId { get; set; }
-        public Writer Writers { get; set; }
+        public AppUser Writers { get; set; }
 
         public int SelectedCityID { get; set; }
         public List<City> City { get; set; }

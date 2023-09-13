@@ -27,8 +27,6 @@
 						@*Amacımız, insanların evlerinde "acaba bugün ne pişirsem?" diye kararsız kaldığında burada bir çok yemek tarifini bulabileceği ve isterlerse başklarının işlerine kolaylık sağlamak için kendilerinin de yemek tarifi ekleyebileceği bir site sunmaktır.*@
 					</p>
 					}
-
-					<a href="single.html" class="btn btn-primary read-m">Read More</a>
 				</div>
 			</div>
 			<!--//left-->
@@ -36,13 +34,13 @@
 			<aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
 				<div class="right-blog-info text-left">
 					<div class="tech-btm">
-						<img src="tema/images/banner1.jpg" class="img-fluid" alt="">
+                        <img src="/Tema/images/banner1.jpg" class="img-fluid" alt="">
 					</div>
 
 
 					@await Component.InvokeAsync("NewsLetters")
 					@await Html.PartialAsync("~/Views/About/SocialMediaAbout.cshtml")
-					@await Component.InvokeAsync("WriterLastRecipes")
+					@* @await Component.InvokeAsync("WriterLastRecipes") *@
 				</div>
 
 			</aside>

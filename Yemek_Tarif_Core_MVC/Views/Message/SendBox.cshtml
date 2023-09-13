@@ -17,10 +17,11 @@
                         <th> Alıcı</th>
                         <th> Tarih </th>
                         <th> Mesajı Aç </th>
+                        <th> Mesajı Sil </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Where(x => x.MessageStatus == true))
                     {
 
                         <tr>
@@ -34,12 +35,14 @@
                             <td>
                                 @item.MessageDate
                             </td>
-                            <td> <a class="btn btn-info" onclick="showMessageDetails('@item.MessageID')">Mesajı Aç</a> </td>
+                            <td> <a class="btn btn-outline-info" onclick="showMessageDetails('@item.MessageID')">Mesajı Aç</a> </td>
+                            <td> <a class="btn btn-outline-danger" onclick="deleteMesseage('@item.MessageID')">Mesajı Sil</a> </td>
                         </tr>
                     }
                 </tbody>
             </table>
-            <a href="/Message/SendMessage" class="btn btn-info">Yeni Mesaj Oluştur</a>
+            <br />
+            <a href="/Message/SendMessage" class="btn btn-outline-primary">Yeni Mesaj Oluştur</a>
 
         </div>
     </div>
@@ -64,6 +67,18 @@
 </div>
 
 <script>
+    function deleteMessage(messageId) {
+        if (confirm("Yazarı silmek istediğinize emin misiniz?")) {
+            $.ajax({
+                url: 'Message/DeleteMessage',
+                type: 'GET',
+                data: { id: messageId },
+                succes: function (data) {
+
+                }
+            })
+        }
+    }
     function showMessageDetails(messageId) {
         $.ajax({
             url: '/Message/MessageDetail',

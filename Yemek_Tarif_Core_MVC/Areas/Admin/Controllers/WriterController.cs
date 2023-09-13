@@ -19,7 +19,8 @@ namespace Yemek_Tarif_Core_MVC.Areas.Admin.Controllers
     [Area("Admin")]
     public class WriterController : Controller
     {
-        WriterManager wm = new(new EFWriterRepository());
+        //WriterManager wm = new(new EFWriterRepository());
+        UserManager um = new(new EFUserRepository());
         public IActionResult Index()
         {
             Context db = new();
@@ -42,13 +43,13 @@ namespace Yemek_Tarif_Core_MVC.Areas.Admin.Controllers
         }
         public IActionResult WriterList()
         {
-            var list = wm.GetList();
+            var list = um.GetList();
             return Json(list);
         }
         [HttpGet]
         public IActionResult GetWriterByID(int writerID)
         {
-            var getWriter = wm.GetWriterByID(writerID);
+            var getWriter = um.TGetByID(writerID);
             var jsonWriter=JsonConvert.SerializeObject(getWriter);
             return Json(jsonWriter);
         }
@@ -64,13 +65,13 @@ namespace Yemek_Tarif_Core_MVC.Areas.Admin.Controllers
             ValidationResult results = wv.Validate(writer);
             if (results.IsValid)
             {
-                writer.Writers.WriterStatus = true;
-                writer.Writers.WriterAbout = "Deneme";
-                writer.Writers.CityID = writer.SelectedCityID;
+                //writer.Writers.WriterStatus = true;
+                //writer.Writers.WriterAbout = "Deneme";
+                //writer.Writers.CityID = writer.SelectedCityID;
                
               
                     //wm.TAdd(writer.Writers);
-                wm.TAdd(writer.Writers);
+                um.TAdd(writer.Writers);
 
                 return Json(new { isSuccess = true }); // Başarılı olduğunu döndür
                 //return RedirectToAction("Index", "/Admin/Writer/");
@@ -93,21 +94,20 @@ namespace Yemek_Tarif_Core_MVC.Areas.Admin.Controllers
         public IActionResult WriterDelete(int id)
         {
             Context db = new();
-            var writerID = wm.GetWriterByID(id).FirstOrDefault();
-            db.Writers.Remove(writerID);
-            db.SaveChanges();
-            return Json(writerID);
+            var writer = um.TGetByID(id);
+            um.TDelete(writer);
+            return Json(writer);
         }
 
         public IActionResult GetWriterUpdate(int id)
         {
-            var value = wm.GetWriterByID(id).FirstOrDefault();
+            var value = um.TGetByID(id);
             return Json(value);
         }
         [HttpPost]
         public IActionResult GetUpdate(WriterCityViewModel w)
         {          
-            wm.TUpdate(w.Writers);
+            um.TUpdate(w.Writers);
             var jsonWriter = JsonConvert.SerializeObject(w);
             return Json(jsonWriter);
         }
