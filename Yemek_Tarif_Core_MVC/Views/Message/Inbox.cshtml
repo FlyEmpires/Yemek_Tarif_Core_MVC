@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Mesajlarınız</h4>
-           
+
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -21,24 +21,26 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        
-                    <tr>
-                        <td>
-                            @item.Subject
-                        </td>
-                        <td>
-                            @* <img src="@item.SenderWriter.WriterImage" alt="image"> *@
-                            @item.SenderWriter.NameSurname
-                        </td>
-                        <td>
-                           @item.MessageDate
-                        </td>
-                            <td> <a class="btn btn-info" onclick="showMessageDetails('@item.MessageID')">Mesajı Aç</a> </td>
-                    </tr>
+
+                        <tr>
+                            <td>
+                                @item.Subject
+                            </td>
+                            <td>
+                                @* <img src="@item.SenderWriter.WriterImage" alt="image"> *@
+                                @item.SenderWriter.NameSurname
+                            </td>
+                            <td>
+                                @item.MessageDate
+                            </td>
+
+                            <td> <a class="btn btn-outline-info" onclick="showMessageDetails('@item.MessageID')">Mesajı Aç</a> </td>
+                        </tr>
                     }
                 </tbody>
             </table>
-            <a href="/Message/SendMessage" class="btn btn-info">Yeni Mesaj Oluştur</a>
+            <br />
+            <a href="/Message/SendMessage" class="btn btn-outline-primary">Yeni Mesaj Oluştur</a>
 
         </div>
     </div>
@@ -54,7 +56,6 @@
                 </button>
             </div>
             <div class="modal-body" id="messageDetails">
-               
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
@@ -66,7 +67,7 @@
 <script>
     function showMessageDetails(messageId) {
         $.ajax({
-            url: '/Message/MessageDetail', 
+            url: '/Message/MessageDetail',
             type: 'GET',
             data: { id: messageId },
             success: function (data) {
@@ -75,7 +76,7 @@
                 $('#messageModal').modal('show'); // Modalı göster
             },
             error: function () {
-                
+
                 alert('Mesaj detayları alınamadı.');
             }
         });

@@ -21,17 +21,17 @@ namespace BusinessLayer.Concrete
 
         public List<AppUser> GetList()
         {
-            throw new NotImplementedException();
+          return _userDal.GetListAll();
         }
 
         public void TAdd(AppUser t)
         {
-            throw new NotImplementedException();
+            _userDal.Insert(t);
         }
 
         public void TDelete(AppUser t)
         {
-            throw new NotImplementedException();
+            _userDal.Delete(t);
         }
 
         public AppUser TGetByID(int id)

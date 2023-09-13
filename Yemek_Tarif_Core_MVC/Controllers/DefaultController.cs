@@ -8,10 +8,11 @@ using BusinessLayer.Concrete;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.EntityFramework;
 using JetBrains.Annotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Yemek_Tarif_Core_MVC.Controllers
 {
-	
+	[AllowAnonymous]
     public class DefaultController : Controller
     {		
 		RecipeManager rm = new RecipeManager(new EFRecipeRepository());

@@ -1,12 +1,12 @@
 ﻿@model List<Recipe>
 <h3>İlgini Çekebilir</h3>
-<div class="blog-grids row mb-3">
+<div class="blog-grids row mb-6">
 	@foreach (var item in Model)
 	{
 		
-	<div class="col-md-5 blog-grid-left">
+	<div class="col-md-5 blog-grid-right">
 		<a href="single.html">
-			<img src="~/@item.ReceipeImage" class="img-fluid" alt="">
+				<img src="~/Tema/images/@item.ReceipeImage" class="img-fluid" alt="">
 		</a>
 	</div>
 	<div class="col-md-7 blog-grid-right">

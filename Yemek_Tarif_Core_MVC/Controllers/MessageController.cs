@@ -24,6 +24,12 @@ namespace Yemek_Tarif_Core_MVC.Controllers
             var message = mm.TGetByID(id);
             return PartialView("MessageDetail", message);
         }
+        public IActionResult DeleteMessage(int id)
+        {
+            var message=mm.TGetByID(id);
+            message.MessageStatus = false;
+            return View();
+        }
         [HttpGet]
         public IActionResult SendMessage()
         {

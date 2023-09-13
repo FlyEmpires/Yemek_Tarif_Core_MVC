@@ -4,39 +4,83 @@
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
 
-@using (Html.BeginForm("RecipeAdd", "Recipe", FormMethod.Post))
+@using (Html.BeginForm("RecipeAdd", "Recipe", FormMethod.Post,new { enctype = "multipart/form-data" }))
 {
-    <div class="form-row">
-        <div class="col-md-6 mb-3">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                <h4 class="card-title">Yemek Tarif Ekleme</h4>
             <label for="validationCustom01">Yemeğin Başlığı</label>
             @Html.TextBoxFor(x=>x.ReceipeName,new{@class="form-control"})
             @Html.ValidationMessageFor(x=>x.ReceipeName,"",new{@class="text-danger"})
-        </div>
+       </div>
 
-        <div class="col-md-6 mb-3">
+     @*    <div class="col-md-6 mb-3">
             <label for="validationCustom02">Yemek Görseli</label>
             @Html.TextBoxFor(x=>x.ReceipeImage,new{@class="form-control"})
             @Html.ValidationMessageFor(x=>x.ReceipeImage,"",new{@class="text-danger"})
 
-        </div>
-        <div class="col-md-6 mb-3">
-            <label for="validationCustom02">Yemek Küçük Görseli</label>
-            @Html.TextBoxFor(x=>x.ReceipeThumbnailImage,new{@class="form-control"})
-            @Html.ValidationMessageFor(x=>x.ReceipeThumbnailImage,"",new{@class="text-danger"})
-
-        </div>
-        <div class="col-md-6 mb-3">
+        </div> *@
+      
+        <div class="form-group">
             <label for="validationCustom02">Yemek Kategorisi</label>
             @Html.DropDownListFor(x=>x.CategoryID,(List<SelectListItem>)ViewBag.category,new{@class="form-control"})
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="form-group">
             <label for="validationCustom02">Tarif Açıklaması</label>
             @Html.TextAreaFor(x=>x.ReceipeDescription,15,3,new{@class="form-control"})
             @Html.ValidationMessageFor(x=>x.ReceipeDescription,"",new{@class="text-danger"})
 
+        </div>
+                <div class="form-group">
+                    <label>Yemek Görseli Seçin</label>
+                    <div class="input-group col-xs-12">
+                        <img id="imagePreview" style="max-width:25%;height:40%" class="form-control file-upload-info" placeholder="Resim Seç">
+                    </div>
+                    <span class="input-group-append">
+                        <input type="file" style="display:none" id="fileInput" name="file" onchange="fileSelected(event)">
+                        <button class="file-upload-browse btn btn-gradient-primary upload-button" onclick="openFileUpload()" type="button">Yükle</button>
+                    </span>
+                    <input type="hidden" id="recipe" name="ReceipeImage" value="@ViewBag.image">
+                    @* <label for="validationCustom02">Yemek Küçük Görseli</label>
+                @Html.TextBoxFor(x=>x.ReceipeThumbnailImage,new{@class="form-control"})
+                @Html.ValidationMessageFor(x=>x.ReceipeThumbnailImage,"",new{@class="text-danger"}) *@
+
+                </div>
+        </div>
         </div>
     </div>
     <button class="btn btn-primary">Tarifi Kaydet</button>
 
 
 }
+<script>
+    $(document).ready(function () {
+     
+    });
+    function openFileUpload() {
+        document.getElementById('fileInput').click();
+        
+    }
+    function fileSelected(event) {
+        var fileInput = event.target;
+        var file = fileInput.files[0];
+        // Dosya tipini kontrol edelim, sadece resim türlerini kabul edelim
+        if (file && file.type.startsWith('image/')) {
+            var reader = new FileReader();
+
+            //Resmin önizlemesi
+            reader.onload = function (e) {
+                var imagePreview = document.getElementById('imagePreview');
+                imagePreview.src = e.target.result;
+            };
+            // Resmi okuyup önizlemeyi güncelleyelim
+            reader.readAsDataURL(file);
+           var a= document.getElementById('recipe').value = 'resim';
+            console.log(a);
+            // console.log(document.getElementsByName('#filee'));
+            // console.log(document.getElementById('#fileInputt'));
+        }
+    }
+</script>

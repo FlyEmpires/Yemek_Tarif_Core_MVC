@@ -33,13 +33,13 @@
                
                 <div class="form-check form-check-flat form-check-primary">
                 <label class="form-check-label">
-                    <input type="checkbox" id="checkbox" name="checkbox" class="form-check-input"> Şifremi Değiştirmek İstiyorum <i class="input-helper"></i>
+                    <input type="checkbox" id="checkbox" onclick="check()" name="checkbox" class="form-check-input"> Şifremi Değiştirmek İstiyorum <i class="input-helper"></i>
                 </label>
                 </div>
 
                     <div class="form-group">
                         <label for="exampleInputPassword4">Şifre</label>
-                        <input type="password" name="Password" value="@Model.Password" class="form-control" id="exampleInputPassword4" placeholder="Şifre">
+                    <input type="password" disabled="disabled" name="Password" value="@Model.Password" class="form-control" id="exampleInputPassword4" placeholder="Şifre">
                         @Html.ValidationMessageFor(x=>x.Password,"",new{@class="text-danger"})
 
                     </div>
@@ -86,11 +86,17 @@
 @* } *@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
+    function check() {
+        if (document.getElementById("checkbox").checked == true) {
+            document.getElementById("exampleInputPassword4").disabled = false;
+        }
+        else {
+            document.getElementById("exampleInputPassword4").disabled = true;
+        }
+    }
     function openFileUpload() {
         document.getElementById('fileInput').click();
     }
-
     function fileSelected(event) {
         var fileInput = event.target;
         var file = fileInput.files[0];
@@ -105,10 +111,12 @@
             };
             // Resmi okuyup önizlemeyi güncelleyelim
             reader.readAsDataURL(file);
+
         }
     }
     //İptal butonuna basıldığında Dashboard'a yönlendirecek
     $(document).ready(function () {
+
         $("#btnCancel").click(function () {
             window.location.href = "/Dashboard/Index";
         });

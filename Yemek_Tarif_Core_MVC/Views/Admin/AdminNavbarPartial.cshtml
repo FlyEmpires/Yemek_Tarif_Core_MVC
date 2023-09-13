@@ -5,15 +5,13 @@
                 <div class="dropdown profile-element">
                     <img alt="image" class="rounded-circle" src="~/admin-tema/img/profile_small.jpg" />
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="block m-t-xs font-bold">Talha Acar</span>
-                        <span class="text-muted text-xs block">Bilgisayar Programcısı <b class="caret"></b></span>
+                        <span class="block m-t-xs font-bold">@await Component.InvokeAsync("WriterNameSurname")</span>
+                        <span class="text-muted text-xs block">@User.Identity.Name <b class="caret"></b></span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a class="dropdown-item" href="profile.html">Profil</a></li>
-                        <li><a class="dropdown-item" href="contacts.html">İletişim</a></li>
-                        <li><a class="dropdown-item" href="mailbox.html">Mail Kutusu</a></li>
+                        <li><a class="dropdown-item" href="/Admin/AdminMessage/Inbox">Mail Kutusu</a></li>
                         <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="login.html">Çıkış Yap</a></li>
+                        <li><a class="dropdown-item" href="/Account/LogOut">Çıkış Yap</a></li>
                     </ul>
                 </div>
                 <div class="logo-element">
@@ -36,7 +34,6 @@
                 </ul>
             </li>
             <li>
-                <a href="metrics.html"><i class="fa fa-pie-chart"></i> <span class="nav-label">Metrikler</span>  </a>
             </li>
             <li>
                 <a href="/Admin/Category/Index"><i class="fa fa-stack-exchange"></i> <span class="nav-label">Kategoriler</span>  </a>
@@ -45,7 +42,7 @@
                 <a href="/Admin/AdminRecipe/Index"><i class="fa fa-book"></i> <span class="nav-label">Tarifler</span>  </a>
             </li>  
             <li>
-                <a href="/Admin/Recipe/RecipeListExcel"><i class="fa fa-pen"></i> <span class="nav-label">Tarifler Excel</span>  </a>
+                <a href="/Admin/Recipe/RecipeListExcel"><i class="mdi mdi-file-excel"></i> <span class="nav-label">Tarifler Excel</span>  </a>
             </li>
             <li>
                 <a href="/Admin/AdminComment/Index"><i class="fa fa-comment"></i> <span class="nav-label">Yorumlar</span>  </a>
@@ -54,22 +51,20 @@
                 <a href="/Admin/Writer/Index"><i class="fa fa-users"></i> <span class="nav-label">Yazarlar</span>  </a>
             </li>
             <li>
-                <a href="metrics.html"><i class="fa fa-wrench"></i> <span class="nav-label">Ayarlar</span>  </a>
             </li>
             @if (User.IsInRole("Admin"))
             {
                 <li>
-                    <a href="/Admin/AdminRole/Index"><i class="fa fa-person"></i> <span class="nav-label">Roller</span>  </a>
+                    <a href="/Admin/AdminRole/Index"><i class="mdi mdi-security"></i> <span class="nav-label">Roller</span>  </a>
             </li>
             }
             <li>
-                <a href="metrics.html"><i class="fa fa-bell"></i> <span class="nav-label">Bildirimler</span>  </a>
             </li>
             <li>
                 <a href="/Admin/Chart/Index"><i class="fa fa-flask"></i> <span class="nav-label">İstatistikler</span></a>
             </li>
             <li>
-                <a href="/Admin/Chart/Index"><i class="fa fa-close"></i> <span class="nav-label">Çıkış Yap</span></a>
+                <a href="/Account/LogOut"><i class="fa fa-close"></i> <span class="nav-label">Çıkış Yap</span></a>
             </li>
           
         </ul>

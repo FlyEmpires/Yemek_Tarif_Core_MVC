@@ -1,52 +1,121 @@
 ﻿<header>
-	<div class="top-bar_sub_w3layouts container-fluid">
-		<div class="row">
-			<div class="col-md-4 logo text-left">
-				<a class="navbar-brand" href="/Default/Index">
-					<i class="fab fa-linode"></i> YEMEKSENDE
-				</a>
-			</div>
-			<div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
-				<span>Hoş Geldiniz!</span>
-				<span class="mx-lg-4 mx-md-2  mx-1">
-					<a href="/Account/Login">
-						<i class="fas fa-lock"></i> Giriş Yap
-					</a>
-				</span>
-				<span>
-					<a href="/RegisterIdentity/Index">
-						<i class="far fa-user"></i> Kayıt Ol
-					</a>
-				</span>
-			</div>
-			<div class="col-md-4 log-icons text-right">
+    <div class="top-bar_sub_w3layouts container-fluid">
+        <div class="row">
+            <div class="col-md-4 logo text-left">
+                <a class="navbar-brand" href="/Default/Index">
+                    <a class="navbar-brand brand-logo" href="/Default/Index"><img src="~/writer/assets/images/logo-3.png" style="height:70px;" alt="logo" /></a>
+                    @* <i class="fab fa-linode"></i> *@
+                </a>
+            </div>
+            <div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
+                <div class="mx-lg-4 mx-md-2  mx-1">
+                </div>
+               
+                    
+                        @if (!User.Identity.IsAuthenticated)
+                        { <span class="mx-lg-4 mx-md-2  mx-1">
+                            <a href="/Account/Login">
+                            <i class="bi bi-door-closed" style="font-size: 19px;"></i>
 
-				<ul class="social_list1 mt-3">
+                            <abbr>Giriş Yap</abbr>
+                    </a>
+                    </span>
+                    <span>
+                    <a href="/RegisterIdentity/Index">
+                        <i class="bi bi-person-plus" style="font-size: 19px;"></i>
+                        Kayıt Ol
+                    </a>
+                </span>
+                        }
+                    else
+                    {
+                        <span>
+                        <a href=" /Account/Login">
+                        <i class="bi bi-door-open" style="font-size: 19px;"></i> <abbr>Hoş Geldin </abbr>
+                        </a>
+                    </span>
+                    }
 
-					<li>
-						<a href="#" class="facebook1 mx-2">
-							<i class="fab fa-facebook-f"></i>
+                
+               
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <span class="mx-lg-4 mx-md-2  mx-2">
+                        <a href="/Dashboard/Index">
+                            <i class="bi bi-person-lock" style="font-size: 19px;margin-left:-7px;"></i>
+                            Kullanıcı Paneli
+                        </a>
+                    </span>
+                }
 
-						</a>
-					</li>
-					<li>
-						<a href="#" class="twitter2">
-							<i class="fab fa-twitter"></i>
+            </div>
+            <div class="col-md-4 log-icons text-right">
 
-						</a>
-					</li>
-					<li>
-						<a href="#" class="dribble3 mx-2">
-							<i class="fab fa-dribbble"></i>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="pin">
-							<i class="fab fa-pinterest-p"></i>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+                <ul class="social_list1 mt-3">
+
+                    <li>
+                        <a href="#" class="facebook1 mx-2">
+                            <i class="fab fa-facebook-f"></i>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="twitter2">
+                            <i class="fab fa-twitter"></i>
+
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </header>
+<style>
+    /* Temel stil */
+    .user-settings {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    /* İkon stil */
+    .user-icon {
+        font-size: 24px;
+        margin-right: 5px;
+    }
+
+    /* Ayarlar paneli stil */
+    .settings-panel {
+        display: none;
+        position: absolute;
+        top: 30px;
+        left: 0;
+        background-color: #fff;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    /* Ayarlar listesi stil */
+    .settings-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        /* Ayarlar listesi öğeleri stil */
+        .settings-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+        }
+
+            /* Ayarlar listesi öğeleri hover stil */
+            .settings-list li:hover {
+                background-color: #f0f0f0;
+            }
+
+    /* Kullanıcı ayarlarını göstermek için hover stil */
+    .user-settings:hover .settings-panel {
+        display: block;
+    }
+</style>

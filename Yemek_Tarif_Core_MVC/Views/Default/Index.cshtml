@@ -3,459 +3,446 @@
 @using EntityLayer.DTO
 @model List<Recipe>
 @{
-	ViewData["Title"] = "Index";
-	Layout = "~/Views/Shared/UserLayout.cshtml";
-	int id=0;
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+    int id = 0;
 
 }
 <!DOCTYPE html>
 <html lang="zxx">
 <body>
-	<section class="bottom-slider">
-		<div class="course_demo1">
-			<ul id="flexiselDemo1">
-				@foreach (var item in Model)
-					{
-				<li>
-					<div class="blog-item">
-							<a href="/Recipe/RecipeReadAll/@item.ReceipeID"><img src="/@item.ReceipeImage" alt=" " class="img-fluid yuvarlakKose image" /></a>
-						<div class="floods-text">
-							<h3>
-								@item.ReceipeName
-								<span>
-									@item.AppUser.NameSurname
-									<label>|</label>
-									<i>@item.Category.CategoryName</i>
-								</span>
-							</h3>
-						</div>
-					</div>
-				</li>
-				}
-			</ul>
-		</div>
-@*		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="embed-responsive embed-responsive-21by9">
-							<iframe src="https://player.vimeo.com/video/145787219"></iframe>
-						</div>
-					</div>
+    <section class="bottom-slider">
+        <div class="course_demo1">
+            <ul id="flexiselDemo1">
+                @foreach (var item in Model)
+                {
+                    <li>
+                        <div class="blog-item">
+                            <a href="/Recipe/RecipeReadAll/@item.ReceipeID"><img src="~/Tema/images/@item.ReceipeImage" alt=" " class="img-fluid yuvarlakKose image" /></a>
+                            <div class="floods-text">
+                                <h3>
+                                    @item.ReceipeName
+                                    <span>
+                                        @item.AppUser.NameSurname
+                                        <label>|</label>
+                                        <i>@item.Category.CategoryName</i>
+                                    </span>
+                                </h3>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        @*		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+        <div class="embed-responsive embed-responsive-21by9">
+        <iframe src="https://player.vimeo.com/video/145787219"></iframe>
+        </div>
+        </div>
 
-				</div>
-			</div>
-		</div>
-*@	</section>
-	<!--/main-->
-	<section class="main-content-w3layouts-agileits">
-		<div class="container">
-			<div class="row">
-				<!--left-->
-				<div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
-    <h3>Son Eklenen Yemek Tarifleri</h3>
-					
-					@foreach (var recipe in Model.TakeLast(2))
-{
-
-	<div class="blog-grid-top">
-		<div class="b-grid-top">
-			<div class="blog_info_left_grid">
-				<a href="single.html">
-					<img src="/@recipe.ReceipeImage" class="img-fluid yuvarlakKose thumbImage" alt="">
-				</a>
-			</div>
-			<div class="blog-info-middle">
-				<ul>
-					<li>
-						<a href="#">
-							<i class="far fa-calendar-alt"></i> FEB 15,2018
-						</a>
-					</li>
-					<li class="mx-2">
-						<a href="#">
-							<i class="far fa-thumbs-up"></i> 201 Likes
-						</a>
-					</li>
-				@await Component.InvokeAsync("CommentCountByRecipe",new{id=recipe.ReceipeID})
-
-				</ul>
-			</div>
-		</div>
-
-		<h3>
-				@*@await Html.PartialAsync("~/Views/Comment/CommentListByRecipe.cshtml")*@
-									@await Component.InvokeAsync("CommentListByRecipe",new{id=recipe.ReceipeID})
-
-		</h3>
-		                                <a href="/Recipe/RecipeReadAll/@recipe.ReceipeID" class="btn btn-primary read-m" style="border-radius:30px;">Tarife Git</a>
-
-	</div>
-}
-
-
-
-
-					<!--//silder-->
-					 @{
+        </div>
+        </div>
+        </div>
+        *@
+    </section>
+    <!--/main-->
+    <section class="main-content-w3layouts-agileits">
+        <div class="container">
+            <div class="row">
+                <!--left-->
+                <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
+                    <h3>Son Eklenen Yemek Tarifleri</h3>
+                    @{
                         Context db = new();
-                        var commentCountt = (from cmnt in db.Comments
-                                             join recipe in db.Recipes on cmnt.RecipeID equals recipe.ReceipeID
+
+                    }
+
+                    @foreach (var recipe in Model.TakeLast(2))
+                    {
+                        
+                            var recipeRaytingCount = db.RecipeRaytings.Where(x=>x.RecipeID==recipe.ReceipeID).FirstOrDefault().RecipeRaytingCount;
+                        
+                        <div class="blog-grid-top">
+                            <div class="b-grid-top">
+                                <div class="blog_info_left_grid">
+                                    <a href="single.html">
+                                        <img src="~/Tema/images/@recipe.ReceipeImage" class="img-fluid yuvarlakKose thumbImage" alt="">
+                                    </a>
+                                </div>
+                                <div class="blog-info-middle">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i class="far fa-calendar-alt"></i> FEB 15,2018
+                                            </a>
+                                        </li>
+                                        <li class="mx-2">
+                                            <a href="#">
+                                                <i class="far fa-thumbs-up"></i> @recipeRaytingCount
+                                            </a>
+                                        </li>
+                                        @await Component.InvokeAsync("CommentCountByRecipe",new{id=recipe.ReceipeID})
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h3>
+                                @*@await Html.PartialAsync("~/Views/Comment/CommentListByRecipe.cshtml")*@
+                                @await Component.InvokeAsync("CommentListByRecipe",new{id=recipe.ReceipeID})
+
+                            </h3>
+                            <a href="/Recipe/RecipeReadAll/@recipe.ReceipeID" class="btn btn-primary read-m" style="border-radius:30px;">Tarife Git</a>
+
+                        </div>
+                    }
+
+
+
+
+                    <!--//silder-->
+                    @{
+                        Context dB = new();
+                        var commentCountt = (from cmnt in dB.Comments
+                                             join recipe in dB.Recipes on cmnt.RecipeID equals recipe.ReceipeID
                                              where recipe.ReceipeID == cmnt.RecipeID
                                              select new CommentCountByRecipe
                                  {
                                      RecipeID = recipe.ReceipeID,
                                      CommentCount = recipe.Comments.Count(),
                                      RecipeName = recipe.ReceipeName,
-									 RecipeImage=recipe.ReceipeImage
+                                     RecipeImage = recipe.ReceipeImage
                                  }).Distinct().ToList();
-								 }
-					<h3>Çok Yorum Alan Tarifler</h3>
-					<div class="blog-mid-sec">
-						<ul id="flexiselDemo2">
-							
-									@foreach (var recipe in commentCountt)
-							{
-							<li>
-								
-							
+                    }
+                    <h3>Çok Yorum Alan Tarifler</h3>
+                    <div class="blog-mid-sec">
+                        <ul id="flexiselDemo2">
 
-									@if (recipe.CommentCount>=2)
-									{
+                            @foreach (var recipe in commentCountt)
+                            {
+                                <li>
 
-								<div class="blog-item">
-											<a href="/Recipe/RecipeReadAll/@recipe.RecipeID"><img src="/@recipe.RecipeImage" alt=" " class="img-fluid" style="height:100px;width:210px;" /></a>
-									@*<button type="button" class="btn btn-primary play sec" data-toggle="modal" data-target="#exampleModal">
-										<i class="fas fa-play"></i>
-									</button>*@ @*To do: Resim büyültme olacak*@
-									<div class="floods-text">
-										<h3>@recipe.RecipeName </h3>
-									</div>
-								</div>
-									}
 
-							
 
-							</li>
-							}
-						</ul>
-					</div>
+                                    @if (recipe.CommentCount >= 2)
+                                    {
 
-					<!--//silder-->
-			@*		<div class="blog-girds-sec">
-						<div class="row">
-							<div class="col-md-6 blog-grid-top">
-								<div class="b-grid-top">
-									<div class="blog_info_left_grid">
-										<a href="single.html">
-											<img src="images/b2.jpg" class="img-fluid" alt="">
-										</a>
-									</div>
-									<h3>
-										<a href="single.html">Amet consectetur </a>
-									</h3>
-									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt aliqua uta enim.</p>
-								</div>
-								<ul class="blog-icons">
-									<li>
-										<a href="#">
-											<i class="far fa-clock"></i> 5 Monts
-										</a>
-									</li>
-									<li class="mx-2">
-										<a href="#">
-											<i class="far fa-comment"></i> 21
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fas fa-eye"></i> 2000
-										</a>
-									</li>
+                                        <div class="blog-item">
+                                            <a href="/Recipe/RecipeReadAll/@recipe.RecipeID"><img src="~/Tema/images/@recipe.RecipeImage" alt=" " class="img-fluid" style="height:100px;width:210px;" /></a>
+                                            @*<button type="button" class="btn btn-primary play sec" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="fas fa-play"></i>
+                                    </button>*@ @*To do: Resim büyültme olacak*@
+                                            <div class="floods-text">
+                                                <h3>@recipe.RecipeName </h3>
+                                            </div>
+                                        </div>
+                                    }
 
-								</ul>
-							</div>
-							<div class="col-md-6 blog-grid-top">
-								<div class="b-grid-top">
-									<div class="blog_info_left_grid">
-										<a href="single.html">
-											<img src="images/b3.jpg" class="img-fluid" alt="">
-										</a>
-									</div>
-									<h3>
-										<a href="single.html">Amet adipisicing </a>
-									</h3>
-									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt aliqua uta enim.</p>
 
-								</div>
-								<ul class="blog-icons">
-									<li>
-										<a href="#">
-											<i class="far fa-clock"></i> 5 Monts
-										</a>
-									</li>
-									<li class="mx-2">
-										<a href="#">
-											<i class="far fa-comment"></i> 21
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fas fa-eye"></i> 2000
-										</a>
-									</li>
 
-								</ul>
-							</div>
-						</div>
-					</div>*@
-				</div>
-				<!--//left-->
-				<!--right-->
-				<aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
-					<div class="right-blog-info text-left">
-						<div class="tech-btm">
-							<label class="alert-danger">
-								<i class="bi bi-cloud-rain"></i>
+                                </li>
+                            }
+                        </ul>
+                    </div>
 
-							</label>
-							<i class="fas fa-thermometer-empty"></i>
-							<i class="alert-warning">@ViewBag.havaDurumu</i>
-							<img src="/Tema/images/banner1.jpg" class="img-fluid" alt="">
-						</div>
-						@await Component.InvokeAsync("NewsLetters")
-						<div class="tech-btm widget_social">
-							<h4>Stay Connect</h4>
-							<ul>
+                    <!--//silder-->
+                    @*		<div class="blog-girds-sec">
+                    <div class="row">
+                    <div class="col-md-6 blog-grid-top">
+                    <div class="b-grid-top">
+                    <div class="blog_info_left_grid">
+                    <a href="single.html">
+                    <img src="images/b2.jpg" class="img-fluid" alt="">
+                    </a>
+                    </div>
+                    <h3>
+                    <a href="single.html">Amet consectetur </a>
+                    </h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt aliqua uta enim.</p>
+                    </div>
+                    <ul class="blog-icons">
+                    <li>
+                    <a href="#">
+                    <i class="far fa-clock"></i> 5 Monts
+                    </a>
+                    </li>
+                    <li class="mx-2">
+                    <a href="#">
+                    <i class="far fa-comment"></i> 21
+                    </a>
+                    </li>
+                    <li>
+                    <a href="#">
+                    <i class="fas fa-eye"></i> 2000
+                    </a>
+                    </li>
 
-								<li>
-									<a class="twitter" href="#">
-										<i class="fab fa-twitter"></i>
-										<span class="count">317K</span> Twitter Followers
-									</a>
-								</li>
-								<li>
-									<a class="facebook" href="#">
-										<i class="fab fa-facebook-f"></i>
-										<span class="count">218k</span> Twitter Followers
-									</a>
-								</li>
-								<li>
-									<a class="dribble" href="#">
-										<i class="fab fa-dribbble"></i>
+                    </ul>
+                    </div>
+                    <div class="col-md-6 blog-grid-top">
+                    <div class="b-grid-top">
+                    <div class="blog_info_left_grid">
+                    <a href="single.html">
+                    <img src="images/b3.jpg" class="img-fluid" alt="">
+                    </a>
+                    </div>
+                    <h3>
+                    <a href="single.html">Amet adipisicing </a>
+                    </h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt aliqua uta enim.</p>
 
-										<span class="count">215k</span> Dribble Followers
-									</a>
-								</li>
-								<li>
-									<a class="pin" href="#">
-										<i class="fab fa-pinterest"></i>
-										<span class="count">190k</span> Pinterest Followers
-									</a>
-								</li>
+                    </div>
+                    <ul class="blog-icons">
+                    <li>
+                    <a href="#">
+                    <i class="far fa-clock"></i> 5 Monts
+                    </a>
+                    </li>
+                    <li class="mx-2">
+                    <a href="#">
+                    <i class="far fa-comment"></i> 21
+                    </a>
+                    </li>
+                    <li>
+                    <a href="#">
+                    <i class="fas fa-eye"></i> 2000
+                    </a>
+                    </li>
 
-							</ul>
-						</div>
-						<div class="tech-btm">
-							<h4>Recent Posts</h4>
+                    </ul>
+                    </div>
+                    </div>
+                    </div>*@
+                </div>
+                <!--//left-->
+                <!--right-->
+                <aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
+                    <div class="right-blog-info text-left">
+                        <div class="tech-btm">
+                            <label class="alert-danger">
+                                <i class="bi bi-cloud-rain"></i>
 
-							<div class="blog-grids row mb-3">
-								<div class="col-md-5 blog-grid-left">
-									<a href="single.html">
-										<img src="images/1.jpg" class="img-fluid" alt="">
-									</a>
-								</div>
-								<div class="col-md-7 blog-grid-right">
+                            </label>
+                            <i class="fas fa-thermometer-empty"></i>
+                            <i class="alert-warning">@ViewBag.havaDurumu</i>
+                            <img src="/Tema/images/banner1.jpg" class="img-fluid" alt="">
+                        </div>
+                        @await Component.InvokeAsync("NewsLetters")
+                        <div class="tech-btm widget_social">
+                            <h4>Bizimle İletişime Geç</h4>
+                            <ul>
+                                <li>
+                                    <a class="twitter" href="#">
+                                        <i class="fab fa-twitter"></i>
+                                         Twitter'dan Takip Edin
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="facebook" href="#">
+                                        <i class="fab fa-facebook-f"></i>
+                                         Facebook'tan Takip Edin
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tech-btm">
+                            <h4>Son Tarifler</h4>
+                            @foreach (var item in Model.OrderByDescending(x => x.CreateDate).Take(5))
+                            {
 
-									<h5>
-										<a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
-									</h5>
-									<div class="sub-meta">
-										<span>
-											<i class="far fa-clock"></i> 20 Jan, 2018
-										</span>
-									</div>
-								</div>
+                                <div class="blog-grids row mb-3">
+                                    <div class="col-md-5 blog-grid-left">
+                                        <a href="/Recipe/RecipeReadAll/@item.ReceipeID">
+                                            <img src="~/Tema/images/@item.ReceipeImage" class="img-fluid" alt="">
+                                        </a>
+                                    </div>
+                                    <div style="margin-top:30px;">
+                                        <span>@item.ReceipeName</span>
+                                    </div>
+                                </div>
+                            }
 
-							</div>
-						</div>
-					</div>
+                        </div>
+                    </div>
 
-				</aside>
-				<!--//right-->
-			</div>
-		</div>
-	</section>
-	<!--//main-->
-	<!--/middle-->
-	<section class="middle-sec-agileinfo-w3ls">
-		<div class="container">
-			<div class="row inner-sec">
-
-                <div class="col-md-4 news-left">
-                    @foreach (var item in Model.Take(4))
+                </aside>
+                <!--//right-->
+            </div>
+        </div>
+    </section>
+    <!--//main-->
+    <!--/middle-->
+    <section class="middle-sec-agileinfo-w3ls">
+        <div class="container">
+            <div class="row inner-sec">
+                <div class="col-md-6 news-left" style="float: left;">
+                    <h1 style="color:white">Çok Beğenilen Tarifler</h1>
+                    @foreach (var item in Model
+                    .Where(item => item.Comments != null && item.Comments.Count != 0&&item.Comments.Count()>=3)
+                    .OrderByDescending(item => item.Comments.DefaultIfEmpty().Average(x => x.RecipeScore))
+                    .Take(4))
                     {
-					<ul id="demo1_thumbs" class="list-inline">
-						<li>
-							<a href="/@item.ReceipeImage">
-								<img src="/@item.ReceipeImage" alt="" @*data-desoslide-caption="<h3>Latest Post 1</h3>"*@>
-								<div class="mid-text-info">
-									<h4>@item.ReceipeName</h4>
-									@*<p> </p>*@
-									<div class="sub-meta">
-										<span>
-											<i class="far fa-clock"></i> @(item.CreateDate.ToString("d"))
-										</span>
-									</div>
-								</div>
-							</a>
-						</li>
+                        <ul id="demo1_thumbs" class="list-inline">
+                            <li>
+                                <a href="/Recipe/RecipeReadAll/@item.ReceipeID">
+                                    <img src="~/Tema/images/@item.ReceipeImage" alt="">
+                                    <div class="mid-text-info">
+                                        <h4>@item.ReceipeName</h4>
+                                        <div class="sub-meta">
+                                            <span>
+                                                <i class="far fa-clock"></i> @(item.CreateDate.ToString("d"))
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    }
+                </div>
+                <div class="col-md-6 news-right" style="float: left;">
+                    <h1 style="color:white">İlgini Çekebilir</h1>
+                    @foreach (var item in Model.TakeLast(4))
+                    {
+                        
+                    <ul id="demo1_thumbs" class="list-inline">
+                        <li>
+                            <a href="/Recipe/RecipeReadAll/@item.ReceipeID">
+                                    <img src="~/Tema/images/@item.ReceipeImage" alt="">
+                                <div class="mid-text-info">
+                                    <h4>@item.ReceipeName</h4>
+                                    @*<p> </p>*@
+                                    <div class="sub-meta">
+                                        <span>
+                                            <i class="far fa-clock"></i> @(item.CreateDate.ToString("d"))
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                    </ul>
+                    }
+
+                </div>
+
+@* 
+                <div id="demo1_main_image" class="col-md-8  news-right"></div>
+                <div class="clearfix"> </div> *@
+            </div>
+
+        </div>
+
+    </section>
+    <!--//middle-->
+    <!---->
+    <section class="main-content-w3layouts-agileits">
+        <div class="container">
+            <div class="row">
+                <!--left-->
+                <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
+                    <div class="blog-grid-top">
+
+                        <h3>
+                            <a href="/About/Index">Hakkımızda </a>
+                        </h3>
+                        <p>
+                           Bizler YemekSende Ailesi olarak sizlere en güzel tarifleri sunmak için buradayız. Eğer bizler hakkında daha fazla bilgiye ulaşmak istiyorsan aşağıdaki butona tıklayarak ayrıntılı bilgilerimize ulaşabilirsin
+                        </p>
+                        <a href="/About/Index" class="btn btn-primary read-m">Daha Fazlası İçin</a>
+                    </div>
+                    <!--//silder-->
+
+
+                </div>
+                <!--//left-->
+                <!--right-->
+                <aside class="col-lg-4 agileits-w3ls-right-blog-con text-left">
+                    <div class="tech-btm">
+                        <h4>Bu Tarifleri Denemelisin</h4>
+                        @foreach (var item in Model.Where(x=>x.Category.CategoryName=="Bakliyat").Take(2))
+                        {
                             
-					</ul>
-					}
-				</div>
-				
+                        <div class="blog-grids row mb-3">
+                            <div class="col-md-5 blog-grid-left">
+                                <a href="single.html">
+                                        <img src="~/Tema/images/@item.ReceipeImage" class="img-fluid" alt="">
+                                </a>
+                            </div>
+                            <div class="col-md-7 blog-grid-right">
 
-				<div id="demo1_main_image" class="col-md-8  news-right"></div>
-				<div class="clearfix"> </div>
-			</div>
-			
-		</div>
+                                <h5>
+                                    <a href="single.html">@item.ReceipeName </a>
+                                </h5>
+                                <div class="sub-meta">
+                                    <span>
+                                        <i class="far fa-clock"></i> @item.CreateDate.ToShortDateString()
+                                    </span>
+                                </div>
+                            </div>
 
-	</section>
-	<!--//middle-->
-	<!---->
-	<section class="main-content-w3layouts-agileits">
-		<div class="container">
-			<div class="row">
-				<!--left-->
-				<div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
-					<div class="blog-grid-top">
-						<div class="b-grid-top">
-							<div class="blog_info_left_grid">
-								<a href="single.html">
-									<img src="images/b4.jpg" class="img-fluid" alt="">
-								</a>
-							</div>
-							<div class="blog-info-middle">
-								<ul>
-									<li>
-										<a href="#">
-											<i class="far fa-calendar-alt"></i> FEB 15,2018
-										</a>
-									</li>
-									<li class="mx-2">
-										<a href="#">
-											<i class="far fa-thumbs-up"></i> 201 Likes
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="far fa-comment"></i> 15 Comments
-										</a>
-									</li>
+                        </div>
+                        }
 
-								</ul>
-							</div>
-						</div>
+                    </div>
 
-						<h3>
-							<a href="single.html">Hakkımızda </a>
-						</h3>
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt ut labore et dolore magna
-							aliqua uta enim ad minim ven iam quis nostrud exercitation ullamco labor nisi ut aliquip exea commodo consequat duis
-							aute irudre dolor in elit sed uta labore dolore reprehender
-						</p>
-						<a href="single.html" class="btn btn-primary read-m">Read More</a>
-					</div>
-					<!--//silder-->
+                </aside>
+                <!--//right-->
+            </div>
+        </div>
+    </section>
+    <!--//main-->
+    <!--footer-->
+    <!---->
+    <!-- js -->
+    <!-- //js -->
+    <!-- desoslide-JavaScript -->
+    @*<script>
+    $('#demo1_thumbs').desoSlide({
+    main: {
+    container: '#demo1_main_image',
+    cssClass: 'img-responsive'
+    },
+    effect: 'sideFade',
+    caption: true
+    });
+    </script>*@
 
+    @*	<script>
+    var id=null;
+    $(document).ready(function(){
+    id='@id';
+    //$(window).load(function () {
+    if (id !== null) {
+    $.ajax({
+    url: '@Url.Action("Index", "Default")',
+    type: 'GET',
+    dataType: 'JSON',
+    data: { id: id },
+    contentType: 'application/json',
+    success: function (result) {
+    // Başarılı olduğunda yapılacak işlemler
+    console.log(id);
+    },
+    error: function (xhr, status, error) {
+    // Hata olduğunda yapılacak işlemler
+    console.log(id);
 
-				</div>
-				<!--//left-->
-				<!--right-->
-				<aside class="col-lg-4 agileits-w3ls-right-blog-con text-left">
-					<div class="tech-btm">
-						<h4>Recent Posts</h4>
+    }
+    });
+    }
 
-						<div class="blog-grids row mb-3">
-							<div class="col-md-5 blog-grid-left">
-								<a href="single.html">
-									<img src="images/5.jpg" class="img-fluid" alt="">
-								</a>
-							</div>
-							<div class="col-md-7 blog-grid-right">
-
-								<h5>
-									<a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
-								</h5>
-								<div class="sub-meta">
-									<span>
-										<i class="far fa-clock"></i> 20 Jan, 2018
-									</span>
-								</div>
-							</div>
-
-						</div>
-					</div>
-
-				</aside>
-				<!--//right-->
-			</div>
-		</div>
-	</section>
-	<!--//main-->
-	<!--footer-->
-	
-	<!---->
-	<!-- js -->
-	<!-- //js -->
-	<!-- desoslide-JavaScript -->
-	@*<script>
-		$('#demo1_thumbs').desoSlide({
-			main: {
-				container: '#demo1_main_image',
-				cssClass: 'img-responsive'
-			},
-			effect: 'sideFade',
-			caption: true
-		});
-	</script>*@
-
-@*	<script>
-		var id=null;
-		$(document).ready(function(){
-	  id='@id';
-			//$(window).load(function () {
-		if (id !== null) {
-		$.ajax({
-                url: '@Url.Action("Index", "Default")',
-                type: 'GET',
-                dataType: 'JSON',
-                data: { id: id },
-                contentType: 'application/json',
-                success: function (result) {
-                    // Başarılı olduğunda yapılacak işlemler
-                    console.log(id);
-                },
-                error: function (xhr, status, error) {
-                    // Hata olduğunda yapılacak işlemler
-                    console.log(id);
-
-                }
-            });
-		}
-
-			//});
-		});
-	</script>
-*@	
+    //});
+    });
+    </script>
+    *@
 
 </body>
 

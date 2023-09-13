@@ -58,15 +58,15 @@
                                 <td> @item.Recipe.ReceipeName </td>
                                     @{
                                         string color = "";
-                                        if (item.RecipeScore >= 0 && item.RecipeScore <= 3)
+                                        if (item.RecipeScore >= 0 && item.RecipeScore <= 2)
                                         {
                                             color = "red";
                                         }
-                                        else if (item.RecipeScore >= 4 && item.RecipeScore <= 6)
+                                        else if (item.RecipeScore >= 3 && item.RecipeScore <= 4)
                                         {
                                             color = "rosybrown";
                                         }
-                                        else if (item.RecipeScore >= 7 && item.RecipeScore <= 10)
+                                        else if (item.RecipeScore == 5)
                                         {
                                             color = "green";
                                         }

@@ -3,17 +3,20 @@ using BusinessLayer.ValidationRules;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using DataAccessLayer.Repositories;
+using DocumentFormat.OpenXml.Spreadsheet;
 using EntityLayer.Concrete;
 using EntityLayer.DTO;
 using EntityLayer.ViewModel;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using Yemek_Tarif_Core_MVC.Models;
@@ -61,7 +64,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult RecipeAdd(Recipe p)
+        public IActionResult RecipeAdd(Recipe p, IFormFile file)
         {
             RecipeValidator rv = new();
             ValidationResult results = rv.Validate(p);
@@ -77,6 +80,26 @@ namespace Yemek_Tarif_Core_MVC.Controllers
                               Value = cat.CategoryID.ToString()
                           }).ToList();
             ViewBag.cat = values;
+            if (file != null)
+            {
+                string imageExtension = Path.GetExtension(file.FileName);
+                string imageName = Guid.NewGuid() + imageExtension;
+                string imagePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/Tema/images/{imageName}");
+                using var stream = new FileStream(imagePath, FileMode.Create);
+                file.CopyTo(stream);
+                // Eğer mevcut bir dosya varsa, onun yenisiyle yer değiştirmesini sağlıyoruz
+                //if (!string.IsNullOrEmpty(p.ReceipeImage))
+                //{
+                //    string existingImagePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/Tema/images/{p.ReceipeImage}");
+                //    if (System.IO.File.Exists(existingImagePath))
+                //    {
+                //        System.IO.File.Delete(existingImagePath);
+                //    }
+                //}
+                p.ReceipeImage = imageName;
+                ViewBag.image = imageName;
+
+            }
             if (results.IsValid)
             {
                 p.RecipeStatus = true; //to do: Başlangıçta false olacak, sonradan admin onaylayacak

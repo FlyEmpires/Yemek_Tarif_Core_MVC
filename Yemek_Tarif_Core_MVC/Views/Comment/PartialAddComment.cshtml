@@ -3,54 +3,80 @@
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
+<link href="~/writer/assets/css/reciperayting.css" rel="stylesheet" />
 <div class="comment-top">
-        <h3>Sen de bir yorum yazmak ister misin?</h3>
+    <h3>Sen de bir yorum yazmak ister misin?</h3>
 
     <div class="comment-bottom">
-        <form id="commentForm">
-            @*action="/Comment/PartialAddComment" method="post"*@
-            <input class="form-control" type="text" name="Name" id="Name" placeholder="İsim" required=""><br />
-            <input class="form-control" type="email" name="Email" id="Email" placeholder="E-mail" required=""><br />
+        <form action="/Comment/PartialAddComment" method="post">
 
-            <input class="form-control" type="text" name="Subject" id="Subject" placeholder="Konu" required=""><br />
-            <input type="hidden" name="RecipeID" id="RecipeID" value="@Model" />@*Modelden gelen parametreyi burada  Controller'a gönderiyoruz*@
-            <textarea class="form-control" name="Message" id="Message" placeholder="Mesaj..." required=""></textarea><br />
-            <button type="submit" class="btn btn-primary submit">Gönder</button>
+       @*  @using (Html.BeginForm("PartialAddComment", "Comment", FormMethod.Post))
+        { *@
+            @*action="/Comment/PartialAddComment" method="post"*@
+            <input class="form-control" type="text" name="Name" id="Name" placeholder="İsim" required="">
+
+            <br />
+            <input class="form-control" type="email" name="Email" id="Email" placeholder="E-mail" required="">
+
+            <br />
+
+            <input class="form-control" type="text" name="Subject" id="Subject" placeholder="Konu" required="">
+
+            <br />
+            <input type="hidden" name="RecipeID" id="RecipeID" value="@Model" />
+            @*Modelden gelen parametreyi burada  Controller'a gönderiyoruz*@
+            <textarea class="form-control" name="Message" id="Message" placeholder="Mesaj..." required=""></textarea>
+
+            <br />
+            <section id="like" class="rating">
+                <!-- FIFTH HEART -->
+                <input type="radio" id="heart_5" name="like" value="5" />
+                <label for="heart_5" title="Five">&#10084;</label>
+                <!-- FOURTH HEART -->
+                <input type="radio" id="heart_4" name="like" value="4" />
+                <label for="heart_4" title="Four">&#10084;</label>
+                <!-- THIRD HEART -->
+                <input type="radio" id="heart_3" name="like" value="3" />
+                <label for="heart_3" title="Three">&#10084;</label>
+                <!-- SECOND HEART -->
+                <input type="radio" id="heart_2" name="like" value="2" />
+                <label for="heart_2" title="Two">&#10084;</label>
+                <!-- FIRST HEART -->
+                <input type="radio" id="heart_1" name="like" value="1" />
+                <label for="heart_1" title="One">&#10084;</label>
+            </section>
+            <button type="submit" id="btnSave" class="btn btn-primary submit">Gönder</button>
+        @* } *@
         </form>
+
+
+
     </div>
 </div>
 <script>
     $(document).ready(function () {
-
-
-        $("form#commentForm").submit(function (event) {
-            event.preventDefault();
-            var dataA = {
-                CommentUserName: $("#Name").val(),
-                //txtEmail: $("#Email").val(),
-                CommentTitle: $("#Subject").val(),
-                CommentContent: $("#Message").val(),
-                RecipeID:$("#RecipeID").val()
+        $('#btnSave').click(function () {
+        var like = $("input[name='like']:checked").val();
+            var p = {
+                CommentUserName: $('#Name').val(),
+                CommentTitle: $('#Subject').val(),
+                CommentContent: $('#Message').val(),
+                RecipeID: $('#RecipeID').val()
             };
-
+            var url = '/Comment/PartialAddComment?like=' + like;
             $.ajax({
-                url: '@Url.Action("PartialAddComment", "Comment")',/* + '?txtName=' + dataA.txtName + '&txtEmail=' + dataA.txtEmail + '&txtKonu=' + dataA.txtKonu + '&txtMesaj=' + dataA.txtMesaj,*/
+                url: url,
                 type: 'POST',
-                dataType: 'JSON',
-                data: JSON.stringify(dataA),
+                dataType:'JSON',
+                data: JSON.stringify(p), 
                 contentType: 'application/json',
-                success: function (result) {
-                    // Başarılı olduğunda yapılacak işlemler
-                    console.log(dataA);
+                success: function (data) {
                 },
-                error: function (xhr, status, error) {
-                    // Hata olduğunda yapılacak işlemler
-                    console.log(dataA);
+                error: function () {
 
                 }
             });
-
-
         });
+    
     });
 </script>

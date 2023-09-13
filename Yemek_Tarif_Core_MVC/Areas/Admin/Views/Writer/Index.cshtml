@@ -43,28 +43,35 @@
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Yazar Adı:</label>
                         <input type="text" class="form-control" id="txtWriterName">
-                        @Html.ValidationMessageFor(x=>x.Writers.WriterName,"",new{@class="text-danger"})
+                        @Html.ValidationMessageFor(x=>x.Writers.NameSurname,"",new{@class="text-danger"})
+                        <span id="txtWriterNameError" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Kullanıcı Adı:</label>
+                        <input type="text" class="form-control" id="txtUserName">
+                        @Html.ValidationMessageFor(x=>x.Writers.NameSurname,"",new{@class="text-danger"})
                         <span id="txtWriterNameError" class="text-danger"></span>
 
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Mail Adresi:</label>
                         <input type="text" class="form-control" id="txtMail">
-                        @Html.ValidationMessageFor(x=>x.Writers.WriterMail,"",new{@class="text-danger"})
+                        @Html.ValidationMessageFor(x=>x.Writers.Email,"",new{@class="text-danger"})
                         <span id="txtMailError" class="text-danger"></span>
 
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Şifre:</label>
                         <input type="text" class="form-control" id="txtPass">
-                        @Html.ValidationMessageFor(x=>x.Writers.WriterPassword,"",new{@class="text-danger"})
+                        @Html.ValidationMessageFor(x=>x.Writers.PasswordHash,"",new{@class="text-danger"})
                         <span id="txtPassError" class="text-danger"></span>
 
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Şifre:</label>
                         <input type="password" name="geciciSifre" id="geciciSifre" class="form-control" />
-                        @Html.ValidationMessageFor(x=>x.Writers.WriterPassword,"",new{@class="text-danger"})
+                        @Html.ValidationMessageFor(x=>x.Writers.PasswordHash,"",new{@class="text-danger"})
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Şehir Seçiniz:</label>
@@ -101,14 +108,21 @@
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Yazar Adı:</label>
                         <input type="text" class="form-control" id="txtWriterNameUpdate">
-                        @Html.ValidationMessageFor(x=>x.Writers.WriterName,"",new{@class="text-danger"})
+                        @Html.ValidationMessageFor(x=>x.Writers.NameSurname,"",new{@class="text-danger"})
+                        <span id="txtWriterNameErrorUpdate" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Kullanıcı Adı:</label>
+                        <input type="text" class="form-control" id="txtWriterNameUpdate">
+                        @Html.ValidationMessageFor(x=>x.Writers.UserName,"",new{@class="text-danger"})
                         <span id="txtWriterNameErrorUpdate" class="text-danger"></span>
 
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Mail Adresi:</label>
                         <input type="text" class="form-control" id="txtMailUpdate">
-                        @Html.ValidationMessageFor(x=>x.Writers.WriterMail,"",new{@class="text-danger"})
+                        @Html.ValidationMessageFor(x=>x.Writers.Email,"",new{@class="text-danger"})
                         <span id="txtMailErrorUpdate" class="text-danger"></span>
 
                     </div>
@@ -160,12 +174,15 @@
                         var dataTable = $('#data-table tbody');
                         
                         var parseJson = jQuery.parseJSON(data);
-                        if (parseJson[0]==null){
+                    console.log(parseJson);
+                    console.log(data);
+
+                        if (parseJson==null){
                        alert("Aradğınız Yazar Bulunamadı.!");
                         }
                         else{
                             dataTable.empty();
-                        dataTable.append('<tr><td>' + parseJson[0].WriterID + '</td><td>' + parseJson[0].WriterName + '</td></tr>');
+                        dataTable.append('<tr><td>' + parseJson.Id + '</td><td>' + parseJson.NameSurname+ '</td></tr>');
 
                         }
                     },
@@ -186,11 +203,12 @@
 
         $("#btnSave").click(function () {
             var Writers = { //JavaScript objesi oluşturup onun içersinde dataları tek seferde daha az parametre kullanrak göndermiş oluyoruz.
-                WriterName: $("#txtWriterName").val(),
-                WriterMail: $("#txtMail").val(),
-                WriterPassword: $("#txtPass").val(),
+                NameSurname: $("#txtWriterName").val(),
+                UserName: $("#txtUserName").val(),
+                Email: $("#txtMail").val(),
+                PasswordHash: $("#txtPass").val(),
                 CityID: $("#CityID").val(),
-                DistrictID: $("#DistrictID").val()
+                DistrictID: $("#DistrictID").val(),
             };
             var geciciSifre = $("#geciciSifre").val();
             var SelectedDistrictID = $("#DistrictID").val();
@@ -233,7 +251,7 @@
                     //var dataTable = $('#data-table tbody');
                     dataTable.empty();
                     $.each(data, function (index, item) {
-                        dataTable.append('<tr><td>' + item.writerID + '</td><td>' + item.writerName + '</td> <td> <a onclick="deleteWriter(' + item.writerID + ')" id="updateButton" class="btn btn-danger">Sil</a> </td> <td> <a class="btn btn-info" onclick="getUpdateWriter(' + item.writerID + ')" data-toggle="modal" data-target="#writerUpdateModal" data-whatever=""> <i class="fa fa-paste"> Düzenle</i></a></td> </tr>');
+                        dataTable.append('<tr><td>' + item.id + '</td><td>' + item.nameSurname+ '</td> <td> <a onclick="deleteWriter(' + item.id+ ')" id="updateButton" class="btn btn-outline-danger">Sil</a> </td> <td> <a class="btn btn-outline-info" onclick="getUpdateWriter(' + item.id+ ')" data-toggle="modal" data-target="#writerUpdateModal" data-whatever=""> <i class="fa fa-paste"> Düzenle</i></a></td> </tr>');
                     });
                 },
                 error: function (error) {
