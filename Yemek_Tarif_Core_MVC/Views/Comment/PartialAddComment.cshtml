@@ -55,7 +55,9 @@
 </div>
 <script>
     $(document).ready(function () {
-        $('#btnSave').click(function () {
+        $('#btnSave').click(function (event) {
+            event.preventDefault();
+            var recipeID = $('#RecipeID').val();
         var like = $("input[name='like']:checked").val();
             var p = {
                 CommentUserName: $('#Name').val(),
@@ -71,6 +73,8 @@
                 data: JSON.stringify(p), 
                 contentType: 'application/json',
                 success: function (data) {
+                    window.location.href = 'Recipe/RecipeReadAll' + recipeID;
+                    console.log(data);
                 },
                 error: function () {
 

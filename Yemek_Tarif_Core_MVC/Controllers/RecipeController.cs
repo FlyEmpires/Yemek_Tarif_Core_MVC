@@ -97,7 +97,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
                 //    }
                 //}
                 p.ReceipeImage = imageName;
-                ViewBag.image = imageName;
+                ViewBag.resim = imageName;
 
             }
             if (results.IsValid)
@@ -116,7 +116,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
             }
-            return View();
+            return View(p);
         }
 
         public IActionResult DeleteRecipe(int id)

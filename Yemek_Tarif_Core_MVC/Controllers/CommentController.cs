@@ -28,7 +28,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
             p.RecipeScore = like;
             //p.ReceipeID=
             //int like = Convert.ToInt32(Request.Form["like"]);
-            //cm.CommentAdd(p);
+            cm.CommentAdd(p);
             return PartialView();
         }
         public PartialViewResult CommentListByBlog(int id)
