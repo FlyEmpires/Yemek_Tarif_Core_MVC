@@ -13,7 +13,7 @@ namespace DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"server=94.138.197.30;database=YemekTarifCore;user=yemeksenle;password=Yemeksenle42");
+            optionsBuilder.UseSqlServer(@"server=DESKTOP-EMG9PNB\SQLEXPRESS;database=YemekTarifCore;integrated security=true;integrated security=true");
             optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
         }

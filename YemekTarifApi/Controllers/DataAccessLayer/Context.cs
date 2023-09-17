@@ -7,7 +7,7 @@ namespace YemekTarifApi.Controllers.DataAccessLayer
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"server=DESKTOP-CQ6VQ08\SQLEXPRESS;database=YemekTarifAPIDB;integrated security=true;TrustServerCertificate=true");
+            optionsBuilder.UseSqlServer(@"server=DESKTOP-EMG9PNB\SQLEXPRESS;database=YemekTarifAPIDB;integrated security=true;TrustServerCertificate=true");
 
         }
         public DbSet<NewsLetters> NewsLetters { get; set; }
