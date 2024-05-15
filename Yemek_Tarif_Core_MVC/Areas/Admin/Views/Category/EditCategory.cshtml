@@ -1,0 +1,28 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "EditCategory";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using (Html.BeginForm("EditCategory", "Category", FormMethod.Post))
+{
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+    <label>
+        Kategori ID
+    </label>
+    @Html.TextBoxFor(x=>x.CategoryID)
+        </div>
+    <BR />
+        <div class="col-md-6 mb-3">
+
+    <label>
+        Kategori İsmi
+    </label>
+    @Html.TextBoxFor(x=>x.CategoryName)
+    </div>
+    <br />
+    </div>
+    <button class="btn btn-primary">Kaydet</button>
+
+
+}

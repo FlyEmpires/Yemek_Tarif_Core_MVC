@@ -12,9 +12,9 @@ namespace Yemek_Tarif_Core_MVC.ViewComponents.NewsLetters
 
         public IViewComponentResult Invoke(NewsLetter p,int id)
         {
-
+            
             ViewBag.id = id;
-            ViewBag.sonuc = 1;
+            //ViewBag.sonuc = 1;
             return View(id);
         }
      

@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
+using SharpDX.DXGI;
 using System.Linq;
 using System.Threading.Tasks;
 using Yemek_Tarif_Core_MVC.Models;
@@ -47,30 +50,39 @@ namespace Yemek_Tarif_Core_MVC.Controllers
             user.District = districtList;
             //if (ModelState.IsValid)
             //{
-                AppUser appUser = new()
+            AppUser appUser = new() //bu yapıya "object initializer" veya "initializer syntax" deniyor. (tek bir seferde birden fazla properties tanımlama)
+            {
+                Email = user.Mail,
+                ImageUrl = user.ImageUrl,
+                NameSurname = user.NameSurname,
+                UserName = user.UserName,
+                CityID = user.SelectedCityID,
+                DistrictID = SelectedDistrictID
+            };
+            var result = await _userManager.CreateAsync(appUser, user.Password);
+            if (result.Succeeded)
+            {
+
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {              
+
+                foreach (var item in result.Errors)
                 {
-                    Email=user.Mail,
-                    ImageUrl=user.ImageUrl,
-                    NameSurname=user.NameSurname,
-                    UserName=user.UserName,
-                    CityID=user.SelectedCityID,
-                    DistrictID=SelectedDistrictID
-                };
-                var result = await _userManager.CreateAsync(appUser, user.Password);
-                if (result.Succeeded)
-                {
-                    
-                    return RedirectToAction("Index", "Login");
+                  
+                    ModelState.AddModelError("", item.Description);
                 }
-                else
-                {
-                    foreach (var item in result.Errors)
-                    {
-                        ModelState.AddModelError("", item.Description);
-                    }
-                }
+            }
             //}
             return View(user);
+        }
+        [HttpPost] //Seçilen il için ilgili ilçelerin dinamik olarak güncellenmesi için
+        public IActionResult FindDistricts(int selectedCity)
+        {
+            Context db = new();
+            var districts = db.Districts.Where(x => x.CityID == selectedCity).ToList();
+            return Json(districts);
         }
     }
 }

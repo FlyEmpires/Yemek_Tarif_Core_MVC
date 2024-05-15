@@ -17,6 +17,8 @@ l@*@model EntityLayer.Concrete.Writer*@
             <div class="login p-5 bg-light mx-auto mw-100">
                 @using (Html.BeginForm("Index", "RegisterIdentity", FormMethod.Post))
                 {
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label for="validationCustom01">Adınız Soyadınız</label>
@@ -80,7 +82,8 @@ l@*@model EntityLayer.Concrete.Writer*@
     $(document).ready(function () {
         $("#CityID").change(function () {
             var selectedCity = $(this).val();
-            var url = "/Register/City/" + selectedCity;
+            // var url = "/Register/City/" + selectedCity;
+            var url = "/RegisterIdentity/FindDistricts/" + selectedCity;
 
             $.post(url, { selectedCity: selectedCity }, function (data) { //selectedcity ile controller'a parametre gönderiyoruz
                 // İlçe dropdown listesini güncelle

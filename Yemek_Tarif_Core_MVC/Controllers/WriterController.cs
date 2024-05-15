@@ -78,6 +78,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
             var values = await _userManager.FindByNameAsync(User.Identity.Name);
             values.NameSurname = user.NameSurname;
             values.PhoneNumber = user.PhoneNumber;
+            values.Email = user.Mail;
             if (checkbox!=null)
             {
                 values.PasswordHash = _userManager.PasswordHasher.HashPassword(values, user.Password);
@@ -91,7 +92,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
                 {
                     string imageExtension = Path.GetExtension(file.FileName);
                     string imageName = Guid.NewGuid() + imageExtension;
-                    string imagePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/Tema/images/{imageName}");
+                    string imagePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/Tema/images/{imageName}"); // string interpolation deniyor
                     using var stream = new FileStream(imagePath, FileMode.Create);
                     file.CopyTo(stream);
                     // Eğer mevcut bir dosya varsa, onun yenisiyle yer değiştirmesini sağlıyoruz

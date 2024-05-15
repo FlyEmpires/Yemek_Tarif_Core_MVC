@@ -19,7 +19,7 @@ namespace DataAccessLayer.Concrete
         }
         protected override void OnModelCreating (ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<WriterMessage>()
+            modelBuilder.Entity<WriterMessage>() //one to many ilişkisi --> bir yazar birden fazla alıcıya mesaj gönderebilir -- her bir mesajın yalnızca bir alıcısı olabilir
                 .HasOne(x => x.SenderWriter)
                 .WithMany(y => y.WriterSender)
                 .HasForeignKey(z => z.SenderID)
@@ -36,7 +36,7 @@ namespace DataAccessLayer.Concrete
             modelBuilder.Entity<AppUser>()
               .HasIndex(p => p.UserName)
               .IsUnique();
-
+          
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<About> Abouts { get; set; }

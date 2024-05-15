@@ -13,12 +13,12 @@
                 @using (Html.BeginForm("Index","Account",FormMethod.Post))
                 {
                 <div class="form-group">
-                    <label for="exampleInputEmail1 mb-2">Email adresi</label>
+                    <label for="exampleInputEmail1 mb-2">Kullanıcı Adınız</label>
                     @Html.TextBoxFor(x=>x.Username,new{@class="form-control"})
                     @*<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" required="">*@
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1 mb-2">Şifre</label>
+                    <label for="exampleInputPassword1 mb-2">Şifreniz</label>
                     @Html.TextBoxFor(x=>x.Password,new{@class="form-control"})
 
                     @*<input type="password" class="form-control" id="exampleInputPassword1" placeholder="" required="">*@

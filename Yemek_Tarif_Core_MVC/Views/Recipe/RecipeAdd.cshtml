@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
 
-@using (Html.BeginForm("RecipeAdd", "Recipe", FormMethod.Post,new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("RecipeAdd", "Recipe", FormMethod.Post,new { enctype = "multipart/form-data" })) //Razor Views
 {
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
@@ -12,7 +12,7 @@
                 <div class="form-group">
                 <h4 class="card-title">Yemek Tarif Ekleme</h4>
             <label for="validationCustom01">Yemeğin Başlığı</label>
-            @Html.TextBoxFor(x=>x.ReceipeName,new{@class="form-control"})
+            @Html.TextBoxFor(x=>x.ReceipeName,new{@class="form-control"}) @*Razor Syntax and lambda expression*@
             @Html.ValidationMessageFor(x=>x.ReceipeName,"",new{@class="text-danger"})
        </div>
 

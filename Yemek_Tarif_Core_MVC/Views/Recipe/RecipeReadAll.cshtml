@@ -40,27 +40,32 @@
                                 </div>
                                 <div class="blog-info-middle">
                                     <ul>
-                                        <li>
-                                            <a href="#">
+                                        <li style="color:white">
+                                           
                                                 <i class="far fa-calendar-alt"></i> @item.CreateDate.ToString("d")
-                                            </a>
+                                           
                                         </li>
-                                        <li class="mx-2">
-                                            <a href="#">
+                                        <li class="mx-2" style="color:white">
+                                          
                                                 <i class="far fa-thumbs-up"></i> @recipeRaytingCount
-                                            </a>
+                                           
+                                        </li>
+                                        <li style ="color:white">
+                                            
+                                                <i class="far fa-comment"></i> @ViewBag.commentCount
+                                           
                                         </li>
                                         <li>
-                                            <a href="#">
-                                                <i class="far fa-comment"></i> @ViewBag.commentCount
+                                            <a href="#" style="color:#ffd600">
+                                                <i class="bi bi-person"></i> @ViewBag.WriterName
                                             </a>
                                         </li>
                                         @if (item.CreateDate.ToShortDateString() == DateTime.Now.ToShortDateString())
                                         {
-                                            <li>
-                                                <a href="#">
-                                                    <i class="far fa-comment"></i> Yaklaşık @ViewBag.Minute dakika önce
-                                                </a>
+                                            <li style="color:white">
+                                                
+                                                    <i class="bi bi-alarm"></i> @ViewBag.Minute
+                                               
                                             </li>
                                         }
 
@@ -95,7 +100,7 @@
 
                         @*@await Html.PartialAsync("~/Views/NewsLetter/SubscribeMail.cshtml",new{id=ViewBag.id})*@
                         @await Component.InvokeAsync("CategoryList")
-                        @await Component.InvokeAsync("WriterLastRecipes")
+                        @await Component.InvokeAsync("WriterLastRecipes",new{id=ViewBag.id})
                         <div class="single-gd my-5 tech-btm">
                             <h4>Besin Değerleri</h4>
                             <label style="font-size:15px;  ">Kalori</label>

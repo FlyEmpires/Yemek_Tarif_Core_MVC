@@ -3,22 +3,14 @@
     <p>Abone olarak yeni yemek tarfilerinden haberdar olabilirsiniz.</p>
     <form id="subscribeForm">
         <input type="email" placeholder="Email" required name="Mail">
-        <input type="submit" value="Abone Ol">
-       @*  @if (ViewBag.sonuc==1)
-        {
-            <div class="alert alert-success" id="success">
-                <strong>Tebrikler!</strong> Başarıyla Mail Bültenimize Abone Oldunuz.!
-            </div>
-        } *@
+        <input type="submit" value="Abone Ol">   
         
     </form>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
-        // var myDiv = document.getElementById('success');
-        // myDiv.style.display = 'none';
+    $(document).ready(function () {      
 
         $(function () {
 
@@ -31,12 +23,12 @@
                     type: 'POST',
                     data: $(this).serialize(), // Form verilerini al ve gönder
                     success: function (response) {
-                        // Başarılı cevap geldiğinde yapılacak işlemler
-                        // Örneğin, geri dönen partial view'i bir alana eklemek için:
-                     /*   myDiv.style.display = 'block'; */ //İşlem başarılı ise Tebrikler div'i gözüksün
-                        //$('#resultContainer').html(response);
+                        alert("Tebrikler başarıyla kayıt oldunuz!");
+                       
                     },
                     error: function (xhr, status, error) {
+                        alert("Hata oluştu: " +"Mail Sistemde Zaten Kayıtlı!");
+
                         // Hata durumunda yapılacak işlemler
                         console.log(xhr.responseText);
                     }
