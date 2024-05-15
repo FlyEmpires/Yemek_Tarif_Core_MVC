@@ -1,9 +1,11 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Yemek_Tarif_Core_MVC.Controllers
 {
+	[AllowAnonymous]
 	public class AboutController : Controller
 	{
 		AboutManager abm=new(new EFAboutRepository());

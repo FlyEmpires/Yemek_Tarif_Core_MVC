@@ -23,5 +23,12 @@ namespace BusinessLayer.Concrete
         {
             _newsLetterDal.Insert(newsLetter);
         }
+
+      
+
+        public bool IfExistMail(string mail)
+        {
+           return _newsLetterDal.IfExistMail(mail);
+        }
     }
 }

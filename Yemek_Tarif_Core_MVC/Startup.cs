@@ -1,3 +1,4 @@
+using BusinessLayer.ValidationRules;
 using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -7,14 +8,17 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Yemek_Tarif_Core_MVC.Models;
 
 namespace Yemek_Tarif_Core_MVC
 {
@@ -31,7 +35,7 @@ namespace Yemek_Tarif_Core_MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<Context>();
-            services.AddIdentity<AppUser, AppRole>(/*x => x.Password.RequireLowercase = false*/).AddEntityFrameworkStores<Context>();
+            services.AddIdentity<AppUser, AppRole>(/*x => x.Password.RequireLowercase = false*/).AddEntityFrameworkStores<Context>().AddErrorDescriber<TranslationIdentityErrorMessages>(); //ÇEVÝRÝ - çeviri
             services.AddControllersWithViews();
 
             //Proje seviyesinde yetkilendirme
@@ -50,6 +54,10 @@ namespace Yemek_Tarif_Core_MVC
                 });
             services.AddSession();
 
+          
+
+
+
             services.ConfigureApplicationCookie(options =>
             {
                 //cookie settings
@@ -63,7 +71,11 @@ namespace Yemek_Tarif_Core_MVC
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        {          
+           
+
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

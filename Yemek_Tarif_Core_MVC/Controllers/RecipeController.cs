@@ -41,8 +41,11 @@ namespace Yemek_Tarif_Core_MVC.Controllers
             ViewBag.commentCount = rm.GetCommentCountByRecipe(id);
             ViewBag.id = id;
             var Minute = rm.Getdate(id);
-            ViewBag.Minute = Minute;
+            var ago = rm.FormatTimeAgo(Minute);
+            ViewBag.Minute = ago;
             var values = rm.GetRecipeByID(id);
+            var writerID = values.FirstOrDefault().AppUserID;
+            ViewBag.WriterName = um.TGetByID(writerID).NameSurname;
             return View(values);
         }
         public IActionResult RecipeListByWriter()
@@ -105,7 +108,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
                 p.RecipeStatus = true; //to do: Başlangıçta false olacak, sonradan admin onaylayacak
                 p.CreateDate = DateTime.Now;
                 p.AppUserID = int.Parse(writerID);
-                p.WriterID= 1;
+                p.WriterID= 1; // to do: ID Session'dan gelecek
                 rm.TAdd(p);
                 return RedirectToAction("RecipeListByWriter", "Recipe");
             }

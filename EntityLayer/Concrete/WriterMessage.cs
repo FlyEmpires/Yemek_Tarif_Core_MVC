@@ -17,7 +17,7 @@ namespace EntityLayer.Concrete
         public string MessageDetails { get; set; }
         public DateTime MessageDate { get; set; }
         public bool MessageStatus { get; set; }
-        public AppUser SenderWriter { get; set; }
+        public AppUser SenderWriter { get; set; } // her mesajın yalnızca bir göndericisi ve bir alıcısı vardır.
         public AppUser ReceiverWriter { get; set; }
     }
 }

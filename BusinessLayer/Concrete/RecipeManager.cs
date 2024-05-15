@@ -35,8 +35,20 @@ namespace BusinessLayer.Concrete
         {
            var value= _recipeDal.GetListAll(x => x.ReceipeID == id).FirstOrDefault();
             var date = DateTime.Now- value.CreateDate;
-            var Minutes = date.Minutes;
-            return Minutes;
+            int minutes = (int)date.TotalMinutes;
+            return minutes;
+        }
+        public string FormatTimeAgo(int minutes) // Bir tarifin ne kadar önce yayınlandığını dakika ve saat ile ayrı ayrı olarak göstermek için
+        {
+            if (minutes >= 60)
+            {
+                int hours = minutes / 60;
+                return $" Yaklaşık {hours} saat önce";
+            }
+            else            
+
+                return $"{minutes} dakika önce";        
+            
         }
         //      public List<Recipe> GetRecipeByCategoryID(int id)
         //      {
