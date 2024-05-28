@@ -12,7 +12,7 @@ namespace BusinessLayer.Abstract
 		Writer WriterLogin(Writer p);
 		List<Writer>GetWriterByID (int id);
 		int? TotalRecipeCount();
-		int TotalRecipeCountByWriter(int id);
+		//int TotalRecipeCountByWriter(int id);
 		int TotalRecipeCountLast7Days();
 	}
 }

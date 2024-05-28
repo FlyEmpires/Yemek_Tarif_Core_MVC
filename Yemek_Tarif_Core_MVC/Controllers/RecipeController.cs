@@ -33,6 +33,7 @@ namespace Yemek_Tarif_Core_MVC.Controllers
         CategoryManager cm = new(new EFCategoryRepository());
         public IActionResult Index()
         {
+            
             var values = rm.GetListWithCategoryAndWriter();
             return View(values);
         }
@@ -46,6 +47,13 @@ namespace Yemek_Tarif_Core_MVC.Controllers
             var values = rm.GetRecipeByID(id);
             var writerID = values.FirstOrDefault().AppUserID;
             ViewBag.WriterName = um.TGetByID(writerID).NameSurname;
+            return View(values);
+        }
+        [HttpGet]
+        public IActionResult RecipeListOnClickWriter(AppUser writer)
+        {
+            
+            var values = rm.GetListWithCategoryAndWriter(writer.Id);
             return View(values);
         }
         public IActionResult RecipeListByWriter()
@@ -70,11 +78,12 @@ namespace Yemek_Tarif_Core_MVC.Controllers
         public IActionResult RecipeAdd(Recipe p, IFormFile file)
         {
             RecipeValidator rv = new();
-            ValidationResult results = rv.Validate(p);
-            var session = User.Identity.Name;
-            var writerID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ValidationResult results = rv.Validate(p);            
+            var writerID = User.FindFirstValue(ClaimTypes.NameIdentifier);//id bulma kısa yöntem
 
-            var mail = um.TGetByID(int.Parse(writerID));
+            // id bulma uzun yöntem
+            //var session = User.Identity.Name;
+            //var mail = um.TGetByID(int.Parse(writerID));
             //var writerID = wm.GetSessionByWriter(session).Select(x => x.WriterID).FirstOrDefault();
             var values = (from cat in cm.GetList() /*db.Categories*/
                           select new SelectListItem
@@ -89,26 +98,16 @@ namespace Yemek_Tarif_Core_MVC.Controllers
                 string imageName = Guid.NewGuid() + imageExtension;
                 string imagePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/Tema/images/{imageName}");
                 using var stream = new FileStream(imagePath, FileMode.Create);
-                file.CopyTo(stream);
-                // Eğer mevcut bir dosya varsa, onun yenisiyle yer değiştirmesini sağlıyoruz
-                //if (!string.IsNullOrEmpty(p.ReceipeImage))
-                //{
-                //    string existingImagePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/Tema/images/{p.ReceipeImage}");
-                //    if (System.IO.File.Exists(existingImagePath))
-                //    {
-                //        System.IO.File.Delete(existingImagePath);
-                //    }
-                //}
+                file.CopyTo(stream);              
                 p.ReceipeImage = imageName;
                 ViewBag.resim = imageName;
-
             }
             if (results.IsValid)
             {
                 p.RecipeStatus = true; //to do: Başlangıçta false olacak, sonradan admin onaylayacak
                 p.CreateDate = DateTime.Now;
                 p.AppUserID = int.Parse(writerID);
-                p.WriterID= 1; // to do: ID Session'dan gelecek
+                p.WriterID= 1;
                 rm.TAdd(p);
                 return RedirectToAction("RecipeListByWriter", "Recipe");
             }

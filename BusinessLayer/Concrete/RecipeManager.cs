@@ -78,6 +78,10 @@ namespace BusinessLayer.Concrete
         {
             return _recipeDal.GetListWithCategoryAndWriter();
         }
+        public List<Recipe> GetListWithCategoryAndWriter(int id)
+        {
+            return _recipeDal.GetListWithCategoryAndWriter(id);
+        }
 
         public List<Recipe> GetRecipeListWithWriter(int id)
         {

@@ -17,12 +17,15 @@ namespace Yemek_Tarif_Core_MVC.Areas.Admin.Controllers
         {
             var writerID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var values = mm.GetMessageListWithWriter(int.Parse(writerID));
+            ViewBag.messageCount = values.Count;
             return View(values);
         }
         public IActionResult Sendbox()
         {
             var writerID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var values = mm.GetSendBoxListByWriter(int.Parse(writerID));
+            ViewBag.messageCount = values.Count;
+
             return View(values);
         }
         [HttpGet]
@@ -57,6 +60,15 @@ namespace Yemek_Tarif_Core_MVC.Areas.Admin.Controllers
                 var hata = s.Message.ToString();
             }
             return View();
+        }
+        public PartialViewResult PartialMessageMenu()
+        {
+            return PartialView();
+        }
+        public IActionResult MessageDetail(int id)
+        {
+            var message = mm.TGetByID(id);
+            return PartialView("MessageDetail", message);
         }
     }
 }

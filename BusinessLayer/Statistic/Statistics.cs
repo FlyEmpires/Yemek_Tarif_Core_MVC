@@ -49,5 +49,39 @@ namespace BusinessLayer.Statistic
                           }).ToList();
             return chartList;
         }
+        public static int UserCount()
+        {
+            var values = (from user in db.Users select user).ToList().Count;
+            return values;
+        }
+        public static int TotalLike()
+        {
+            var values = (from like in db.RecipeRaytings select like.RecipeRaytingCount).ToList().Sum();
+            return values;
+        }
+        public static int TotalCategory()
+        {
+            var values=(from category in db.Categories select category).ToList().Count;
+            return values;
+        }
+        public static string MostlyLikedRecipe() 
+        {
+            var values = (from likedRecipe in db.RecipeRaytings  select likedRecipe.RecipeRaytingCount).ToList();         
+            var max = values.Max();
+            var recipeID = (from i in db.RecipeRaytings where i.RecipeRaytingCount == max  select i.RecipeID).FirstOrDefault();
+            var recipeName = (from recipe in db.Recipes where recipe.ReceipeID == recipeID select recipe.ReceipeName).FirstOrDefault();
+            return recipeName;
+        }
+        public static string LastRegisteredUser()
+        {
+            var values = (from user in db.Users select user).ToList().TakeLast(1);
+            return values.FirstOrDefault().NameSurname;
+        }
+        public static int AdminCount() 
+        {
+            var values=(from admin in db.UserRoles where admin.RoleId==1 select admin).ToList().Count;
+            return values;
+        }
+
     }
 }

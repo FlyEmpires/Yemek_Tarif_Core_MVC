@@ -6,33 +6,9 @@
 
 <div class="wrapper wrapper-content">
     <div class="row">
-        <div class="col-lg-3">
-            <div class="ibox ">
-                <div class="ibox-content mailbox-content">
-                    <div class="file-manager">
-                        <a class="btn btn-block btn-primary compose-mail" href="/Admin/AdminMessage/ComposeMessage">Mesaj Gönder</a>
-                        <div class="space-25"></div>
-                        <h5>Dosyalar</h5>
-                        <ul class="folder-list m-b-md" style="padding: 0">
-                            <li><a href="/Admin/AdminMessage/Inbox"> <i class="fa fa-inbox "></i> Gelen Mesajlar <span class="label label-warning float-right">16</span> </a></li>
-                            <li><a href="/Admin/AdminMessage/Sendbox"> <i class="fa fa-envelope-o"></i> Giden Mesajlar</a></li>
-                            <li><a href="mailbox.html"> <i class="fa fa-certificate"></i> Önemli</a></li>
-                            <li><a href="mailbox.html"> <i class="fa fa-file-text-o"></i> Taslaklar <span class="label label-danger float-right">2</span></a></li>
-                            <li><a href="mailbox.html"> <i class="fa fa-trash-o"></i> Çöp Kutusu</a></li>
-                        </ul>
-                        <h5>Kategoriler</h5>
-                        <ul class="category-list" style="padding: 0">
-                            <li><a href="#"> <i class="fa fa-circle text-navy"></i> İş </a></li>
-                            <li><a href="#"> <i class="fa fa-circle text-danger"></i> Dökümanlar</a></li>
-                            <li><a href="#"> <i class="fa fa-circle text-primary"></i> Sosyal</a></li>
-                            <li><a href="#"> <i class="fa fa-circle text-info"></i> Tanıtımlar</a></li>
-                            <li><a href="#"> <i class="fa fa-circle text-warning"></i> Talepler</a></li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        @await Html.PartialAsync("~/Areas/Admin/Views/AdminMessage/PartialMessageMenu.cshtml")
+
         <div class="col-lg-9 animated fadeInRight">
             <div class="mail-box-header">
 
@@ -47,7 +23,7 @@
                     </div>
                 </form>
                 <h2>
-                    Mesajlar(0)
+                    Mesajlar(@ViewBag.messageCount)
                 </h2>
                 <div class="mail-tools tooltip-demo m-t-md">
                     <div class="btn-group float-right">
@@ -72,8 +48,8 @@
                                 <td class="check-mail">
                                     <input type="checkbox" class="i-checks">
                                 </td>
-                                <td class="mail-ontact"><a href="mail_detail.html">@item.ReceiverWriter.NameSurname</a></td>
-                                <td class="mail-subject"><a href="mail_detail.html">@item.Subject</a></td>
+                                <td class="mail-ontact"><a onclick="showMessageDetails('@item.MessageID')">@item.ReceiverWriter.NameSurname</a></td>
+                                <td class="mail-subject"><a onclick="showMessageDetails('@item.MessageID')">@item.Subject</a></td>
                                 <td class=""><i class="fa fa-paperclip"></i></td>
                                 <td class="text-right mail-date">@item.MessageDate</td>
                             </tr>
@@ -87,4 +63,40 @@
     </div>
 </div>
 
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Mesaj</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="messageDetails">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showMessageDetails(messageId) {
+        $.ajax({
+            url: '/Admin/AdminMessage/MessageDetail',
+            type: 'GET',
+            data: { id: messageId },
+            success: function (data) {
+                // AJAX çağrısı başarılı olduğunda modal içeriğini güncelle
+                $('#messageDetails').html(data);
+                $('#messageModal').modal('show'); // Modalı göster
+            },
+            error: function () {
+
+                alert('Mesaj detayları alınamadı.');
+            }
+        });
+    }
+</script>
 

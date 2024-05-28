@@ -10,6 +10,12 @@ namespace Yemek_Tarif_Core_MVC.Areas.Admin.ViewComponents.Statistic
         {
             ViewBag.lastRecipe = Statistics.LastRecipe().ReceipeName;
             ViewBag.lastRecipeID = Statistics.LastRecipe().ReceipeID;
+            ViewBag.UserCount = Statistics.UserCount();
+            ViewBag.totalLike = Statistics.TotalLike();
+            ViewBag.totalCategory = Statistics.TotalCategory();
+            ViewBag.mostlyLikedRecipe = Statistics.MostlyLikedRecipe();
+            ViewBag.LastRegisteredUser = Statistics.LastRegisteredUser();
+            ViewBag.adminCount = Statistics.AdminCount();
             return View();
         }
     }

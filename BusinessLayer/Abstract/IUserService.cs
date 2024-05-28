@@ -9,5 +9,7 @@ namespace BusinessLayer.Abstract
 {
     public interface IUserService:IGenericService<AppUser>
     {
+        int TotalRecipeCountByWriter(int id); //dashboard tarafında yazara ait toplam yemek sayısını getirir.
+
     }
 }

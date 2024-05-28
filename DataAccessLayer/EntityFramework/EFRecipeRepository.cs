@@ -20,6 +20,12 @@ namespace DataAccessLayer.EntityFramework
             {
                 return ctx.Recipes.Include(x => x.Category).Include(x=>x.AppUser).Include(x=>x.Comments).ToList();
             }
+        }public List<Recipe> GetListWithCategoryAndWriter(int id)
+        {
+            using (var ctx=new Context())
+            {
+                return ctx.Recipes.Include(x => x.Category).Include(x=>x.AppUser).Include(x=>x.Comments).Where(x=>x.AppUserID==id).ToList();
+            }
         }
 
         public int GetCommentCountByRecipe(int id)
