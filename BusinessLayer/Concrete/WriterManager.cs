@@ -56,11 +56,11 @@ namespace BusinessLayer.Concrete
             var values = from recipe in db.Recipes select recipe;
             return values.Count();
         }
-        public int TotalRecipeCountByWriter(int id)
-        {
-            var values = from recipe in db.Recipes where recipe.WriterID == id select recipe;
-            return values.Count();
-        }
+        //public int TotalRecipeCountByWriter(int id)
+        //{
+        //    var values = from recipe in db.Recipes where recipe.WriterID == id select recipe;
+        //    return values.Count();
+        //}
         public int TotalRecipeCountLast7Days()
         {
             var values = (from recipe in db.Recipes select recipe.CreateDate).ToList();

@@ -1,6 +1,6 @@
 ﻿@model UserRegisterViewModel
 
-l@*@model EntityLayer.Concrete.Writer*@
+@*@model EntityLayer.Concrete.Writer*@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/UserLayout.cshtml";
@@ -66,7 +66,7 @@ l@*@model EntityLayer.Concrete.Writer*@
                     <p>
                         <a href="#" id="btn1">Kayıt olduktan sonra şartlarımızı kabul etmiş sayılırsınız. Okumak için tıklayınız.</a>
                     </p>
-                }                <h2>@ViewBag.hata</h2>
+                }                @* <h2>@ViewBag.hata</h2> *@
                 @*</form>*@
             </div>
             <br />

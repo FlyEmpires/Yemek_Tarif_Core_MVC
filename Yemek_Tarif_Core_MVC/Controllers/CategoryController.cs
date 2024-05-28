@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Yemek_Tarif_Core_MVC.Controllers
 {
+    [AllowAnonymous]
     public class CategoryController : Controller
     {
         CategoryManager cm = new CategoryManager(new EFCategoryRepository());

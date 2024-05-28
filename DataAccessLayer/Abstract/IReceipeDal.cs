@@ -11,6 +11,7 @@ namespace DataAccessLayer.Abstract
    public interface IReceipeDal:IGenericDal<Recipe>
     {
         List<Recipe> GetListWithCategoryAndWriter();
+        List<Recipe> GetListWithCategoryAndWriter(int id);
         List<Recipe> GetListWithCategoryByWriter(int id);  // Yazarın kendi panelinde görebileceği, kendi yemeklerinin listelenmesini sağlayan metod
 
         int GetCommentCountByRecipe(int id);
